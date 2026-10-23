@@ -1,0 +1,65 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: hrms-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U "$${POSTGRES_USER}" -d "$${POSTGRES_DB}"
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    networks:
+      - hrms-network
+
+  employee-service:
+    build:
+      context: ./services/employee-service
+      dockerfile: Dockerfile
+    image: hrms/employee-service:local
+    container_name: hrms-employee-service
+    restart: unless-stopped
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: ${POSTGRES_DB}
+      DB_USERNAME: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "127.0.0.1:${EMPLOYEE_SERVICE_PORT:-8080}:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - hrms-network
+
+  angular:
+    build:
+      context: ./frontend/hrms-angular
+      dockerfile: Dockerfile
+    image: hrms/angular:local
+    container_name: hrms-angular
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${ANGULAR_PORT:-4200}:80"
+    depends_on:
+      - employee-service
+    networks:
+      - hrms-network
+
+volumes:
+  postgres_data:
+
+networks:
+  hrms-network:
+    driver: bridge
