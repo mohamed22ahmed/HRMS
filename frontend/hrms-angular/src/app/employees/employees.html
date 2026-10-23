@@ -1,0 +1,31 @@
+<main class="container">
+  <h1>HRMS — Employees</h1>
+
+  @if (loading()) {
+    <span class="sale-badge">Loading employees...</span>
+  } @else if (error()) {
+    <span class="sale-badge">{{ error() }}</span>
+  } @else {
+    <table>
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Full name</th>
+        <th>Email</th>
+        <th>Department</th>
+      </tr>
+      </thead>
+
+      <tbody>
+        @for (employee of employees(); track employee.id){
+          <tr>
+            <td>{{ employee.id }}</td>
+            <td>{{ employee.fullName }}</td>
+            <td>{{ employee.email }}</td>
+            <td>{{ employee.department }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</main>
