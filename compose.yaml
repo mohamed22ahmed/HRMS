@@ -2,14 +2,11 @@
 services:
   postgres:
     image: postgres:17
-    container_name: hrms-postgres
     restart: unless-stopped
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:?POSTGRES_DB is required}
-      POSTGRES_USER: ${POSTGRES_USER:?POSTGRES_USER is required}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
-    ports:
-      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+      POSTGRES_DB: ${POSTGRES_DB:?Set POSTGRES_DB in the environment file}
+      POSTGRES_USER: ${POSTGRES_USER:?Set POSTGRES_USER in the environment file}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in the environment file}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -26,8 +23,7 @@ services:
     build:
       context: ./services/employee-service
       dockerfile: Dockerfile
-    image: hrms/employee-service:local
-    container_name: hrms-employee-service
+    image: hrms/employee-service:${IMAGE_TAG:-local}
     restart: unless-stopped
     environment:
       SPRING_PROFILES_ACTIVE: docker
@@ -35,7 +31,7 @@ services:
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
-      - "127.0.0.1:${EMPLOYEE_SERVICE_PORT:-8080}:8080"
+      - "127.0.0.1:${EMPLOYEE_SERVICE_PORT}:8080"
     depends_on:
       postgres:
         condition: service_healthy
@@ -46,11 +42,10 @@ services:
     build:
       context: ./frontend/hrms-angular
       dockerfile: Dockerfile
-    image: hrms/angular:local
-    container_name: hrms-angular
+    image: hrms/angular:${IMAGE_TAG:-local}
     restart: unless-stopped
     ports:
-      - "127.0.0.1:${ANGULAR_PORT:-4200}:80"
+      - "127.0.0.1:${ANGULAR_PORT}:80"
     depends_on:
       - employee-service
     networks:
