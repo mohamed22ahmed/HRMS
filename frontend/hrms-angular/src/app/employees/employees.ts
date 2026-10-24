@@ -21,6 +21,7 @@ export class Employees implements OnInit {
   ngOnInit(): void {
     this.employeeService.getEmployees().subscribe({
       next: (data) => {
+        console.log(data)
         this.employees.set(data);
         this.loading.set(false);
       },

@@ -2,7 +2,7 @@ spring:
   application:
     name: employee-service
   datasource:
-    url: jdbc:postgresql://localhost:5432/hrms
+    url: jdbc:postgresql://postgres:5432/hrms
     username: mohamed
     password: password
     driver-class-name: org.postgresql.Driver
