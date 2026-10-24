@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c82049ff-cd80-4a8e-a0b7-361b9e764365" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/compose.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/hrms-angular/src/app/employees/employees.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/hrms-angular/src/app/employees/employees.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/employee-service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/services/employee-service/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/employee-service/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/services/employee-service/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/employee-service/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/services/employee-service/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
