@@ -3,6 +3,7 @@ package com.hrms.employee_service.controller;
 import com.hrms.employee_service.entity.Employee;
 import com.hrms.employee_service.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,6 +29,7 @@ public class EmployeeController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public void save(@RequestBody Employee employee) {
         employeeService.store(employee);
     }
