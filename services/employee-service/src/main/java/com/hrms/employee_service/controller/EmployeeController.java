@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @RestController
@@ -29,7 +28,6 @@ public class EmployeeController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     public void save(@RequestBody Employee employee) {
         employeeService.store(employee);
     }
