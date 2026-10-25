@@ -20,6 +20,11 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
+    public Employee show(UUID id) {
+        Optional<Employee> employee = employeeRepository.findById(id);
+        return employee.orElse(null);
+    }
+
     public void store(Employee employee) {
         employeeRepository.save(employee);
     }

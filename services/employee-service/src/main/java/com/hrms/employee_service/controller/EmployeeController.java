@@ -22,8 +22,13 @@ public class EmployeeController {
         return employeeService.getEmployees();
     }
 
+    @GetMapping("/{id}")
+    public Employee show(@PathVariable UUID id) {
+        return employeeService.show(id);
+    }
+
     @PostMapping
-    public Employee save(@RequestBody Employee employee) {
+    public void save(@RequestBody Employee employee) {
         employeeService.store(employee);
     }
 
