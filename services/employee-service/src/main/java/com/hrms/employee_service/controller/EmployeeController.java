@@ -3,7 +3,6 @@ package com.hrms.employee_service.controller;
 import com.hrms.employee_service.entity.Employee;
 import com.hrms.employee_service.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,18 +27,17 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public void save(@RequestBody Employee employee) {
-        employeeService.store(employee);
+    public Employee save(@RequestBody Employee employee) {
+        return employeeService.store(employee);
     }
 
-    @PutMapping("/{id}")
-    public void update(@PathVariable UUID id, @RequestBody Employee employee) {
-        employeeService.update(id, employee);
+    @PatchMapping("/{id}")
+    public Employee update(@PathVariable UUID id, @RequestBody Employee employee) {
+        return employeeService.update(id, employee);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable UUID id) {
         employeeService.delete(id);
     }
-
 }
