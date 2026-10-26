@@ -1,13 +1,11 @@
 package com.hrms.employee_service.service;
 
-import com.hrms.employee_service.controller.EmployeeController;
 import com.hrms.employee_service.entity.Employee;
 import com.hrms.employee_service.repository.EmployeeRepository;
+import com.hrms.employee_service.util.GeneralUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.BeanWrapper;
-import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,21 +31,10 @@ public class EmployeeService {
     }
 
     public Employee update(UUID id, Employee employee) {
-        String[] ignored = nullProperties(employee);
-        logger.info("Ignored null properties: {}", Arrays.toString(ignored));
-
         return employeeRepository.findById(id).map(existing -> {
-            BeanUtils.copyProperties(employee, existing, nullProperties(employee));
+            BeanUtils.copyProperties(employee, existing, GeneralUtils.nullProperties(employee));
             return employeeRepository.save(existing);
         }).orElse(null);
-    }
-
-    private String[] nullProperties(Object source) {
-        BeanWrapper wrapper = new BeanWrapperImpl(source);
-        return java.util.Arrays.stream(wrapper.getPropertyDescriptors())
-                .map(java.beans.PropertyDescriptor::getName)
-                .filter(name -> wrapper.getPropertyValue(name) == null)
-                .toArray(String[]::new);
     }
 
     public void delete(UUID id) {
