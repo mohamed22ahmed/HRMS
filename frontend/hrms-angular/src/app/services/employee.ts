@@ -15,7 +15,7 @@ export interface Employee {
 export class EmployeeService {
   private readonly http = inject(HttpClient);
 
-  private readonly apiUrl = 'http://localhost:8080/api/v1/employees';
+  private readonly apiUrl = '/api/v1/employees';
 
   getEmployees(): Observable<Employee[]> {
     return this.http.get<Employee[]>(this.apiUrl);
