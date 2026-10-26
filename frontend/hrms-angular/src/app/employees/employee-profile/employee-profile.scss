@@ -1,0 +1,35 @@
+:host { display: block; }
+.details-card { overflow: hidden; border: 1px solid #e8e9ef; border-radius: 13px; background: #fff; box-shadow: 0 3px 12px rgb(36 39 65 / 3%); }
+.card-heading { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 21px; border-bottom: 1px solid #eff0f4; }
+.identity { display: flex; min-width: 0; align-items: center; gap: 13px; }
+.profile-avatar { display: grid; width: 48px; height: 48px; flex: 0 0 auto; place-items: center; border-radius: 14px; background: #eeecff; color: #625fca; font-size: 13px; font-weight: 750; }
+h2 { margin: 0; color: #2d2f3c; font-size: 15px; font-weight: 700; }
+.identity p { margin: 5px 0 0; color: #8e919d; font-size: 11px; }
+.actions { display: flex; flex: 0 0 auto; gap: 8px; }
+.actions button { padding: 8px 12px; border: 1px solid #e3e4eb; border-radius: 7px; background: #fff; color: #555866; font: inherit; font-size: 11px; font-weight: 600; cursor: pointer; }
+.actions .delete-button { border-color: #f0dfe2; color: #b34f5c; }
+.actions button:hover { background: #f8f8fb; }
+.details-grid { display: flex; flex-direction: column; padding: 4px 21px 14px; }
+.detail { display: flex; min-width: 0; align-items: center; justify-content: space-between; gap: 18px; padding: 14px 0; border-bottom: 1px solid #f0f0f4; }
+.detail span { color: #989aa5; font-size: 10px; font-weight: 550; }
+.detail strong { overflow-wrap: anywhere; color: #383a47; font-size: 12px; font-weight: 600; }
+.detail:last-child { border-bottom: 0; }
+.detail .status { display: inline-flex; width: fit-content; align-items: center; gap: 6px; }
+.status i { width: 6px; height: 6px; border-radius: 50%; }
+.status-active { color: #45875e; }
+.status-active i { background: #4ca76c; }
+.status-inactive { color: #ae741d; }
+.status-inactive i { background: #dc9a32; }
+.status-terminated { color: #b34f5c; }
+.status-terminated i { background: #d15a68; }
+.status-on-leave { color: #3976ad; }
+.status-on-leave i { background: #4b8ecb; }
+
+@media (max-width: 540px) {
+  .card-heading { align-items: flex-start; padding: 16px; }
+  .details-grid { padding: 2px 16px 8px; }
+  .detail { padding: 13px 0; border-bottom: 1px solid #f0f0f4; }
+  .detail:last-child { border-bottom: 0; }
+  .actions { flex-direction: column; }
+  .actions button { padding: 7px 10px; }
+}

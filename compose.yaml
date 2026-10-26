@@ -25,7 +25,7 @@ services:
     build:
       context: ./services/employee-service
       dockerfile: Dockerfile
-    image: hrms/employee-service:${IMAGE_TAG:-local}
+    image: hrms/employee-service:${IMAGE_TAG:-dev}
     restart: unless-stopped
     environment:
       SPRING_PROFILES_ACTIVE: docker
@@ -44,7 +44,7 @@ services:
     build:
       context: ./frontend/hrms-angular
       dockerfile: Dockerfile
-    image: hrms/angular:${IMAGE_TAG:-local}
+    image: hrms/angular:${IMAGE_TAG:-dev}
     restart: unless-stopped
     ports:
       - "127.0.0.1:${ANGULAR_PORT}:80"

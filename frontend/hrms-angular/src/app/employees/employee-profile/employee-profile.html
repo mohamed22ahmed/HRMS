@@ -1,0 +1,29 @@
+<article class="details-card" aria-label="Selected employee details">
+  <header class="card-heading">
+    <div class="identity">
+      <span class="profile-avatar">{{ initials(employee().fullName) }}</span>
+      <div>
+        <h2>{{ employee().fullName }}</h2>
+        <p>{{ employee().jobTitle || 'Employee' }}</p>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="edit-button" type="button" (click)="edit.emit()">Edit</button>
+      <button class="delete-button" type="button" (click)="remove.emit()">Delete</button>
+    </div>
+  </header>
+
+  <div class="details-grid">
+    <div class="detail"><span>Employee number</span><strong>{{ employee().employeeNumber }}</strong></div>
+    <div class="detail"><span>Status</span><strong class="status"
+      [class.status-active]="employee().employmentStatus === 'ACTIVE'"
+      [class.status-inactive]="employee().employmentStatus === 'INACTIVE'"
+      [class.status-terminated]="employee().employmentStatus === 'TERMINATED'"
+      [class.status-on-leave]="employee().employmentStatus === 'ON_LEAVE'"
+    ><i></i>{{ statusLabel(employee().employmentStatus) }}</strong></div>
+    <div class="detail"><span>Email</span><strong>{{ employee().email }}</strong></div>
+    <div class="detail"><span>Phone</span><strong>{{ employee().phone || 'Not provided' }}</strong></div>
+    <div class="detail"><span>Department ID</span><strong>{{ employee().departmentId || 'Not assigned' }}</strong></div>
+    <div class="detail"><span>Hire date</span><strong>{{ employee().hireDate || 'Not provided' }}</strong></div>
+  </div>
+</article>
