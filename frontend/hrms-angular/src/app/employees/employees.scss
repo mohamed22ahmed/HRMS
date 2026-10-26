@@ -1,0 +1,38 @@
+:host { display: block; min-height: calc(100vh - 76px); background: #f7f8fc; }
+.dashboard-shell { display: flex; width: 90%; flex-direction: column; gap: 18px; margin: 0 auto; padding: 43px 0 64px; box-sizing: border-box; }
+.page-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; margin-bottom: 5px; }
+.eyebrow { margin-bottom: 8px; color: #7779dc; font-size: 10px; font-weight: 750; letter-spacing: 1.5px; }
+h1 { margin: 0; color: #252735; font-size: clamp(25px, 3vw, 32px); font-weight: 730; letter-spacing: -1.1px; }
+.page-heading p { margin: 7px 0 0; color: #8e919e; font-size: 12px; }
+.add-button { display: inline-flex; height: 38px; flex: 0 0 auto; align-items: center; gap: 7px; padding: 0 13px; border: 0; border-radius: 8px; background: #5d5fdf; box-shadow: 0 4px 10px rgb(93 95 223 / 16%); color: #fff; font: inherit; font-size: 11px; font-weight: 650; cursor: pointer; }
+.add-button:hover { background: #5052ce; }
+.add-button span { font-size: 18px; font-weight: 400; line-height: 1; }
+.state-card { display: flex; min-height: 180px; align-items: center; justify-content: center; gap: 12px; border: 1px solid #e9eaf0; border-radius: 13px; background: #fff; color: #7f8290; font-size: 12px; }
+.loader { width: 15px; height: 15px; border: 2px solid #e7e7f5; border-top-color: #6668e3; border-radius: 50%; animation: spin 700ms linear infinite; }
+.error-state { flex-direction: column; gap: 7px; color: #b34f5c; }
+.error-state strong { font-size: 13px; }
+.error-state span { color: #9295a2; font-size: 11px; }
+.action-error { margin: 0; padding: 11px 13px; border: 1px solid #f0dfe2; border-radius: 8px; background: #fff8f8; color: #aa4b57; font-size: 11px; }
+.delete-backdrop { position: fixed; z-index: 30; inset: 0; display: grid; place-items: center; padding: 20px; background: rgb(25 27 40 / 48%); backdrop-filter: blur(2px); }
+.delete-confirmation { display: flex; width: min(440px, 100%); align-items: center; justify-content: space-between; gap: 18px; padding: 21px; border: 1px solid #f0dfe2; border-radius: 13px; background: #fff; box-shadow: 0 24px 70px rgb(24 26 43 / 24%); }
+.delete-confirmation strong { color: #38313a; font-size: 12px; }
+.delete-confirmation p { margin: 5px 0 0; color: #898b96; font-size: 10px; }
+.confirm-actions { display: flex; flex: 0 0 auto; gap: 7px; }
+.confirm-actions button { padding: 8px 10px; border: 1px solid #e2e3e9; border-radius: 7px; background: #fff; color: #5e606d; font: inherit; font-size: 10px; font-weight: 650; cursor: pointer; }
+.confirm-actions .confirm-delete { border-color: #bb5663; background: #bb5663; color: white; }
+.confirm-actions button:disabled { cursor: not-allowed; opacity: 0.55; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 540px) {
+  .dashboard-shell { width: 92%; gap: 14px; padding: 28px 0 40px; }
+  .page-heading { align-items: flex-start; }
+}
+
+@media (max-width: 420px) {
+  .delete-confirmation { align-items: flex-start; flex-direction: column; }
+}
+
+@media (max-width: 390px) {
+  .page-heading { flex-direction: column; }
+  .add-button { align-self: flex-start; }
+}

@@ -1,0 +1,30 @@
+<section class="employee-list" aria-label="Employees">
+  @for (employee of employees(); track employee.id) {
+    <button
+      class="employee-card"
+      [class.selected]="selectedId() === employee.id"
+      [attr.aria-pressed]="selectedId() === employee.id"
+      type="button"
+      (click)="employeeSelected.emit(employee)"
+    >
+      <span class="avatar">{{ initials(employee.fullName) }}</span>
+      <span class="employee-copy">
+        <strong>{{ employee.fullName }}</strong>
+        <span>{{ employee.jobTitle || 'Employee' }}</span>
+        <small>{{ employee.email }}</small>
+      </span>
+      <span class="employee-status"
+        [class.status-active]="employee.employmentStatus === 'ACTIVE'"
+        [class.status-inactive]="employee.employmentStatus === 'INACTIVE'"
+        [class.status-terminated]="employee.employmentStatus === 'TERMINATED'"
+        [class.status-on-leave]="employee.employmentStatus === 'ON_LEAVE'"
+      ><i></i>{{ statusLabel(employee.employmentStatus) }}</span>
+    </button>
+  } @empty {
+    <div class="empty-list">
+      <span class="empty-icon" aria-hidden="true">♙</span>
+      <strong>No employees yet</strong>
+      <p>Add an employee to start your directory.</p>
+    </div>
+  }
+</section>

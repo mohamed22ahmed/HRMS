@@ -1,13 +1,11 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
 import { Employees } from './employees/employees';
+import { Header } from './header/header';
 
 @Component({
-  imports: [Employees],
+  imports: [Header, Employees],
   selector: 'app-root',
   styleUrl: './app.scss',
   templateUrl: './app.html',
 })
-export class App {
-  protected readonly title = signal('hrms-angular');
-}
+export class App {}

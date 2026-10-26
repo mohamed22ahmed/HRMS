@@ -1,31 +1,61 @@
-<main class="container">
-  <h1>HRMS — Employees</h1>
+<main class="dashboard-shell">
+  <header class="page-heading">
+    <div>
+      <div class="eyebrow">PEOPLE</div>
+      <h1>Employees</h1>
+      <p>{{ employees().length }} employees in your directory</p>
+    </div>
+    <button class="add-button" type="button" (click)="openCreateForm()"><span aria-hidden="true">＋</span> Add employee</button>
+  </header>
 
   @if (loading()) {
-    <span class="sale-badge">Loading employees...</span>
+    <div class="state-card"><span class="loader"></span><span>Loading employees…</span></div>
   } @else if (error()) {
-    <span class="sale-badge">{{ error() }}</span>
+    <div class="state-card error-state"><strong>We couldn’t load your employees.</strong><span>{{ error() }}</span></div>
   } @else {
-    <table>
-      <thead>
-      <tr>
-        <th>ID</th>
-        <th>Full name</th>
-        <th>Email</th>
-        <th>Department</th>
-      </tr>
-      </thead>
+    <app-employee-list
+      [employees]="employees()"
+      [selectedId]="selectedEmployee()?.id ?? null"
+      (employeeSelected)="selectEmployee($event)"
+    />
 
-      <tbody>
-        @for (employee of employees(); track employee.id){
-          <tr>
-            <td>{{ employee.id }}</td>
-            <td>{{ employee.fullName }}</td>
-            <td>{{ employee.email }}</td>
-            <td>{{ employee.department }}</td>
-          </tr>
-        }
-      </tbody>
-    </table>
+    @if (actionError() && !formOpen()) {
+      <p class="action-error" role="alert">{{ actionError() }}</p>
+    }
+
+    @if (selectedEmployee(); as employee) {
+      <app-employee-profile
+        [employee]="employee"
+        (edit)="openEditForm()"
+        (remove)="requestDelete()"
+      />
+    }
+
+    @if (deletePromptOpen() && selectedEmployee(); as employee) {
+      <div class="delete-backdrop">
+        <section class="delete-confirmation" role="alertdialog" aria-modal="true" aria-labelledby="delete-heading">
+          <div>
+            <strong id="delete-heading">Delete {{ employee.fullName }}?</strong>
+            <p>This will permanently remove the employee from your directory.</p>
+          </div>
+          <div class="confirm-actions">
+            <button type="button" [disabled]="deleting()" (click)="cancelDelete()">Cancel</button>
+            <button class="confirm-delete" type="button" [disabled]="deleting()" (click)="deleteSelectedEmployee()">
+              {{ deleting() ? 'Deleting…' : 'Delete employee' }}
+            </button>
+          </div>
+        </section>
+      </div>
+    }
+  }
+
+  @if (formOpen()) {
+    <app-employee-form
+      [employee]="formEmployee()"
+      [saving]="saving()"
+      [error]="actionError()"
+      (cancelled)="closeForm()"
+      (saved)="saveEmployee($event)"
+    />
   }
 </main>

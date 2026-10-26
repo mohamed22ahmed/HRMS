@@ -1,0 +1,73 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+.main-header {
+  height: 76px;
+  padding: 0 clamp(20px, 5vw, 76px);
+  display: flex;
+  gap: 36px;
+  background: #fff;
+  border-bottom: 1px solid #e8e9ee;
+  color: #20232d;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: inherit;
+  text-decoration: none;
+  font-size: 19px;
+  font-weight: 750;
+  letter-spacing: -0.7px;
+}
+
+.brand-mark {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: 11px;
+  background: #5d5fef;
+  color: #fff;
+}
+
+.brand-mark mat-icon { width: 20px; height: 20px; font-size: 20px; }
+.brand-dot { color: #5d5fef; }
+
+.primary-nav { display: flex; height: 100%; align-items: center; }
+
+.nav-link {
+  position: relative;
+  display: grid;
+  height: 100%;
+  place-items: center;
+  padding: 0 10px;
+  color: #747785;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.nav-link.active { color: #5052dc; }
+.nav-link.active::after {
+  position: absolute;
+  right: 8px;
+  bottom: -1px;
+  left: 8px;
+  height: 2px;
+  background: #5d5fef;
+  content: '';
+}
+
+.account-button {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: #f0ecff;
+  color: #6d56c8;
+  font-size: 11px;
+  font-weight: 700;
+}
