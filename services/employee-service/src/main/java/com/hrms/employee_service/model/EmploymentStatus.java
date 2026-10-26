@@ -1,4 +1,4 @@
-package com.hrms.employee_service.entity;
+package com.hrms.employee_service.model;
 
 public enum EmploymentStatus {
     ACTIVE,
