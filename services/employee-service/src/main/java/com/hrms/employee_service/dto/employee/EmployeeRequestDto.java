@@ -1,6 +1,6 @@
-package com.hrms.employee_service.dto;
+package com.hrms.employee_service.dto.employee;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.hrms.employee_service.dto.common.RequestDto;
 import com.hrms.employee_service.model.Employee;
 import com.hrms.employee_service.model.EmploymentStatus;
 import com.hrms.employee_service.repository.EmployeeRepository;
@@ -27,8 +27,8 @@ import java.util.UUID;
 @EmployeeRequestDto.UniqueEmployee
 @Getter
 @Setter
-public class EmployeeRequestDto {
-    public interface Create {}
+public class EmployeeRequestDto extends RequestDto {
+    public interface Create extends RequestDto.Create {}
 
     @Constraint(validatedBy = UniqueEmployeeValidator.class)
     @Target(ElementType.TYPE)
@@ -58,12 +58,12 @@ public class EmployeeRequestDto {
             boolean valid = true;
 
             if (request.getEmail() != null
-                    && isDuplicate(employeeRepository.findByEmail(request.getEmail()), request.getEmployeeId())) {
+                    && isDuplicate(employeeRepository.findByEmail(request.getEmail()), request.getResourceId())) {
                 addViolation(context, "email", "Email '" + request.getEmail() + "' already exists");
                 valid = false;
             }
             if (request.getEmployeeNumber() != null && isDuplicate(
-                    employeeRepository.findByEmployeeNumber(request.getEmployeeNumber()), request.getEmployeeId())) {
+                    employeeRepository.findByEmployeeNumber(request.getEmployeeNumber()), request.getResourceId())) {
                 addViolation(context, "employeeNumber",
                         "Employee number '" + request.getEmployeeNumber() + "' already exists");
                 valid = false;
@@ -82,9 +82,6 @@ public class EmployeeRequestDto {
                     .addConstraintViolation();
         }
     }
-
-    @JsonIgnore
-    private UUID employeeId;
 
     @NotBlank(message = "Employee number is required", groups = Create.class)
     @Size(max = 30, message = "Employee number must be at most 30 characters")
