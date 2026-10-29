@@ -4,6 +4,8 @@ import { Employee, EmployeeFormValue, EmployeeService } from '../services/employ
 import { EmployeeForm } from './employee-form/employee-form';
 import { EmployeeList } from './employee-list/employee-list';
 import { EmployeeProfile } from './employee-profile/employee-profile';
+import { Department } from '../services/department/department';
+import { DepartmentService } from '../services/department/department';
 
 @Component({
   selector: 'app-employees',
@@ -14,8 +16,10 @@ import { EmployeeProfile } from './employee-profile/employee-profile';
 })
 export class Employees implements OnInit {
   private readonly employeeService = inject(EmployeeService);
+  private readonly departmentService = inject(DepartmentService);
 
   readonly employees = signal<Employee[]>([]);
+  readonly departments = signal<Department[]>([]);
   readonly selectedEmployee = signal<Employee | null>(null);
   readonly loading = signal(true);
   readonly error = signal('');
@@ -28,6 +32,9 @@ export class Employees implements OnInit {
 
   ngOnInit(): void {
     this.loadEmployees();
+    this.departmentService.getDepartments().subscribe({
+      next: (departments) => this.departments.set(departments),
+    });
   }
 
   selectEmployee(employee: Employee): void {

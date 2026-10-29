@@ -26,9 +26,9 @@ interface EmployeeRequest {
   firstName: string;
   lastName: string;
   email: string;
-  phone: string | null;
-  departmentId: string | null;
-  jobTitle: string | null;
+  phone: string;
+  departmentId: string;
+  jobTitle: string;
   hireDate: string;
   employmentStatus: string;
 }
@@ -65,9 +65,9 @@ export class EmployeeService {
   private readonly apiUrl = '/api/v1/employees';
 
   getEmployees(): Observable<Employee[]> {
-    return this.http.get<ApiResponse<EmployeeApiDto[]>>(this.apiUrl).pipe(
-      map(({ data }) => data.map((employee) => this.toEmployee(employee))),
-    );
+    return this.http
+      .get<ApiResponse<EmployeeApiDto[]>>(this.apiUrl)
+      .pipe(map(({ data }) => data.map((employee) => this.toEmployee(employee))));
   }
 
   createEmployee(employee: EmployeeFormValue): Observable<Employee> {
@@ -105,9 +105,9 @@ export class EmployeeService {
   private toRequest(employee: EmployeeFormValue): EmployeeRequest {
     return {
       ...employee,
-      phone: employee.phone || null,
-      departmentId: employee.departmentId || null,
-      jobTitle: employee.jobTitle || null,
+      phone: employee.phone,
+      departmentId: employee.departmentId,
+      jobTitle: employee.jobTitle,
     };
   }
 }
