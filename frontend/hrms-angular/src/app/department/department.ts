@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { Department as DepartmentModel, DepartmentFormValue, DepartmentService } from '../services/department/department';
+import { DepartmentForm } from './department-form/department-form';
+import { DepartmentList } from './department-list/department-list';
+import { DepartmentProfile } from './department-profile/department-profile';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, DepartmentForm, DepartmentList, DepartmentProfile],
   selector: 'app-department',
   styleUrl: './department.scss',
   templateUrl: './department.html',
@@ -23,8 +25,6 @@ export class Department implements OnInit {
   readonly saving = signal(false);
   readonly deletePromptOpen = signal(false);
   readonly deleting = signal(false);
-  form: DepartmentFormValue = this.emptyForm();
-
   ngOnInit(): void {
     this.loadDepartments();
   }
@@ -37,7 +37,6 @@ export class Department implements OnInit {
 
   openCreateForm(): void {
     this.formDepartment.set(null);
-    this.form = this.emptyForm();
     this.actionError.set('');
     this.formOpen.set(true);
   }
@@ -46,14 +45,6 @@ export class Department implements OnInit {
     const department = this.selectedDepartment();
     if (!department) return;
     this.formDepartment.set(department);
-    this.form = {
-      name: department.name,
-      code: department.code,
-      description: department.description,
-      parent_department_id: department.parent_department_id ?? '',
-      manager_employee_id: department.manager_employee_id ?? '',
-      is_active: department.is_active,
-    };
     this.actionError.set('');
     this.formOpen.set(true);
   }
@@ -65,14 +56,9 @@ export class Department implements OnInit {
     }
   }
 
-  saveDepartment(): void {
+  saveDepartment(form: DepartmentFormValue): void {
     const value: DepartmentFormValue = {
-      ...this.form,
-      name: this.form.name.trim(),
-      code: this.form.code.trim(),
-      description: this.form.description.trim(),
-      parent_department_id: this.form.parent_department_id?.trim() || null,
-      manager_employee_id: this.form.manager_employee_id?.trim() || null,
+      ...form,
     };
     const existing = this.formDepartment();
     this.saving.set(true);
@@ -140,16 +126,5 @@ export class Department implements OnInit {
         this.loading.set(false);
       },
     });
-  }
-
-  private emptyForm(): DepartmentFormValue {
-    return {
-      name: '',
-      code: '',
-      description: '',
-      parent_department_id: null,
-      manager_employee_id: null,
-      is_active: true,
-    };
   }
 }

@@ -22,8 +22,9 @@ interface DepartmentRequest {
   name: string;
   code: string;
   description: string;
-  parent_department_id: string | null;
-  manager_employee_id: string | null;
+  parentDepartmentId: string | null;
+  managerEmployeeId: string | null;
+  isActive: boolean;
 }
 
 export interface Department {
@@ -86,7 +87,12 @@ export class DepartmentService {
 
   private toRequest(department: DepartmentFormValue): DepartmentRequest {
     return {
-      ...department,
+      name: department.name,
+      code: department.code,
+      description: department.description,
+      parentDepartmentId: department.parent_department_id,
+      managerEmployeeId: department.manager_employee_id,
+      isActive: department.is_active,
     };
   }
 }

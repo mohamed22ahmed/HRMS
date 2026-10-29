@@ -1,0 +1,36 @@
+<div class="form-backdrop" (click)="cancelled.emit()">
+  <section class="department-form" role="dialog" aria-modal="true" aria-labelledby="form-heading" (click)="$event.stopPropagation()">
+    <header class="form-heading">
+      <div>
+        <div class="eyebrow">ORGANIZATION</div>
+        <h2 id="form-heading">{{ department ? 'Edit department' : 'Add department' }}</h2>
+      </div>
+      <button class="close-button" type="button" aria-label="Close" [disabled]="saving" (click)="cancelled.emit()">×</button>
+    </header>
+    <form #departmentForm="ngForm" (ngSubmit)="submit()">
+      <label>Department name
+        <input name="name" [(ngModel)]="form.name" required maxlength="120" placeholder="e.g. People Operations" />
+      </label>
+      <label>Department code
+        <input name="code" [(ngModel)]="form.code" required maxlength="30" placeholder="e.g. PEOPLE" />
+      </label>
+      <label>Description
+        <textarea name="description" [(ngModel)]="form.description" rows="3" placeholder="What this department does"></textarea>
+      </label>
+      <div class="form-row">
+        <label>Parent department ID
+          <input name="parent_department_id" [(ngModel)]="form.parent_department_id" placeholder="Optional" />
+        </label>
+        <label>Manager employee ID
+          <input name="manager_employee_id" [(ngModel)]="form.manager_employee_id" placeholder="Optional" />
+        </label>
+      </div>
+      <label class="active-toggle"><input type="checkbox" name="is_active" [(ngModel)]="form.is_active" /> Department is active</label>
+      @if (error) { <p class="action-error" role="alert">{{ error }}</p> }
+      <footer class="form-actions">
+        <button type="button" [disabled]="saving" (click)="cancelled.emit()">Cancel</button>
+        <button class="save-button" type="submit" [disabled]="departmentForm.invalid || saving">{{ saving ? 'Saving…' : 'Save department' }}</button>
+      </footer>
+    </form>
+  </section>
+</div>

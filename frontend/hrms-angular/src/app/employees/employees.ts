@@ -33,7 +33,12 @@ export class Employees implements OnInit {
   ngOnInit(): void {
     this.loadEmployees();
     this.departmentService.getDepartments().subscribe({
-      next: (departments) => this.departments.set(departments),
+      next: (departments) => {
+        this.departments.set(departments);
+        this.employees.update((employees) => employees.map((employee) => this.withDepartmentName(employee)));
+        const selected = this.selectedEmployee();
+        if (selected) this.selectedEmployee.set(this.withDepartmentName(selected));
+      },
     });
   }
 
@@ -73,13 +78,14 @@ export class Employees implements OnInit {
 
     request.subscribe({
       next: (employee) => {
+        const savedEmployee = this.withDepartmentName(employee, existing);
         this.employees.update((employees) => {
-          const exists = employees.some((item) => item.id === employee.id);
+          const exists = employees.some((item) => item.id === savedEmployee.id);
           return exists
-            ? employees.map((item) => (item.id === employee.id ? employee : item))
-            : [employee, ...employees];
+            ? employees.map((item) => (item.id === savedEmployee.id ? savedEmployee : item))
+            : [savedEmployee, ...employees];
         });
-        this.selectedEmployee.set(employee);
+        this.selectedEmployee.set(savedEmployee);
         this.formOpen.set(false);
         this.saving.set(false);
       },
@@ -125,7 +131,8 @@ export class Employees implements OnInit {
   private loadEmployees(): void {
     this.employeeService.getEmployees().subscribe({
       next: (employees) => {
-        this.employees.set(employees);
+        const mappedEmployees = employees.map((employee) => this.withDepartmentName(employee));
+        this.employees.set(mappedEmployees);
         this.selectedEmployee.set(null);
         this.loading.set(false);
       },
@@ -134,5 +141,17 @@ export class Employees implements OnInit {
         this.loading.set(false);
       },
     });
+  }
+
+  private withDepartmentName(employee: Employee, previous: Employee | null = null): Employee {
+    const departmentName = this.departments().find((department) => department.id === employee.departmentId)?.name;
+    return {
+      ...employee,
+      departmentName:
+        employee.departmentName ||
+        departmentName ||
+        (previous?.departmentId === employee.departmentId ? previous.departmentName : '') ||
+        '',
+    };
   }
 }

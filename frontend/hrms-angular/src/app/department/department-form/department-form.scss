@@ -1,0 +1,21 @@
+.form-backdrop { position: fixed; z-index: 30; inset: 0; display: grid; place-items: center; overflow-y: auto; padding: 20px; background: rgb(25 27 40 / 48%); backdrop-filter: blur(2px); }
+.department-form { width: min(540px, 100%); margin: auto; padding: 22px; border: 1px solid #e9eaf0; border-radius: 13px; background: #fff; box-shadow: 0 24px 70px rgb(24 26 43 / 24%); box-sizing: border-box; }
+.form-heading { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-bottom: 19px; }
+.eyebrow { margin-bottom: 5px; color: #7779dc; font-size: 10px; font-weight: 750; letter-spacing: 1.5px; }
+h2 { margin: 0; color: #252735; font-size: 20px; font-weight: 730; letter-spacing: -.7px; }
+.close-button { width: 30px; height: 30px; border: 0; border-radius: 7px; background: #f4f4f8; color: #777987; font-size: 20px; cursor: pointer; }
+.department-form form, .department-form label { display: flex; flex-direction: column; }
+.department-form form { gap: 13px; }
+.department-form label { gap: 6px; color: #555765; font-size: 10px; font-weight: 650; }
+.department-form input:not([type=checkbox]), .department-form textarea { width: 100%; padding: 10px 11px; border: 1px solid #e2e3e9; border-radius: 7px; outline: none; background: #fff; color: #353744; font: inherit; font-size: 11px; box-sizing: border-box; }
+.department-form input:focus, .department-form textarea:focus { border-color: #898ae6; box-shadow: 0 0 0 3px rgb(93 95 223 / 10%); }
+.department-form textarea { resize: vertical; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.department-form .active-toggle { flex-direction: row; align-items: center; font-weight: 500; }
+.active-toggle input { accent-color: #5d5fdf; }
+.action-error { margin: 0; padding: 11px 13px; border: 1px solid #f0dfe2; border-radius: 8px; background: #fff8f8; color: #aa4b57; font-size: 11px; }
+.form-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 3px; }
+.form-actions button { padding: 8px 11px; border: 1px solid #e2e3e9; border-radius: 7px; background: #fff; color: #5e606d; font: inherit; font-size: 10px; font-weight: 650; cursor: pointer; }
+.form-actions .save-button { min-height: 34px; padding: 0 12px; border: 0; background: #5d5fdf; color: #fff; }
+.form-actions button:disabled, .close-button:disabled { cursor: not-allowed; opacity: .55; }
+@media (max-width: 420px) { .form-row { grid-template-columns: 1fr; } }

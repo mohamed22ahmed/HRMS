@@ -16,18 +16,11 @@
     @if (departments().length === 0) {
       <div class="state-card empty-state"><strong>No departments yet</strong><span>Add a department to organize your employees.</span></div>
     } @else {
-      <section class="department-grid" aria-label="Departments">
-        @for (department of departments(); track department.id) {
-          <button class="department-card" type="button" [class.selected]="selectedDepartment()?.id === department.id" (click)="selectDepartment(department)">
-            <span class="department-icon" aria-hidden="true">{{ department.name.charAt(0).toUpperCase() }}</span>
-            <span class="department-copy">
-              <strong>{{ department.name }}</strong>
-              <span>{{ department.code }}</span>
-            </span>
-            <span class="status" [class.inactive]="!department.is_active">{{ department.is_active ? 'Active' : 'Inactive' }}</span>
-          </button>
-        }
-      </section>
+      <app-department-list
+        [departments]="departments()"
+        [selectedId]="selectedDepartment()?.id ?? null"
+        (departmentSelected)="selectDepartment($event)"
+      />
     }
 
     @if (actionError() && !formOpen()) {
@@ -35,25 +28,7 @@
     }
 
     @if (selectedDepartment(); as department) {
-      <section class="details-card" aria-label="Department details">
-        <div class="details-heading">
-          <div>
-            <div class="eyebrow">DEPARTMENT DETAILS</div>
-            <h2>{{ department.name }}</h2>
-          </div>
-          <div class="detail-actions">
-            <button type="button" (click)="openEditForm()">Edit</button>
-            <button class="remove-button" type="button" (click)="requestDelete()">Delete</button>
-          </div>
-        </div>
-        <p class="description">{{ department.description || 'No description provided.' }}</p>
-        <div class="detail-grid">
-          <div><span>Code</span><strong>{{ department.code }}</strong></div>
-          <div><span>Status</span><strong>{{ department.is_active ? 'Active' : 'Inactive' }}</strong></div>
-          <div><span>Parent department</span><strong>{{ department.parent_department_id || 'None' }}</strong></div>
-          <div><span>Manager employee ID</span><strong>{{ department.manager_employee_id || 'Not assigned' }}</strong></div>
-        </div>
-      </section>
+      <app-department-profile [department]="department" (edit)="openEditForm()" (remove)="requestDelete()" />
     }
 
     @if (deletePromptOpen() && selectedDepartment(); as department) {
@@ -75,41 +50,12 @@
   }
 
   @if (formOpen()) {
-    <div class="form-backdrop">
-      <section class="department-form" role="dialog" aria-modal="true" aria-labelledby="form-heading">
-        <header class="form-heading">
-          <div>
-            <div class="eyebrow">ORGANIZATION</div>
-            <h2 id="form-heading">{{ formDepartment() ? 'Edit department' : 'Add department' }}</h2>
-          </div>
-          <button class="close-button" type="button" aria-label="Close" [disabled]="saving()" (click)="closeForm()">×</button>
-        </header>
-        <form (ngSubmit)="saveDepartment()">
-          <label>Department name
-            <input name="name" [(ngModel)]="form.name" required maxlength="120" placeholder="e.g. People Operations" />
-          </label>
-          <label>Department code
-            <input name="code" [(ngModel)]="form.code" required maxlength="30" placeholder="e.g. PEOPLE" />
-          </label>
-          <label>Description
-            <textarea name="description" [(ngModel)]="form.description" rows="3" placeholder="What this department does"></textarea>
-          </label>
-          <div class="form-row">
-            <label>Parent department ID
-              <input name="parent_department_id" [(ngModel)]="form.parent_department_id" placeholder="Optional" />
-            </label>
-            <label>Manager employee ID
-              <input name="manager_employee_id" [(ngModel)]="form.manager_employee_id" placeholder="Optional" />
-            </label>
-          </div>
-          <label class="active-toggle"><input type="checkbox" name="is_active" [(ngModel)]="form.is_active" /> Department is active</label>
-          @if (actionError()) { <p class="action-error" role="alert">{{ actionError() }}</p> }
-          <footer class="form-actions">
-            <button type="button" [disabled]="saving()" (click)="closeForm()">Cancel</button>
-            <button class="save-button" type="submit" [disabled]="saving()">{{ saving() ? 'Saving…' : 'Save department' }}</button>
-          </footer>
-        </form>
-      </section>
-    </div>
+    <app-department-form
+      [department]="formDepartment()"
+      [saving]="saving()"
+      [error]="actionError()"
+      (cancelled)="closeForm()"
+      (saved)="saveDepartment($event)"
+    />
   }
 </main>
