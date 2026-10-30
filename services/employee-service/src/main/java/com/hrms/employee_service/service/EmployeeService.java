@@ -5,6 +5,7 @@ import com.hrms.employee_service.dto.common.RequestDto;
 import com.hrms.employee_service.exception.ResourceNotFoundException;
 import com.hrms.employee_service.model.Employee;
 import com.hrms.employee_service.repository.EmployeeRepository;
+import com.hrms.employee_service.repository.DepartmentRepository;
 import jakarta.validation.Validator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class EmployeeService{
     private EmployeeRepository employeeRepository;
 
     @Autowired
+    private DepartmentRepository departmentRepository;
+
+    @Autowired
     private Validator validator;
 
     public List<Employee> getEmployees() {
@@ -30,7 +34,7 @@ public class EmployeeService{
     }
 
     public Employee store(EmployeeRequestDto request) {
-        return employeeRepository.save(request.toEmployee());
+        return employeeRepository.save(request.toEmployee(departmentRepository));
     }
 
     public Employee update(UUID id, EmployeeRequestDto request) {

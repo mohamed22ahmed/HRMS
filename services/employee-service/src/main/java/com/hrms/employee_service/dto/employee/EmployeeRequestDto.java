@@ -2,6 +2,7 @@ package com.hrms.employee_service.dto.employee;
 
 import com.hrms.employee_service.dto.common.RequestDto;
 import com.hrms.employee_service.model.Employee;
+import com.hrms.employee_service.repository.DepartmentRepository;
 import com.hrms.employee_service.model.EmploymentStatus;
 import com.hrms.employee_service.repository.EmployeeRepository;
 import jakarta.validation.Constraint;
@@ -108,14 +109,14 @@ public class EmployeeRequestDto extends RequestDto {
 
     private EmploymentStatus employmentStatus;
 
-    public Employee toEmployee() {
+    public Employee toEmployee(DepartmentRepository departmentRepository) {
         Employee employee = new Employee();
         employee.setEmployeeNumber(employeeNumber);
         employee.setFirstName(firstName);
         employee.setLastName(lastName);
         employee.setEmail(email);
         employee.setPhone(phone);
-        employee.setDepartmentId(departmentId);
+        employee.setDepartment(departmentId == null ? null : departmentRepository.getReferenceById(departmentId));
         employee.setJobTitle(jobTitle);
         employee.setHireDate(hireDate);
         if (employmentStatus != null) {

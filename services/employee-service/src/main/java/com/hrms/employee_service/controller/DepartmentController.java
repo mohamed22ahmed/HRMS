@@ -1,6 +1,7 @@
 package com.hrms.employee_service.controller;
 
 import com.hrms.employee_service.dto.common.ApiResponseDto;
+import com.hrms.employee_service.dto.department.DepartmentEmployeesResponseDto;
 import com.hrms.employee_service.dto.department.DepartmentRequestDto;
 import com.hrms.employee_service.dto.department.DepartmentResponseDto;
 import com.hrms.employee_service.model.Department;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -33,6 +35,12 @@ public class DepartmentController {
     public ResponseEntity<Map<String, Object>> index() {
         List<Department> departments = departmentService.getDepartments();
         return ResponseEntity.ok(ApiResponseDto.successList(200, "Departments retrieved successfully", departments, DepartmentResponseDto::from));
+    }
+
+    @GetMapping("/{id}/employees")
+    public ResponseEntity<Map<String, Object>> getDepartmentEmployees(@PathVariable UUID id) {
+        DepartmentService.DepartmentEmployeesResponse data = departmentService.getDepartmentEmployees(id);
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Departments Employees retrieved successfully", DepartmentEmployeesResponseDto.from(data)));
     }
 
     @GetMapping("/{id}")

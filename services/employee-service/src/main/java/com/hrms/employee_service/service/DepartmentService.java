@@ -4,6 +4,7 @@ import com.hrms.employee_service.exception.ResourceNotFoundException;
 import com.hrms.employee_service.dto.common.RequestDto;
 import com.hrms.employee_service.dto.department.DepartmentRequestDto;
 import com.hrms.employee_service.model.Department;
+import com.hrms.employee_service.model.Employee;
 import com.hrms.employee_service.repository.DepartmentRepository;
 import jakarta.validation.Validator;
 import org.springframework.beans.BeanUtils;
@@ -23,6 +24,17 @@ public class DepartmentService {
 
     public List<Department> getDepartments() {
         return departmentRepository.findAll();
+    }
+
+    public record DepartmentEmployeesResponse(
+            Department department,
+            List<Employee> employees
+    ) {}
+
+    public DepartmentEmployeesResponse getDepartmentEmployees(UUID departmentId){
+        Department dep = findDepartment(departmentId);
+        List<Employee> employees =  dep.getEmployees();
+        return new DepartmentEmployeesResponse(dep, employees);
     }
 
     public Department show(UUID id) {
@@ -51,5 +63,4 @@ public class DepartmentService {
         return departmentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Department not found"));
     }
-
 }
