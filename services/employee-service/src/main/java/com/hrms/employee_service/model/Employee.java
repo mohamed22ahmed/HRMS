@@ -14,7 +14,6 @@ import java.util.UUID;
 @Getter
 @Setter
 public class Employee {
-
     @Id
     @UuidGenerator
     private UUID id;
