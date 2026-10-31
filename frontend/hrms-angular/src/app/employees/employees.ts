@@ -4,6 +4,8 @@ import { Employee, EmployeeFormValue, EmployeeService } from '../services/employ
 import { EmployeeForm } from './employee-form/employee-form';
 import { EmployeeList } from './employee-list/employee-list';
 import { EmployeeProfile } from './employee-profile/employee-profile';
+import { Department } from '../services/department/department';
+import { DepartmentService } from '../services/department/department';
 
 @Component({
   selector: 'app-employees',
@@ -14,8 +16,10 @@ import { EmployeeProfile } from './employee-profile/employee-profile';
 })
 export class Employees implements OnInit {
   private readonly employeeService = inject(EmployeeService);
+  private readonly departmentService = inject(DepartmentService);
 
   readonly employees = signal<Employee[]>([]);
+  readonly departments = signal<Department[]>([]);
   readonly selectedEmployee = signal<Employee | null>(null);
   readonly loading = signal(true);
   readonly error = signal('');
@@ -28,6 +32,14 @@ export class Employees implements OnInit {
 
   ngOnInit(): void {
     this.loadEmployees();
+    this.departmentService.getDepartments().subscribe({
+      next: (departments) => {
+        this.departments.set(departments);
+        this.employees.update((employees) => employees.map((employee) => this.withDepartmentName(employee)));
+        const selected = this.selectedEmployee();
+        if (selected) this.selectedEmployee.set(this.withDepartmentName(selected));
+      },
+    });
   }
 
   selectEmployee(employee: Employee): void {
@@ -66,13 +78,14 @@ export class Employees implements OnInit {
 
     request.subscribe({
       next: (employee) => {
+        const savedEmployee = this.withDepartmentName(employee, existing);
         this.employees.update((employees) => {
-          const exists = employees.some((item) => item.id === employee.id);
+          const exists = employees.some((item) => item.id === savedEmployee.id);
           return exists
-            ? employees.map((item) => (item.id === employee.id ? employee : item))
-            : [employee, ...employees];
+            ? employees.map((item) => (item.id === savedEmployee.id ? savedEmployee : item))
+            : [savedEmployee, ...employees];
         });
-        this.selectedEmployee.set(employee);
+        this.selectedEmployee.set(savedEmployee);
         this.formOpen.set(false);
         this.saving.set(false);
       },
@@ -118,7 +131,8 @@ export class Employees implements OnInit {
   private loadEmployees(): void {
     this.employeeService.getEmployees().subscribe({
       next: (employees) => {
-        this.employees.set(employees);
+        const mappedEmployees = employees.map((employee) => this.withDepartmentName(employee));
+        this.employees.set(mappedEmployees);
         this.selectedEmployee.set(null);
         this.loading.set(false);
       },
@@ -127,5 +141,17 @@ export class Employees implements OnInit {
         this.loading.set(false);
       },
     });
+  }
+
+  private withDepartmentName(employee: Employee, previous: Employee | null = null): Employee {
+    const departmentName = this.departments().find((department) => department.id === employee.departmentId)?.name;
+    return {
+      ...employee,
+      departmentName:
+        employee.departmentName ||
+        departmentName ||
+        (previous?.departmentId === employee.departmentId ? previous.departmentName : '') ||
+        '',
+    };
   }
 }

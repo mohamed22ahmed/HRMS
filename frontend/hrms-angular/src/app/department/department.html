@@ -1,0 +1,61 @@
+<main class="dashboard-shell">
+  <header class="page-heading">
+    <div>
+      <div class="eyebrow">ORGANIZATION</div>
+      <h1>Departments</h1>
+      <p>{{ departments().length }} departments in your organization</p>
+    </div>
+    <button class="add-button" type="button" (click)="openCreateForm()"><span aria-hidden="true">＋</span> Add department</button>
+  </header>
+
+  @if (loading()) {
+    <div class="state-card"><span class="loader"></span><span>Loading departments…</span></div>
+  } @else if (error()) {
+    <div class="state-card error-state"><strong>We couldn’t load your departments.</strong><span>{{ error() }}</span></div>
+  } @else {
+    @if (departments().length === 0) {
+      <div class="state-card empty-state"><strong>No departments yet</strong><span>Add a department to organize your employees.</span></div>
+    } @else {
+      <app-department-list
+        [departments]="departments()"
+        [selectedId]="selectedDepartment()?.id ?? null"
+        (departmentSelected)="selectDepartment($event)"
+      />
+    }
+
+    @if (actionError() && !formOpen()) {
+      <p class="action-error" role="alert">{{ actionError() }}</p>
+    }
+
+    @if (selectedDepartment(); as department) {
+      <app-department-profile [department]="department" (edit)="openEditForm()" (remove)="requestDelete()" />
+    }
+
+    @if (deletePromptOpen() && selectedDepartment(); as department) {
+      <div class="delete-backdrop">
+        <section class="delete-confirmation" role="alertdialog" aria-modal="true" aria-labelledby="delete-heading">
+          <div>
+            <strong id="delete-heading">Delete {{ department.name }}?</strong>
+            <p>This will permanently remove the department.</p>
+          </div>
+          <div class="confirm-actions">
+            <button type="button" [disabled]="deleting()" (click)="cancelDelete()">Cancel</button>
+            <button class="confirm-delete" type="button" [disabled]="deleting()" (click)="deleteSelectedDepartment()">
+              {{ deleting() ? 'Deleting…' : 'Delete department' }}
+            </button>
+          </div>
+        </section>
+      </div>
+    }
+  }
+
+  @if (formOpen()) {
+    <app-department-form
+      [department]="formDepartment()"
+      [saving]="saving()"
+      [error]="actionError()"
+      (cancelled)="closeForm()"
+      (saved)="saveDepartment($event)"
+    />
+  }
+</main>

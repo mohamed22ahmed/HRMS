@@ -1,0 +1,23 @@
+<article class="details-card" aria-label="Selected department details">
+  <header class="card-heading">
+    <div class="identity">
+      <span class="profile-avatar" aria-hidden="true">{{ department.name.charAt(0).toUpperCase() }}</span>
+      <div>
+        <h2>{{ department.name }}</h2>
+        <p>{{ department.code || 'Department' }}</p>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="edit-button" type="button" (click)="edit.emit()">Edit</button>
+      <button class="delete-button" type="button" (click)="remove.emit()">Delete</button>
+    </div>
+  </header>
+
+  <div class="details-grid">
+    <div class="detail"><span>Department code</span><strong>{{ department.code }}</strong></div>
+    <div class="detail"><span>Status</span><strong class="status" [class.status-active]="department.is_active" [class.status-inactive]="!department.is_active"><i></i>{{ department.is_active ? 'Active' : 'Inactive' }}</strong></div>
+    <div class="detail"><span>Description</span><strong>{{ department.description || 'Not provided' }}</strong></div>
+    <div class="detail"><span>Parent department</span><strong>{{ department.parent_department_id || 'None' }}</strong></div>
+    <div class="detail"><span>Manager employee ID</span><strong>{{ department.manager_employee_id || 'Not assigned' }}</strong></div>
+  </div>
+</article>

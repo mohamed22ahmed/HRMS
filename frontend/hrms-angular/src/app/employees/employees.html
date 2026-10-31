@@ -52,6 +52,7 @@
   @if (formOpen()) {
     <app-employee-form
       [employee]="formEmployee()"
+      [departments]="departments()"
       [saving]="saving()"
       [error]="actionError()"
       (cancelled)="closeForm()"

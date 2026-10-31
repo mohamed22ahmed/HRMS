@@ -1,0 +1,14 @@
+<section class="department-grid" aria-label="Departments">
+  @for (department of departments; track department.id) {
+    <button class="department-card" type="button" [class.selected]="selectedId === department.id" (click)="departmentSelected.emit(department)">
+      <span class="department-icon" aria-hidden="true">{{ department.name.charAt(0).toUpperCase() }}</span>
+      <span class="department-copy">
+        <strong>{{ department.name }}</strong>
+        <span>{{ department.code }}</span>
+      </span>
+      <span class="status" [class.status-active]="department.is_active" [class.status-inactive]="!department.is_active">
+        <i></i>{{ department.is_active ? 'ACTIVE' : 'INACTIVE' }}
+      </span>
+    </button>
+  }
+</section>

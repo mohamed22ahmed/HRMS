@@ -1,29 +1,26 @@
 package com.hrms.employee_service.service;
 
-import com.hrms.employee_service.dto.EmployeeRequestDto;
+import com.hrms.employee_service.dto.employee.EmployeeRequestDto;
+import com.hrms.employee_service.dto.common.RequestDto;
 import com.hrms.employee_service.exception.ResourceNotFoundException;
 import com.hrms.employee_service.model.Employee;
 import com.hrms.employee_service.repository.EmployeeRepository;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.ConstraintViolationException;
+import com.hrms.employee_service.repository.DepartmentRepository;
 import jakarta.validation.Validator;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.BeanWrapper;
-import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.beans.PropertyDescriptor;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Service
 public class EmployeeService{
     @Autowired
     private EmployeeRepository employeeRepository;
+
+    @Autowired
+    private DepartmentRepository departmentRepository;
 
     @Autowired
     private Validator validator;
@@ -37,20 +34,16 @@ public class EmployeeService{
     }
 
     public Employee store(EmployeeRequestDto request) {
-        return employeeRepository.save(request.toEmployee());
+        return employeeRepository.save(request.toEmployee(departmentRepository));
     }
 
     public Employee update(UUID id, EmployeeRequestDto request) {
         Employee employee = findEmployee(id);
-        request.setEmployeeId(id);
+        request.setResourceId(id);
 
-        Set<ConstraintViolation<EmployeeRequestDto>> violations = validator.validate(request);
-        if (!violations.isEmpty()) {
-            Set<ConstraintViolation<?>> errors = new HashSet<>(violations);
-            throw new ConstraintViolationException("Validation errors", errors);
-        }
+        request.validate(validator);
 
-        BeanUtils.copyProperties(request, employee, nullProperties(request));
+        BeanUtils.copyProperties(request, employee, RequestDto.nullProperties(request));
         return employeeRepository.save(employee);
     }
 
@@ -63,11 +56,4 @@ public class EmployeeService{
                 .orElseThrow(() -> new ResourceNotFoundException("Employee not found"));
     }
 
-    private String[] nullProperties(Object source) {
-        BeanWrapper wrapper = new BeanWrapperImpl(source);
-        return Arrays.stream(wrapper.getPropertyDescriptors())
-                .map(PropertyDescriptor::getName)
-                .filter(name -> wrapper.getPropertyValue(name) == null)
-                .toArray(String[]::new);
-    }
 }

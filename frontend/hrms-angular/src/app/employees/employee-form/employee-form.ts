@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Employee, EmployeeFormValue } from '../../services/employee/employee';
+import { Department } from '../../services/department/department';
 
 @Component({
   selector: 'app-employee-form',
@@ -13,6 +14,7 @@ export class EmployeeForm implements OnInit {
   @Input() employee: Employee | null = null;
   @Input() saving = false;
   @Input() error = '';
+  @Input() departments: Department[] = [];
   @Output() cancelled = new EventEmitter<void>();
   @Output() saved = new EventEmitter<EmployeeFormValue>();
 

@@ -16,6 +16,7 @@ interface EmployeeApiDto {
   email: string;
   phone: string | null;
   department_id: string | null;
+  department?: { name: string | null } | null;
   job_title: string | null;
   hire_date: string;
   employment_status: string;
@@ -26,9 +27,9 @@ interface EmployeeRequest {
   firstName: string;
   lastName: string;
   email: string;
-  phone: string | null;
-  departmentId: string | null;
-  jobTitle: string | null;
+  phone: string;
+  departmentId: string;
+  jobTitle: string;
   hireDate: string;
   employmentStatus: string;
 }
@@ -42,6 +43,7 @@ export interface Employee {
   email: string;
   phone: string;
   departmentId: string;
+  departmentName: string;
   jobTitle: string;
   hireDate: string;
   employmentStatus: string;
@@ -65,9 +67,9 @@ export class EmployeeService {
   private readonly apiUrl = '/api/v1/employees';
 
   getEmployees(): Observable<Employee[]> {
-    return this.http.get<ApiResponse<EmployeeApiDto[]>>(this.apiUrl).pipe(
-      map(({ data }) => data.map((employee) => this.toEmployee(employee))),
-    );
+    return this.http
+      .get<ApiResponse<EmployeeApiDto[]>>(this.apiUrl)
+      .pipe(map(({ data }) => data.map((employee) => this.toEmployee(employee))));
   }
 
   createEmployee(employee: EmployeeFormValue): Observable<Employee> {
@@ -96,6 +98,7 @@ export class EmployeeService {
       email: employee.email,
       phone: employee.phone ?? '',
       departmentId: employee.department_id ?? '',
+      departmentName: employee.department?.name ?? '',
       jobTitle: employee.job_title ?? '',
       hireDate: employee.hire_date,
       employmentStatus: employee.employment_status,
@@ -104,10 +107,15 @@ export class EmployeeService {
 
   private toRequest(employee: EmployeeFormValue): EmployeeRequest {
     return {
-      ...employee,
-      phone: employee.phone || null,
-      departmentId: employee.departmentId || null,
-      jobTitle: employee.jobTitle || null,
+      employeeNumber: employee.employeeNumber,
+      firstName: employee.firstName,
+      lastName: employee.lastName,
+      email: employee.email,
+      phone: employee.phone,
+      departmentId: employee.departmentId,
+      jobTitle: employee.jobTitle,
+      hireDate: employee.hireDate,
+      employmentStatus: employee.employmentStatus,
     };
   }
 }
