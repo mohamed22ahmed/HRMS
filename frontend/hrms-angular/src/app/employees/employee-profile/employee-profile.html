@@ -23,7 +23,7 @@
     ><i></i>{{ statusLabel(employee().employmentStatus) }}</strong></div>
     <div class="detail"><span>Email</span><strong>{{ employee().email }}</strong></div>
     <div class="detail"><span>Phone</span><strong>{{ employee().phone || 'Not provided' }}</strong></div>
-    <div class="detail"><span>Department ID</span><strong>{{ employee().departmentId || 'Not assigned' }}</strong></div>
+    <div class="detail"><span>Department</span><strong>{{ employee().departmentName || 'Not assigned' }}</strong></div>
     <div class="detail"><span>Hire date</span><strong>{{ employee().hireDate || 'Not provided' }}</strong></div>
   </div>
 </article>

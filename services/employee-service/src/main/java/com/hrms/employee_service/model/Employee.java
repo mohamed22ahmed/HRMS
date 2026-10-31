@@ -14,7 +14,6 @@ import java.util.UUID;
 @Getter
 @Setter
 public class Employee {
-
     @Id
     @UuidGenerator
     private UUID id;
@@ -33,8 +32,9 @@ public class Employee {
 
     private String phone;
 
-    @Column(name = "department_id")
-    private UUID departmentId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id")
+    private Department department;
 
     @Column(name = "job_title")
     private String jobTitle;

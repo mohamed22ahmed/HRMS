@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { Employees } from './employees/employees';
+import { RouterOutlet } from '@angular/router';
 import { Header } from './header/header';
 
 @Component({
-  imports: [Header, Employees],
+  imports: [Header, RouterOutlet],
   selector: 'app-root',
   styleUrl: './app.scss',
   templateUrl: './app.html',
