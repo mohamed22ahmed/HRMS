@@ -5,6 +5,7 @@ import { Employees } from './employees/employees';
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'employees' },
   { path: 'employees', component: Employees },
-  { path: 'departments', component: Department },
+  { path: 'department', component: Department },
+  { path: 'departments', pathMatch: 'full', redirectTo: 'department' },
   { path: '**', redirectTo: 'employees' },
 ];
