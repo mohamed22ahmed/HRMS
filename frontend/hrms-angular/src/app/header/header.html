@@ -1,12 +1,21 @@
-<mat-toolbar class="main-header">
-  <div class="brand" aria-label="Northstar HR">
-    <span class="brand-mark"><mat-icon aria-hidden="true" fontIcon="grid_view"></mat-icon></span>
-    <span>northstar<span class="brand-dot">.</span></span>
-  </div>
-  <nav class="primary-nav" aria-label="Main navigation">
-    <a class="nav-link" routerLink="/employees" routerLinkActive="active" ariaCurrentWhenActive="page">Employees</a>
-    <a class="nav-link" routerLink="/departments" routerLinkActive="active" ariaCurrentWhenActive="page">Departments</a>
-  </nav>
-  <span class="spacer"></span>
-  <button class="account-button" type="button" aria-label="Account menu">MO</button>
-</mat-toolbar>
+<aside class="sidebar">
+    <p class="sidebar-heading">WORKSPACE</p>
+    <nav class="module-nav" aria-label="Dashboard modules">
+      <button class="module-button" type="button" (click)="toggleModule('employee-service')" [attr.aria-expanded]="openModule() === 'employee-service'">
+        <mat-icon aria-hidden="true" fontIcon="groups"></mat-icon>
+        <span>Employee Service</span>
+        <mat-icon class="chevron" aria-hidden="true" [fontIcon]="openModule() === 'employee-service' ? 'expand_less' : 'expand_more'"></mat-icon>
+      </button>
+      @if (openModule() === 'employee-service') {
+        <div class="module-tree">
+          <a class="tree-link" routerLink="/employees" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <mat-icon aria-hidden="true" fontIcon="badge"></mat-icon><span>Employees</span>
+          </a>
+          <a class="tree-link" routerLink="/department" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <mat-icon aria-hidden="true" fontIcon="account_tree"></mat-icon><span>Departments</span>
+          </a>
+        </div>
+      }
+    </nav>
+    <div class="sidebar-footer"><span class="status-dot"></span>Employee service connected</div>
+  </aside>

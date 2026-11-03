@@ -1,2 +1,18 @@
-<app-header />
-<router-outlet />
+<div class="app-shell">
+  <mat-toolbar class="main-header">
+    <div class="brand" aria-label="Northstar HR">
+      <span class="brand-mark"><mat-icon aria-hidden="true" fontIcon="grid_view"></mat-icon></span>
+      <span>northstar<span class="brand-dot">.</span></span>
+    </div>
+    <span class="workspace-label">HR dashboard</span>
+    <span class="spacer"></span>
+    <button class="account-button" type="button" aria-label="Account menu">MO</button>
+  </mat-toolbar>
+  <div class="dashboard-layout">
+    <app-header />
+    <main class="workspace-content">
+      <div class="page-context"><span>Workspace</span><mat-icon aria-hidden="true" fontIcon="chevron_right"></mat-icon><strong>Employee Service</strong></div>
+      <router-outlet />
+    </main>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+:host { display: block; min-height: 100%; }
+
+.app-shell { min-height: 100vh; background: #f7f8fc; color: #20232d; }
+.main-header { height: 70px; padding: 0 clamp(20px, 4vw, 56px); display: flex; gap: 24px; background: #fff; border-bottom: 1px solid #e8e9ee; color: #20232d; }
+.brand { display: inline-flex; align-items: center; gap: 10px; font-size: 19px; font-weight: 750; letter-spacing: -.7px; }
+.brand-mark { display: grid; width: 34px; height: 34px; place-items: center; border-radius: 11px; background: #5d5fef; color: #fff; }
+.brand-mark mat-icon { width: 20px; height: 20px; font-size: 20px; }
+.brand-dot { color: #5d5fef; }
+.workspace-label { color: #9295a2; font-size: 12px; }
+.spacer { flex: 1 1 auto; }
+.account-button { width: 36px; height: 36px; border: 0; border-radius: 50%; background: #f0ecff; color: #6d56c8; font-size: 11px; font-weight: 700; }
+.dashboard-layout { display: flex; min-height: calc(100vh - 70px); }
+.workspace-content { flex: 1; min-width: 0; padding: 28px clamp(20px, 4vw, 56px) 48px; }
+.page-context { display: flex; align-items: center; gap: 7px; margin-bottom: 20px; color: #9295a2; font-size: 12px; }
+.page-context mat-icon { width: 16px; height: 16px; font-size: 16px; }
+.page-context strong { color: #555967; font-weight: 600; }
+
+@media (max-width: 720px) {
+  .main-header { height: 62px; padding: 0 16px; }
+  .dashboard-layout { min-height: calc(100vh - 62px); flex-direction: column; }
+  .workspace-content { padding: 20px 16px 36px; }
+}
