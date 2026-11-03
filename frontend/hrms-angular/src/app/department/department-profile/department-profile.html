@@ -1,4 +1,10 @@
-<article class="details-card" aria-label="Selected department details">
+<nav class="profile-tabs" aria-label="Department sections" role="tablist">
+  <button type="button" role="tab" id="department-details-tab" [attr.aria-selected]="activeTab() === 'details'" [class.active]="activeTab() === 'details'" aria-controls="department-details-panel" (click)="activeTab.set('details')">Details</button>
+  <button type="button" role="tab" id="department-employees-tab" [attr.aria-selected]="activeTab() === 'employees'" [class.active]="activeTab() === 'employees'" aria-controls="department-employees-panel" (click)="activeTab.set('employees')">Employees <span class="tab-count">{{ employees.length }}</span></button>
+</nav>
+
+@if (activeTab() === 'details') {
+<article class="details-card" id="department-details-panel" role="tabpanel" aria-labelledby="department-details-tab" aria-label="Selected department details">
   <header class="card-heading">
     <div class="identity">
       <span class="profile-avatar" aria-hidden="true">{{ department.name.charAt(0).toUpperCase() }}</span>
@@ -21,3 +27,80 @@
     <div class="detail"><span>Manager employee ID</span><strong>{{ department.manager_employee_id || 'Not assigned' }}</strong></div>
   </div>
 </article>
+}
+
+@if (activeTab() === 'employees') {
+<section class="employees-card" id="department-employees-panel" role="tabpanel" aria-labelledby="department-employees-tab" aria-label="Employees in department">
+  <header class="employees-heading">
+    <div><h3>Employees</h3><p>{{ employees.length }} in {{ department.name }}</p></div>
+    <button class="add-employee-button" type="button" (click)="openAddEmployees()">＋ Add employee</button>
+  </header>
+  @if (employees.length === 0) {
+    <p class="empty-employees">No employees are assigned to this department.</p>
+  } @else {
+    <div class="employee-rows">
+      @for (employee of employees; track employee.id) {
+        <div class="employee-row">
+          <div class="employee-identity">
+            <strong>{{ employee.fullName }}</strong>
+            <span>{{ employee.jobTitle || employee.email }}</span>
+          </div>
+          <div class="employee-actions">
+            <button class="reassign-button" type="button" (click)="openReassign(employee)">Reassign</button>
+            <button class="remove-employee" type="button" (click)="removeEmployee.emit(employee)">Delete</button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</section>
+}
+
+@if (addEmployeesOpen()) {
+  <div class="reassign-backdrop">
+    <section class="reassign-dialog add-employees-dialog" role="dialog" aria-modal="true" aria-labelledby="add-employees-heading">
+      <div>
+        <strong id="add-employees-heading">Add employees to {{ department.name }}</strong>
+        <p>Only employees without a department are listed.</p>
+      </div>
+      @if (unassignedEmployees.length === 0) {
+        <p class="empty-employees">There are no unassigned employees to add.</p>
+      } @else {
+        <div class="available-employees">
+          @for (employee of unassignedEmployees; track employee.id) {
+            <label class="available-employee">
+              <input type="checkbox" [checked]="selectedEmployeeIds().has(employee.id)" (change)="toggleEmployee(employee.id)" />
+              <span class="employee-identity"><strong>{{ employee.fullName }}</strong><span>{{ employee.jobTitle || employee.email }}</span></span>
+            </label>
+          }
+        </div>
+      }
+      <div class="reassign-dialog-actions">
+        <button type="button" (click)="closeAddEmployees()">Cancel</button>
+        <button class="confirm-reassign" type="button" [disabled]="selectedEmployeeIds().size === 0" (click)="addSelectedEmployees()">Add selected</button>
+      </div>
+    </section>
+  </div>
+}
+
+@if (reassignEmployeeTarget(); as employee) {
+  <div class="reassign-backdrop">
+    <section class="reassign-dialog" role="dialog" aria-modal="true" aria-labelledby="reassign-heading">
+      <div>
+        <strong id="reassign-heading">{{ employee.departmentId ? 'Reassign ' : 'Assign ' }}{{ employee.fullName }}</strong>
+        <p>Choose the department for this employee.</p>
+      </div>
+      <label class="department-picker">New department
+        <select [value]="pendingDepartmentId()" (change)="pendingDepartmentId.set($any($event.target).value)">
+          @for (dep of departments; track dep.id) {
+            <option [value]="dep.id">{{ dep.name }}</option>
+          }
+        </select>
+      </label>
+      <div class="reassign-dialog-actions">
+        <button type="button" (click)="closeReassign()">Cancel</button>
+        <button class="confirm-reassign" type="button" [disabled]="!pendingDepartmentId() || pendingDepartmentId() === employee.departmentId" (click)="confirmReassign()">{{ employee.departmentId ? 'Reassign employee' : 'Assign employee' }}</button>
+      </div>
+    </section>
+  </div>
+}

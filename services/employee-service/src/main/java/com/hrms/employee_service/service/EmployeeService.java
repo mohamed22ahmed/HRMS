@@ -44,6 +44,9 @@ public class EmployeeService{
         request.validate(validator);
 
         BeanUtils.copyProperties(request, employee, RequestDto.nullProperties(request));
+        if (request.getDepartmentId() != null) {
+            employee.setDepartment(departmentRepository.getReferenceById(request.getDepartmentId()));
+        }
         return employeeRepository.save(employee);
     }
 
