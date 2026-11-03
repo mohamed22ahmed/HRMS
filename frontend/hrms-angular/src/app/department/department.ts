@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { Department as DepartmentModel, DepartmentFormValue, DepartmentService } from '../services/department/department';
 import { DepartmentForm } from './department-form/department-form';
 import { DepartmentList } from './department-list/department-list';
 import { DepartmentProfile } from './department-profile/department-profile';
+import { Employee, EmployeeFormValue, EmployeeService } from '../services/employee/employee';
 
 @Component({
   standalone: true,
@@ -14,6 +15,7 @@ import { DepartmentProfile } from './department-profile/department-profile';
 })
 export class Department implements OnInit {
   private readonly departmentService = inject(DepartmentService);
+  private readonly employeeService = inject(EmployeeService);
 
   readonly departments = signal<DepartmentModel[]>([]);
   readonly selectedDepartment = signal<DepartmentModel | null>(null);
@@ -25,8 +27,21 @@ export class Department implements OnInit {
   readonly saving = signal(false);
   readonly deletePromptOpen = signal(false);
   readonly deleting = signal(false);
+  readonly employees = signal<Employee[]>([]);
+  readonly departmentEmployees = computed(() => {
+    const id = this.selectedDepartment()?.id;
+    return id ? this.employees().filter((employee) => employee.departmentId === id) : [];
+  });
+  readonly unassignedEmployees = computed(() => this.employees().filter((employee) => !employee.departmentId));
+  readonly employeeToDelete = signal<Employee | null>(null);
+  readonly deletingEmployee = signal(false);
+  readonly employeeActionError = signal('');
   ngOnInit(): void {
     this.loadDepartments();
+    this.employeeService.getEmployees().subscribe({
+      next: (employees) => this.employees.set(employees),
+      error: () => this.employeeActionError.set('Unable to load department employees.'),
+    });
   }
 
   selectDepartment(department: DepartmentModel): void {
@@ -111,6 +126,51 @@ export class Department implements OnInit {
         this.actionError.set('Unable to delete this department. Please try again.');
         this.deletePromptOpen.set(false);
         this.deleting.set(false);
+      },
+    });
+  }
+
+  reassignEmployee(employee: Employee, departmentId: string): void {
+    const formValue: EmployeeFormValue = {
+      employeeNumber: employee.employeeNumber,
+      firstName: employee.firstName,
+      lastName: employee.lastName,
+      email: employee.email,
+      phone: employee.phone,
+      departmentId,
+      jobTitle: employee.jobTitle,
+      hireDate: employee.hireDate,
+      employmentStatus: employee.employmentStatus,
+    };
+    this.employeeActionError.set('');
+    this.employeeService.updateEmployee(employee.id, formValue).subscribe({
+      next: (updated) => this.employees.update((items) => items.map((item) => item.id === updated.id ? updated : item)),
+      error: () => this.employeeActionError.set(`Unable to reassign ${employee.fullName}. Please try again.`),
+    });
+  }
+
+  addEmployeesToDepartment(employees: Employee[], departmentId: string): void {
+    employees.forEach((employee) => this.reassignEmployee(employee, departmentId));
+  }
+
+  requestEmployeeDelete(employee: Employee): void {
+    this.employeeActionError.set('');
+    this.employeeToDelete.set(employee);
+  }
+
+  deleteEmployee(): void {
+    const employee = this.employeeToDelete();
+    if (!employee || this.deletingEmployee()) return;
+    this.deletingEmployee.set(true);
+    this.employeeService.deleteEmployee(employee.id).subscribe({
+      next: () => {
+        this.employees.update((items) => items.filter((item) => item.id !== employee.id));
+        this.employeeToDelete.set(null);
+        this.deletingEmployee.set(false);
+      },
+      error: () => {
+        this.employeeActionError.set(`Unable to delete ${employee.fullName}. Please try again.`);
+        this.deletingEmployee.set(false);
       },
     });
   }

@@ -28,7 +28,7 @@ interface EmployeeRequest {
   lastName: string;
   email: string;
   phone: string;
-  departmentId: string;
+  departmentId: string | null;
   jobTitle: string;
   hireDate: string;
   employmentStatus: string;
@@ -112,7 +112,7 @@ export class EmployeeService {
       lastName: employee.lastName,
       email: employee.email,
       phone: employee.phone,
-      departmentId: employee.departmentId,
+      departmentId: employee.departmentId.trim() || null,
       jobTitle: employee.jobTitle,
       hireDate: employee.hireDate,
       employmentStatus: employee.employmentStatus,

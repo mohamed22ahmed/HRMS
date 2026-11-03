@@ -18,9 +18,9 @@
         <label>Email address<input name="email" type="email" [(ngModel)]="form.email" required /></label>
         <label>Phone<input name="phone" type="tel" [(ngModel)]="form.phone" /></label>
         <label>Job title<input name="jobTitle" [(ngModel)]="form.jobTitle" /></label>
-        <label>Department
+        <label>Department (optional)
           <select name="departmentId" [(ngModel)]="form.departmentId">
-            <option value="">Select a department</option>
+            <option value="">No department (assign later)</option>
             @if (employee?.departmentId && !departments.some((dep) => dep.id === employee?.departmentId)) {
               <option [value]="employee?.departmentId">{{ employee?.departmentName || 'Current department' }}</option>
             }
