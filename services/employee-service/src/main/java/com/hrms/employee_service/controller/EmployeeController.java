@@ -1,9 +1,12 @@
 package com.hrms.employee_service.controller;
 
 import com.hrms.employee_service.dto.common.ApiResponseDto;
+import com.hrms.employee_service.dto.department.DepartmentEmployeesResponseDto;
+import com.hrms.employee_service.dto.department.DepartmentRequestDto;
 import com.hrms.employee_service.dto.employee.EmployeeRequestDto;
 import com.hrms.employee_service.dto.employee.EmployeeResponseDto;
 import com.hrms.employee_service.model.Employee;
+import com.hrms.employee_service.service.DepartmentService;
 import com.hrms.employee_service.service.EmployeeService;
 import jakarta.validation.groups.Default;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,5 +68,11 @@ public class EmployeeController {
     public ResponseEntity<Map<String, Object>> delete(@PathVariable UUID id) {
         employeeService.delete(id);
         return ResponseEntity.ok(ApiResponseDto.success(200, "Employee deleted successfully", Map.of("id", id)));
+    }
+
+    @PostMapping("/{id}/reassign-to-department")
+    public ResponseEntity<Map<String, Object>>  reassignToDepartment(@PathVariable UUID id,@RequestBody EmployeeRequestDto request){
+        Employee emp =  employeeService.reassignToDepartment(id, request);
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Employees Assigned to new Department successfully", EmployeeResponseDto.from(emp)));
     }
 }

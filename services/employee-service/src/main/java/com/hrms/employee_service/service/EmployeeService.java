@@ -54,9 +54,15 @@ public class EmployeeService{
         employeeRepository.delete(findEmployee(id));
     }
 
+    public Employee reassignToDepartment(UUID id, EmployeeRequestDto request) {
+        Employee emp = findEmployee(id);
+        UUID departmentId = request.getDepartmentId();
+        emp.setDepartment(departmentRepository.getReferenceById(departmentId));
+        return employeeRepository.save(emp);
+    }
+
     private Employee findEmployee(UUID id) {
         return employeeRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee not found"));
     }
-
 }
