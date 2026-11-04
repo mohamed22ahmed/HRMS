@@ -6,6 +6,7 @@ import com.hrms.employee_service.dto.employee.EmployeeResponseDto;
 import com.hrms.employee_service.model.Employee;
 import com.hrms.employee_service.service.EmployeeService;
 import jakarta.validation.groups.Default;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -27,11 +28,8 @@ import java.util.UUID;
 @RequestMapping("/api/v1/employees")
 @CrossOrigin("*")
 public class EmployeeController {
-    private final EmployeeService employeeService;
-
-    public EmployeeController(EmployeeService employeeService) {
-        this.employeeService = employeeService;
-    }
+    @Autowired
+    private EmployeeService employeeService;
 
     @GetMapping
     public ResponseEntity<Map<String, Object>> index() {

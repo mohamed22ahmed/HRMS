@@ -6,6 +6,7 @@ import com.hrms.employee_service.dto.department.DepartmentRequestDto;
 import com.hrms.employee_service.model.Department;
 import com.hrms.employee_service.model.Employee;
 import com.hrms.employee_service.repository.DepartmentRepository;
+import com.hrms.employee_service.repository.EmployeeRepository;
 import jakarta.validation.Validator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ import java.util.UUID;
 public class DepartmentService {
     @Autowired
     private DepartmentRepository departmentRepository;
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     @Autowired
     private Validator validator;
@@ -35,6 +39,21 @@ public class DepartmentService {
         Department dep = findDepartment(departmentId);
         List<Employee> employees =  dep.getEmployees();
         return new DepartmentEmployeesResponse(dep, employees);
+    }
+
+    public record DepartmentManagerResponse(
+            String department_name,
+            String employee_name
+    ) {}
+
+    public DepartmentManagerResponse setDepartmentManager(UUID id, DepartmentRequestDto request){
+        Department dep = findDepartment(id);
+        UUID employeeId = request.getManagerEmployeeId();
+        Employee employee = employeeRepository.findById(employeeId).orElseThrow(() -> new ResourceNotFoundException("Employee not found"));
+        dep.setManagerEmployeeId(employeeId);
+        departmentRepository.save(dep);
+
+        return new DepartmentManagerResponse(dep.getName(), employee.getFirstName() + " " + employee.getLastName());
     }
 
     public Department show(UUID id) {
