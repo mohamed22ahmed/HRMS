@@ -73,6 +73,12 @@ public class EmployeeService{
         return employeeRepository.save(emp);
     }
 
+    public Employee changeStatus(UUID id, EmployeeRequestDto request) {
+        Employee employee = findEmployee(id);
+        employee.setEmploymentStatus(request.getEmploymentStatus());
+        return employeeRepository.save(employee);
+    }
+
     private Employee findEmployee(UUID id) {
         return employeeRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee not found"));
