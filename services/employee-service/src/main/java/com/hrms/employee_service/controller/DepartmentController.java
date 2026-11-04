@@ -76,7 +76,7 @@ public class DepartmentController {
 
     @PostMapping("/{id}/change-status")
     public ResponseEntity<Map<String, Object>> changeStatus(@PathVariable UUID id, @RequestBody DepartmentRequestDto request){
-        Department dep = DepartmentService.changeStatus(id, request);
+        Department dep = departmentService.changeStatus(id, request);
         return ResponseEntity.ok(ApiResponseDto.success(200, "Department status changed successfully", DepartmentResponseDto.from(dep)));
     }
 }
