@@ -75,4 +75,10 @@ public class EmployeeController {
         Employee emp =  employeeService.reassignToDepartment(id, request);
         return ResponseEntity.ok(ApiResponseDto.success(200, "Employees Assigned to new Department successfully", EmployeeResponseDto.from(emp)));
     }
+
+    @PostMapping("/{id}/drop-from-department")
+    public ResponseEntity<Map<String, Object>>  dropFromDepartment(@PathVariable UUID id){
+        Employee emp =  employeeService.dropFromDepartment(id);
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Employees Dropped from the Department successfully", EmployeeResponseDto.from(emp)));
+    }
 }

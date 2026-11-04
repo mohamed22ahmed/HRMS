@@ -25,6 +25,8 @@ public class DepartmentService {
 
     @Autowired
     private Validator validator;
+    @Autowired
+    private EmployeeService employeeService;
 
     public List<Department> getDepartments() {
         return departmentRepository.findAll();
@@ -49,7 +51,11 @@ public class DepartmentService {
     public DepartmentManagerResponse setDepartmentManager(UUID id, DepartmentRequestDto request){
         Department dep = findDepartment(id);
         UUID employeeId = request.getManagerEmployeeId();
-        Employee employee = employeeRepository.findById(employeeId).orElseThrow(() -> new ResourceNotFoundException("Employee not found"));
+
+        Employee employee = employeeService.show(employeeId);
+        employee.setDepartment(dep);
+        employeeRepository.save(employee);
+
         dep.setManagerEmployeeId(employeeId);
         departmentRepository.save(dep);
 
