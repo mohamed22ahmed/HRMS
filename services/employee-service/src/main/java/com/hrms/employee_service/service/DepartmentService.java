@@ -84,8 +84,13 @@ public class DepartmentService {
         departmentRepository.delete(findDepartment(id));
     }
 
+    public Department changeStatus(UUID id, DepartmentRequestDto request) {
+        Department department = findDepartment(id);
+        department.setIsActive(request.getIsActive());
+        return departmentRepository.save(department);
+    }
+
     private Department findDepartment(UUID id) {
-        return departmentRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Department not found"));
+        return departmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Department not found"));
     }
 }

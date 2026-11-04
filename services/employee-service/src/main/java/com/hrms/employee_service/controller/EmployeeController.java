@@ -85,6 +85,6 @@ public class EmployeeController {
     @PostMapping("/{id}/change-status")
     public ResponseEntity<Map<String, Object>> changeStatus(@PathVariable UUID id, @RequestBody EmployeeRequestDto request){
         Employee emp =  employeeService.changeStatus(id, request);
-        return ResponseEntity.ok(ApiResponseDto.success(200, "Employees Status chnaged successfully", EmployeeResponseDto.from(emp)));
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Employees Status changed successfully", EmployeeResponseDto.from(emp)));
     }
 }
