@@ -3,9 +3,12 @@ package com.hrms.employee_service.service;
 import com.hrms.employee_service.dto.employee.EmployeeRequestDto;
 import com.hrms.employee_service.dto.common.RequestDto;
 import com.hrms.employee_service.exception.ResourceNotFoundException;
+import com.hrms.employee_service.model.Department;
 import com.hrms.employee_service.model.Employee;
 import com.hrms.employee_service.repository.EmployeeRepository;
 import com.hrms.employee_service.repository.DepartmentRepository;
+import com.hrms.employee_service.repository.LevelRepository;
+import com.hrms.employee_service.repository.PositionRepository;
 import jakarta.validation.Validator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +24,9 @@ public class EmployeeService{
 
     @Autowired
     private DepartmentRepository departmentRepository;
+
+    @Autowired
+    private LevelRepository levelRepository;
 
     @Autowired
     private Validator validator;
@@ -54,9 +60,35 @@ public class EmployeeService{
         employeeRepository.delete(findEmployee(id));
     }
 
+    public Employee reassignToDepartment(UUID id, EmployeeRequestDto request) {
+        Employee emp = findEmployee(id);
+        UUID departmentId = request.getDepartmentId();
+        if (departmentId == null) {
+            throw new IllegalArgumentException("Department id is required");
+        }
+        emp.setDepartment(departmentRepository.getReferenceById(departmentId));
+        return employeeRepository.save(emp);
+    }
+
+    public Employee dropFromDepartment(UUID id) {
+        Employee emp = findEmployee(id);
+        departmentRepository.findByManagerEmployeeId(id).ifPresent(department -> {
+            department.setManagerEmployeeId(null);
+            departmentRepository.save(department);
+        });
+
+        emp.setDepartment(null);
+        return employeeRepository.save(emp);
+    }
+
+    public Employee changeStatus(UUID id, EmployeeRequestDto request) {
+        Employee employee = findEmployee(id);
+        employee.setEmploymentStatus(request.getEmploymentStatus());
+        return employeeRepository.save(employee);
+    }
+
     private Employee findEmployee(UUID id) {
         return employeeRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee not found"));
     }
-
 }

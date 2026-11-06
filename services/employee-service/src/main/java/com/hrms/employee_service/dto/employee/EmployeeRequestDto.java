@@ -5,6 +5,7 @@ import com.hrms.employee_service.model.Employee;
 import com.hrms.employee_service.repository.DepartmentRepository;
 import com.hrms.employee_service.model.EmploymentStatus;
 import com.hrms.employee_service.repository.EmployeeRepository;
+import com.hrms.employee_service.repository.LevelRepository;
 import jakarta.validation.Constraint;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -102,6 +103,7 @@ public class EmployeeRequestDto extends RequestDto {
 
     private String phone;
     private UUID departmentId;
+    private UUID levelId;
     private String jobTitle;
 
     @NotNull(message = "Hire date is required", groups = Create.class)

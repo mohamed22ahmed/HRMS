@@ -24,4 +24,5 @@ CREATE TABLE employees (
 );
 
 CREATE INDEX idx_employees_department_id ON employees(department_id);
+CREATE INDEX idx_employees_level_id ON employees(level_id);
 CREATE INDEX idx_employees_status ON employees(employment_status);
