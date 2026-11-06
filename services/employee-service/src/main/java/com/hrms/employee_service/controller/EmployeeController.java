@@ -37,31 +37,25 @@ public class EmployeeController {
     @GetMapping
     public ResponseEntity<Map<String, Object>> index() {
         List<Employee> employees = employeeService.getEmployees();
-        return ResponseEntity.ok(ApiResponseDto.successList(
-                200, "Employees retrieved successfully", employees, EmployeeResponseDto::from));
+        return ResponseEntity.ok(ApiResponseDto.successList(200, "Employees retrieved successfully", employees, EmployeeResponseDto::from));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Map<String, Object>> show(@PathVariable UUID id) {
         Employee employee = employeeService.show(id);
-        return ResponseEntity.ok(ApiResponseDto.success(
-                200, "Employee retrieved successfully", EmployeeResponseDto.from(employee)));
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Employee retrieved successfully", EmployeeResponseDto.from(employee)));
     }
 
     @PostMapping
-    public ResponseEntity<Map<String, Object>> save(
-            @Validated({Default.class, EmployeeRequestDto.Create.class}) @RequestBody EmployeeRequestDto request) {
+    public ResponseEntity<Map<String, Object>> save(@Validated({Default.class, EmployeeRequestDto.Create.class}) @RequestBody EmployeeRequestDto request) {
         Employee employee = employeeService.store(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponseDto.success(
-                201, "Employee created successfully", EmployeeResponseDto.from(employee)));
+        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponseDto.success(201, "Employee created successfully", EmployeeResponseDto.from(employee)));
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> update(
-            @PathVariable UUID id, @RequestBody EmployeeRequestDto request) {
+    public ResponseEntity<Map<String, Object>> update(@PathVariable UUID id, @RequestBody EmployeeRequestDto request) {
         Employee employee = employeeService.update(id, request);
-        return ResponseEntity.ok(ApiResponseDto.success(
-                200, "Employee updated successfully", EmployeeResponseDto.from(employee)));
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Employee updated successfully", EmployeeResponseDto.from(employee)));
     }
 
     @DeleteMapping("/{id}")
@@ -72,19 +66,19 @@ public class EmployeeController {
 
     @PostMapping("/{id}/reassign-to-department")
     public ResponseEntity<Map<String, Object>>  reassignToDepartment(@PathVariable UUID id,@RequestBody EmployeeRequestDto request){
-        Employee emp =  employeeService.reassignToDepartment(id, request);
+        Employee emp = employeeService.reassignToDepartment(id, request);
         return ResponseEntity.ok(ApiResponseDto.success(200, "Employees Assigned to new Department successfully", EmployeeResponseDto.from(emp)));
     }
 
     @PostMapping("/{id}/drop-from-department")
     public ResponseEntity<Map<String, Object>>  dropFromDepartment(@PathVariable UUID id){
-        Employee emp =  employeeService.dropFromDepartment(id);
+        Employee emp = employeeService.dropFromDepartment(id);
         return ResponseEntity.ok(ApiResponseDto.success(200, "Employees Dropped from the Department successfully", EmployeeResponseDto.from(emp)));
     }
 
     @PostMapping("/{id}/change-status")
     public ResponseEntity<Map<String, Object>> changeStatus(@PathVariable UUID id, @RequestBody EmployeeRequestDto request){
-        Employee emp =  employeeService.changeStatus(id, request);
-        return ResponseEntity.ok(ApiResponseDto.success(200, "Employees Status changed successfully", EmployeeResponseDto.from(emp)));
+        Employee emp = employeeService.changeStatus(id, request);
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Employee Status changed successfully", EmployeeResponseDto.from(emp)));
     }
 }

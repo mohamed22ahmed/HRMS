@@ -58,6 +58,9 @@ public class EmployeeService{
     public Employee reassignToDepartment(UUID id, EmployeeRequestDto request) {
         Employee emp = findEmployee(id);
         UUID departmentId = request.getDepartmentId();
+        if (departmentId == null) {
+            throw new IllegalArgumentException("Department id is required");
+        }
         emp.setDepartment(departmentRepository.getReferenceById(departmentId));
         return employeeRepository.save(emp);
     }
