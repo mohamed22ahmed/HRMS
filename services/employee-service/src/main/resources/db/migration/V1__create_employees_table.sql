@@ -6,7 +6,6 @@ CREATE TABLE employees (
     email VARCHAR(255) NOT NULL UNIQUE,
     phone VARCHAR(30),
     department_id UUID,
-    level_id UUID,
     job_title VARCHAR(150),
     hire_date DATE NOT NULL,
     employment_status VARCHAR(30) NOT NULL DEFAULT 'ACTIVE',

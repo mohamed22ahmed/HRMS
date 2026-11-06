@@ -40,7 +40,7 @@ public class EmployeeService{
     }
 
     public Employee store(EmployeeRequestDto request) {
-        return employeeRepository.save(request.toEmployee(departmentRepository, levelRepository));
+        return employeeRepository.save(request.toEmployee(departmentRepository));
     }
 
     public Employee update(UUID id, EmployeeRequestDto request) {
@@ -78,22 +78,6 @@ public class EmployeeService{
         });
 
         emp.setDepartment(null);
-        return employeeRepository.save(emp);
-    }
-
-    public Employee reassignLevelTo(UUID id, EmployeeRequestDto request) {
-        Employee emp = findEmployee(id);
-        UUID levelId = request.getLevelId();
-        if (levelId == null) {
-            throw new IllegalArgumentException("Level id is required");
-        }
-        emp.setLevel(levelRepository.getReferenceById(levelId));
-        return employeeRepository.save(emp);
-    }
-
-    public Employee dropLevelFrom(UUID id) {
-        Employee emp = findEmployee(id);
-        emp.setLevel(null);
         return employeeRepository.save(emp);
     }
 
