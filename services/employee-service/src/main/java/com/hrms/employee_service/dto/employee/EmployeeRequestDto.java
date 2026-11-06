@@ -5,6 +5,7 @@ import com.hrms.employee_service.model.Employee;
 import com.hrms.employee_service.repository.DepartmentRepository;
 import com.hrms.employee_service.model.EmploymentStatus;
 import com.hrms.employee_service.repository.EmployeeRepository;
+import com.hrms.employee_service.repository.LevelRepository;
 import jakarta.validation.Constraint;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -102,6 +103,7 @@ public class EmployeeRequestDto extends RequestDto {
 
     private String phone;
     private UUID departmentId;
+    private UUID levelId;
     private String jobTitle;
 
     @NotNull(message = "Hire date is required", groups = Create.class)
@@ -109,7 +111,7 @@ public class EmployeeRequestDto extends RequestDto {
 
     private EmploymentStatus employmentStatus;
 
-    public Employee toEmployee(DepartmentRepository departmentRepository) {
+    public Employee toEmployee(DepartmentRepository departmentRepository, LevelRepository levelRepository) {
         Employee employee = new Employee();
         employee.setEmployeeNumber(employeeNumber);
         employee.setFirstName(firstName);
@@ -117,6 +119,7 @@ public class EmployeeRequestDto extends RequestDto {
         employee.setEmail(email);
         employee.setPhone(phone);
         employee.setDepartment(departmentId == null ? null : departmentRepository.getReferenceById(departmentId));
+        employee.setLevel(levelId == null ? null : levelRepository.getReferenceById(levelId));
         employee.setJobTitle(jobTitle);
         employee.setHireDate(hireDate);
         if (employmentStatus != null) {

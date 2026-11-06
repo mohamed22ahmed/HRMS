@@ -7,6 +7,8 @@ import com.hrms.employee_service.model.Department;
 import com.hrms.employee_service.model.Employee;
 import com.hrms.employee_service.repository.EmployeeRepository;
 import com.hrms.employee_service.repository.DepartmentRepository;
+import com.hrms.employee_service.repository.LevelRepository;
+import com.hrms.employee_service.repository.PositionRepository;
 import jakarta.validation.Validator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class EmployeeService{
     private DepartmentRepository departmentRepository;
 
     @Autowired
+    private LevelRepository levelRepository;
+
+    @Autowired
     private Validator validator;
 
     public List<Employee> getEmployees() {
@@ -35,7 +40,7 @@ public class EmployeeService{
     }
 
     public Employee store(EmployeeRequestDto request) {
-        return employeeRepository.save(request.toEmployee(departmentRepository));
+        return employeeRepository.save(request.toEmployee(departmentRepository, levelRepository));
     }
 
     public Employee update(UUID id, EmployeeRequestDto request) {
@@ -73,6 +78,22 @@ public class EmployeeService{
         });
 
         emp.setDepartment(null);
+        return employeeRepository.save(emp);
+    }
+
+    public Employee reassignLevelTo(UUID id, EmployeeRequestDto request) {
+        Employee emp = findEmployee(id);
+        UUID levelId = request.getLevelId();
+        if (levelId == null) {
+            throw new IllegalArgumentException("Level id is required");
+        }
+        emp.setLevel(levelRepository.getReferenceById(levelId));
+        return employeeRepository.save(emp);
+    }
+
+    public Employee dropLevelFrom(UUID id) {
+        Employee emp = findEmployee(id);
+        emp.setLevel(null);
         return employeeRepository.save(emp);
     }
 
