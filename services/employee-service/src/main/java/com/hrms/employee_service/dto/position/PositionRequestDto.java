@@ -33,11 +33,6 @@ public class PositionRequestDto extends RequestDto {
     @Size(max = 100, message = "Position code must be at most 100 characters")
     private String code;
 
-    @NotBlank(message = "Position level is required", groups = Create.class)
-    @Size(max = 100, message = "Position level must be at most 100 characters")
-    private String level;
-
-
     private UUID departmentId;
     private Boolean isActive;
 
@@ -45,7 +40,6 @@ public class PositionRequestDto extends RequestDto {
         Position position = new Position();
         position.setName(name);
         position.setCode(code);
-        position.setLevel(level);
         position.setDepartment(departmentId == null ? null : departmentRepository.getReferenceById(departmentId));
         if (isActive != null) {
             position.setIsActive(isActive);
