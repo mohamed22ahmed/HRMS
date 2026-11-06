@@ -1,10 +1,7 @@
 package com.hrms.employee_service.controller;
 
 import com.hrms.employee_service.dto.common.ApiResponseDto;
-import com.hrms.employee_service.dto.department.DepartmentEmployeesResponseDto;
-import com.hrms.employee_service.dto.department.DepartmentManagerResponseDto;
-import com.hrms.employee_service.dto.department.DepartmentRequestDto;
-import com.hrms.employee_service.dto.department.DepartmentResponseDto;
+import com.hrms.employee_service.dto.department.*;
 import com.hrms.employee_service.model.Department;
 import com.hrms.employee_service.model.Employee;
 import com.hrms.employee_service.service.DepartmentService;
@@ -43,6 +40,12 @@ public class DepartmentController {
     public ResponseEntity<Map<String, Object>> getDepartmentEmployees(@PathVariable UUID id) {
         DepartmentService.DepartmentEmployeesResponse data = departmentService.getDepartmentEmployees(id);
         return ResponseEntity.ok(ApiResponseDto.success(200, "Departments Employees retrieved successfully", DepartmentEmployeesResponseDto.from(data)));
+    }
+
+    @GetMapping("/{id}/positions")
+    public ResponseEntity<Map<String, Object>> getDepartmentPositions(@PathVariable UUID id) {
+        DepartmentService.DepartmentPositionsResponse data = departmentService.getDepartmentPositions(id);
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Departments Employees retrieved successfully", DepartmentPositionsResponseDto.from(data)));
     }
 
     @GetMapping("/{id}")
