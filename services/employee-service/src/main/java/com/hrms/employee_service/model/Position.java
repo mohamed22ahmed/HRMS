@@ -6,6 +6,8 @@ import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -35,6 +37,9 @@ public class Position {
 
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
+
+    @OneToMany(mappedBy = "position")
+    private List<Employee> employees = new ArrayList<>();
 
     @PrePersist
     protected void onCreate() {

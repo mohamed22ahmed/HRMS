@@ -39,7 +39,7 @@ public class DepartmentController {
     @GetMapping("/{id}/employees")
     public ResponseEntity<Map<String, Object>> getDepartmentEmployees(@PathVariable UUID id) {
         DepartmentService.DepartmentEmployeesResponse data = departmentService.getDepartmentEmployees(id);
-        return ResponseEntity.ok(ApiResponseDto.success(200, "Departments Employees retrieved successfully", DepartmentEmployeesResponseDto.from(data)));
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Department Employees retrieved successfully", DepartmentEmployeesResponseDto.from(data)));
     }
 
     @GetMapping("/{id}/positions")

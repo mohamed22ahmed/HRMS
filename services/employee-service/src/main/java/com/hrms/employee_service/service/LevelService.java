@@ -2,8 +2,8 @@ package com.hrms.employee_service.service;
 
 import com.hrms.employee_service.dto.common.RequestDto;
 import com.hrms.employee_service.dto.level.LevelRequestDto;
-import com.hrms.employee_service.dto.position.PositionRequestDto;
 import com.hrms.employee_service.exception.ResourceNotFoundException;
+import com.hrms.employee_service.model.Employee;
 import com.hrms.employee_service.model.Level;
 import com.hrms.employee_service.model.Position;
 import com.hrms.employee_service.repository.DepartmentRepository;
@@ -29,6 +29,17 @@ public class LevelService {
 
     public List<Level> getLevels() {
         return levelRepository.findAll();
+    }
+
+    public record LevelEmployeesResponse(
+            Level level,
+            List<Employee> employees
+    ) {}
+
+    public LevelService.LevelEmployeesResponse getLevelEmployees(UUID levelId){
+        Level level = findLevel(levelId);
+        List<Employee> employees = level.getEmployees();
+        return new LevelService.LevelEmployeesResponse(level, employees);
     }
 
     public Level show(UUID id) {

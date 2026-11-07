@@ -1,10 +1,13 @@
 package com.hrms.employee_service.controller;
 
 import com.hrms.employee_service.dto.common.ApiResponseDto;
+import com.hrms.employee_service.dto.department.DepartmentEmployeesResponseDto;
+import com.hrms.employee_service.dto.position.PositionEmployeesResponseDto;
 import com.hrms.employee_service.dto.position.PositionRequestDto;
 import com.hrms.employee_service.dto.position.PositionResponseDto;
 import com.hrms.employee_service.model.Employee;
 import com.hrms.employee_service.model.Position;
+import com.hrms.employee_service.service.DepartmentService;
 import com.hrms.employee_service.service.PositionService;
 import jakarta.validation.groups.Default;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +31,12 @@ public class positionController {
     public ResponseEntity<Map<String, Object>> index() {
         List<Position> positions = positionService.getPositions();
         return ResponseEntity.ok(ApiResponseDto.successList(200, "Positions retrieved successfully", positions, PositionResponseDto::from));
+    }
+
+    @GetMapping("/{id}/employees")
+    public ResponseEntity<Map<String, Object>> getPositionEmployees(@PathVariable UUID id) {
+        PositionService.PositionEmployeesResponse data = positionService.getPositionEmployees(id);
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Position Employees retrieved successfully", PositionEmployeesResponseDto.from(data)));
     }
 
     @GetMapping("/{id}")
