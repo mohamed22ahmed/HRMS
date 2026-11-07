@@ -106,7 +106,6 @@ public class EmployeeRequestDto extends RequestDto {
     private UUID departmentId;
     private UUID positionId;
     private UUID levelId;
-    private String jobTitle;
 
     @NotNull(message = "Hire date is required", groups = Create.class)
     private LocalDate hireDate;
@@ -123,7 +122,6 @@ public class EmployeeRequestDto extends RequestDto {
         employee.setDepartment(departmentId == null ? null : departmentRepository.getReferenceById(departmentId));
         employee.setPosition(positionId == null ? null : positionRepository.getReferenceById(positionId));
         employee.setLevel(levelId == null ? null : levelRepository.getReferenceById(levelId));
-        employee.setJobTitle(jobTitle);
         employee.setHireDate(hireDate);
         if (employmentStatus != null) {
             employee.setEmploymentStatus(employmentStatus);

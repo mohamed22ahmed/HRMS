@@ -8,7 +8,6 @@ CREATE TABLE employees (
     department_id UUID,
     position_id UUID,
     level_id UUID,
-    job_title VARCHAR(150),
     hire_date DATE NOT NULL,
     employment_status VARCHAR(30) NOT NULL DEFAULT 'ACTIVE',
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
