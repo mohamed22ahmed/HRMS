@@ -6,9 +6,6 @@ CREATE TABLE employees (
     email VARCHAR(255) NOT NULL UNIQUE,
     phone VARCHAR(30),
     department_id UUID,
-    position_id UUID,
-    level_id UUID,
-    hire_date DATE NOT NULL,
     employment_status VARCHAR(30) NOT NULL DEFAULT 'ACTIVE',
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -25,6 +22,4 @@ CREATE TABLE employees (
 );
 
 CREATE INDEX idx_employees_department_id ON employees(department_id);
-CREATE INDEX idx_employees_level_id ON employees(level_id);
-CREATE INDEX idx_employees_position_id ON employees(position_id);
 CREATE INDEX idx_employees_status ON employees(employment_status);

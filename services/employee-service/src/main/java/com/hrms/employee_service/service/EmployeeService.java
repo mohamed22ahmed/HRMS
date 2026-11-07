@@ -26,12 +26,6 @@ public class EmployeeService{
     private DepartmentRepository departmentRepository;
 
     @Autowired
-    private PositionRepository positionRepository;
-
-    @Autowired
-    private LevelRepository levelRepository;
-
-    @Autowired
     private Validator validator;
 
     public List<Employee> getEmployees() {
@@ -43,7 +37,7 @@ public class EmployeeService{
     }
 
     public Employee store(EmployeeRequestDto request) {
-        return employeeRepository.save(request.toEmployee(departmentRepository, positionRepository, levelRepository));
+        return employeeRepository.save(request.toEmployee(departmentRepository));
     }
 
     public Employee update(UUID id, EmployeeRequestDto request) {
@@ -84,38 +78,6 @@ public class EmployeeService{
         return employeeRepository.save(emp);
     }
 
-    public Employee reassignPosition(UUID id, EmployeeRequestDto request) {
-        Employee emp = findEmployee(id);
-        UUID positionId = request.getPositionId();
-        if (positionId == null) {
-            throw new IllegalArgumentException("Position id is required");
-        }
-        emp.setPosition(positionRepository.getReferenceById(positionId));
-        return employeeRepository.save(emp);
-    }
-
-    public Employee dropPosition(UUID id) {
-        Employee emp = findEmployee(id);
-        emp.setPosition(null);
-        return employeeRepository.save(emp);
-    }
-
-    public Employee reassignLevel(UUID id, EmployeeRequestDto request) {
-        Employee emp = findEmployee(id);
-        UUID levelId = request.getLevelId();
-        if (levelId == null) {
-            throw new IllegalArgumentException("Level id is required");
-        }
-        emp.setLevel(levelRepository.getReferenceById(levelId));
-        return employeeRepository.save(emp);
-    }
-
-    public Employee dropLevel(UUID id) {
-        Employee emp = findEmployee(id);
-        emp.setLevel(null);
-        return employeeRepository.save(emp);
-    }
-
     public Employee changeStatus(UUID id, EmployeeRequestDto request) {
         Employee employee = findEmployee(id);
         employee.setEmploymentStatus(request.getEmploymentStatus());
@@ -123,7 +85,6 @@ public class EmployeeService{
     }
 
     private Employee findEmployee(UUID id) {
-        return employeeRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Employee not found"));
+        return employeeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee not found"));
     }
 }

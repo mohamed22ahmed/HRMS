@@ -13,7 +13,6 @@ import jakarta.validation.ConstraintValidatorContext;
 import jakarta.validation.Payload;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,7 +21,6 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
@@ -104,15 +102,10 @@ public class EmployeeRequestDto extends RequestDto {
 
     private String phone;
     private UUID departmentId;
-    private UUID positionId;
-    private UUID levelId;
-
-    @NotNull(message = "Hire date is required", groups = Create.class)
-    private LocalDate hireDate;
 
     private EmploymentStatus employmentStatus;
 
-    public Employee toEmployee(DepartmentRepository departmentRepository, PositionRepository positionRepository, LevelRepository levelRepository) {
+    public Employee toEmployee(DepartmentRepository departmentRepository) {
         Employee employee = new Employee();
         employee.setEmployeeNumber(employeeNumber);
         employee.setFirstName(firstName);
@@ -120,9 +113,6 @@ public class EmployeeRequestDto extends RequestDto {
         employee.setEmail(email);
         employee.setPhone(phone);
         employee.setDepartment(departmentId == null ? null : departmentRepository.getReferenceById(departmentId));
-        employee.setPosition(positionId == null ? null : positionRepository.getReferenceById(positionId));
-        employee.setLevel(levelId == null ? null : levelRepository.getReferenceById(levelId));
-        employee.setHireDate(hireDate);
         if (employmentStatus != null) {
             employee.setEmploymentStatus(employmentStatus);
         }

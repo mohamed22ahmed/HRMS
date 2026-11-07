@@ -76,30 +76,6 @@ public class EmployeeController {
         return ResponseEntity.ok(ApiResponseDto.success(200, "Employee Dropped from the Department successfully", EmployeeResponseDto.from(emp)));
     }
 
-    @PostMapping("/{id}/reassign-position")
-    public ResponseEntity<Map<String, Object>>  reassignPosition(@PathVariable UUID id,@RequestBody EmployeeRequestDto request){
-        Employee emp = employeeService.reassignPosition(id, request);
-        return ResponseEntity.ok(ApiResponseDto.success(200, "Position Assigned to the Employee successfully", EmployeeResponseDto.from(emp)));
-    }
-
-    @PostMapping("/{id}/drop-position")
-    public ResponseEntity<Map<String, Object>>  dropPosition(@PathVariable UUID id){
-        Employee emp = employeeService.dropPosition(id);
-        return ResponseEntity.ok(ApiResponseDto.success(200, "Position dropped from the Employee successfully", EmployeeResponseDto.from(emp)));
-    }
-
-    @PostMapping("/{id}/reassign-level")
-    public ResponseEntity<Map<String, Object>>  reassignLevel(@PathVariable UUID id,@RequestBody EmployeeRequestDto request){
-        Employee emp = employeeService.reassignLevel(id, request);
-        return ResponseEntity.ok(ApiResponseDto.success(200, "Level Assigned to the Employee successfully", EmployeeResponseDto.from(emp)));
-    }
-
-    @PostMapping("/{id}/drop-level")
-    public ResponseEntity<Map<String, Object>>  dropLevel(@PathVariable UUID id){
-        Employee emp = employeeService.dropLevel(id);
-        return ResponseEntity.ok(ApiResponseDto.success(200, "Level dropped from the Employee successfully", EmployeeResponseDto.from(emp)));
-    }
-
     @PostMapping("/{id}/change-status")
     public ResponseEntity<Map<String, Object>> changeStatus(@PathVariable UUID id, @RequestBody EmployeeRequestDto request){
         Employee emp = employeeService.changeStatus(id, request);
