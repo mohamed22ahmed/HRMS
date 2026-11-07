@@ -2,8 +2,10 @@ package com.hrms.employee_service.service;
 
 import com.hrms.employee_service.dto.common.RequestDto;
 import com.hrms.employee_service.dto.level.LevelRequestDto;
+import com.hrms.employee_service.dto.position.PositionRequestDto;
 import com.hrms.employee_service.exception.ResourceNotFoundException;
 import com.hrms.employee_service.model.Level;
+import com.hrms.employee_service.model.Position;
 import com.hrms.employee_service.repository.DepartmentRepository;
 import com.hrms.employee_service.repository.LevelRepository;
 import jakarta.validation.Validator;
@@ -55,6 +57,23 @@ public class LevelService {
         if (request.getIsActive() != null) {
             level.setIsActive(request.getIsActive());
         }
+        return levelRepository.save(level);
+    }
+
+    public Level reassignToDepartment(UUID id, LevelRequestDto request) {
+        Level level = findLevel(id);
+        if (request.getDepartmentId() == null) {
+            throw new IllegalArgumentException("Department id is required");
+        }
+
+        UUID departmentId = request.getDepartmentId();
+        level.setDepartment(departmentRepository.getReferenceById(departmentId));
+        return levelRepository.save(level);
+    }
+
+    public Level dropFromDepartment(UUID id) {
+        Level level = findLevel(id);
+        level.setDepartment(null);
         return levelRepository.save(level);
     }
 

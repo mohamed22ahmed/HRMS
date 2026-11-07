@@ -62,4 +62,16 @@ public class levelController {
         Level level = levelService.changeStatus(id, request);
         return ResponseEntity.ok(ApiResponseDto.success(200, "Level Status changed successfully", LevelResponseDto.from(level)));
     }
+
+    @PostMapping("/{id}/reassign-to-department")
+    public ResponseEntity<Map<String, Object>>  reassignToDepartment(@PathVariable UUID id,@RequestBody LevelRequestDto request){
+        Level level = levelService.reassignToDepartment(id, request);
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Level Assigned to new Department successfully", LevelResponseDto.from(level)));
+    }
+
+    @PostMapping("/{id}/drop-from-department")
+    public ResponseEntity<Map<String, Object>>  dropFromDepartment(@PathVariable UUID id){
+        Level level = levelService.dropFromDepartment(id);
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Level Dropped from the Department successfully", LevelResponseDto.from(level)));
+    }
 }
