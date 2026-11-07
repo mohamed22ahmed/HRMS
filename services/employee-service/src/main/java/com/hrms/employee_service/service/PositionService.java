@@ -6,6 +6,7 @@ import com.hrms.employee_service.exception.ResourceNotFoundException;
 import com.hrms.employee_service.model.Department;
 import com.hrms.employee_service.model.Employee;
 import com.hrms.employee_service.model.Position;
+import com.hrms.employee_service.model.Work;
 import com.hrms.employee_service.repository.DepartmentRepository;
 import com.hrms.employee_service.repository.PositionRepository;
 import jakarta.validation.Validator;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -38,7 +40,11 @@ public class PositionService {
 
     public PositionService.PositionEmployeesResponse getPositionEmployees(UUID positionId){
         Position position = findPosition(positionId);
-        List<Employee> employees = position.getEmployees();
+        List<Employee> employees = position.getWorks().stream()
+                .map(Work::getEmployee)
+                .filter(Objects::nonNull)
+                .distinct()
+                .toList();
         return new PositionService.PositionEmployeesResponse(position, employees);
     }
 

@@ -39,7 +39,7 @@ public class Position {
     private Instant updatedAt;
 
     @OneToMany(mappedBy = "position")
-    private List<Employee> employees = new ArrayList<>();
+    private List<Work> works = new ArrayList<>();
 
     @PrePersist
     protected void onCreate() {
