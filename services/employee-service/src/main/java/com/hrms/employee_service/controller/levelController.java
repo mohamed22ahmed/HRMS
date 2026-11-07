@@ -36,10 +36,10 @@ public class levelController {
         return ResponseEntity.ok(ApiResponseDto.successList(200, "Levels retrieved successfully", levels, LevelResponseDto::from));
     }
 
-    @GetMapping("/{id}/employees")
-    public ResponseEntity<Map<String, Object>> getLevelEmployees(@PathVariable UUID id) {
-        LevelService.LevelEmployeesResponse data = levelService.getLevelEmployees(id);
-        return ResponseEntity.ok(ApiResponseDto.success(200, "Level Employees retrieved successfully", LevelEmployeesResponseDto.from(data)));
+    @GetMapping("/{id}/works")
+    public ResponseEntity<Map<String, Object>> getLevelWorks(@PathVariable UUID id) {
+        LevelService.LevelWorksResponse data = levelService.getLevelWorks(id);
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Level Works retrieved successfully", LevelWorksResponseDto.from(data)));
     }
 
     @GetMapping("/{id}")

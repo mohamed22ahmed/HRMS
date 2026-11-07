@@ -31,15 +31,15 @@ public class LevelService {
         return levelRepository.findAll();
     }
 
-    public record LevelEmployeesResponse(
+    public record LevelWorksResponse(
             Level level,
-            List<Employee> employees
+            List<Work> works
     ) {}
 
-    public LevelService.LevelEmployeesResponse getLevelEmployees(UUID levelId){
+    public LevelService.LevelWorksResponse getLevelWorks(UUID levelId){
         Level level = findLevel(levelId);
-        List<Employee> employees = level.getEmployees();
-        return new LevelService.LevelEmployeesResponse(level, employees);
+        List<Work> works = level.getWorks();
+        return new LevelService.LevelWorksResponse(level, works);
     }
 
     public Level show(UUID id) {
