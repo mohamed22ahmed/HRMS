@@ -4,6 +4,7 @@ import com.hrms.employee_service.dto.common.RequestDto;
 import com.hrms.employee_service.dto.level.LevelRequestDto;
 import com.hrms.employee_service.exception.ResourceNotFoundException;
 import com.hrms.employee_service.model.Level;
+import com.hrms.employee_service.repository.DepartmentRepository;
 import com.hrms.employee_service.repository.LevelRepository;
 import jakarta.validation.Validator;
 import org.springframework.beans.BeanUtils;
@@ -19,6 +20,9 @@ public class LevelService {
     private LevelRepository levelRepository;
 
     @Autowired
+    private DepartmentRepository departmentRepository;
+
+    @Autowired
     private Validator validator;
 
     public List<Level> getLevels() {
@@ -30,7 +34,7 @@ public class LevelService {
     }
 
     public Level store(LevelRequestDto request) {
-        return levelRepository.save(request.toLevel());
+        return levelRepository.save(request.toLevel(departmentRepository));
     }
 
     public Level update(UUID id, LevelRequestDto request) {
@@ -39,6 +43,9 @@ public class LevelService {
 
         request.validate(validator);
         BeanUtils.copyProperties(request, level, RequestDto.nullProperties(request));
+        if (request.getDepartmentId() != null) {
+            level.setDepartment(departmentRepository.getReferenceById(request.getDepartmentId()));
+        }
 
         return levelRepository.save(level);
     }
