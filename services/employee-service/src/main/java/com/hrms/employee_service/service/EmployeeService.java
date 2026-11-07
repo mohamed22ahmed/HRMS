@@ -26,9 +26,6 @@ public class EmployeeService{
     private DepartmentRepository departmentRepository;
 
     @Autowired
-    private LevelRepository levelRepository;
-
-    @Autowired
     private Validator validator;
 
     public List<Employee> getEmployees() {
@@ -88,7 +85,6 @@ public class EmployeeService{
     }
 
     private Employee findEmployee(UUID id) {
-        return employeeRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Employee not found"));
+        return employeeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee not found"));
     }
 }

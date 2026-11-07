@@ -6,13 +6,13 @@ import com.hrms.employee_service.repository.DepartmentRepository;
 import com.hrms.employee_service.model.EmploymentStatus;
 import com.hrms.employee_service.repository.EmployeeRepository;
 import com.hrms.employee_service.repository.LevelRepository;
+import com.hrms.employee_service.repository.PositionRepository;
 import jakarta.validation.Constraint;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import jakarta.validation.Payload;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +21,6 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
@@ -103,11 +102,6 @@ public class EmployeeRequestDto extends RequestDto {
 
     private String phone;
     private UUID departmentId;
-    private UUID levelId;
-    private String jobTitle;
-
-    @NotNull(message = "Hire date is required", groups = Create.class)
-    private LocalDate hireDate;
 
     private EmploymentStatus employmentStatus;
 
@@ -119,8 +113,6 @@ public class EmployeeRequestDto extends RequestDto {
         employee.setEmail(email);
         employee.setPhone(phone);
         employee.setDepartment(departmentId == null ? null : departmentRepository.getReferenceById(departmentId));
-        employee.setJobTitle(jobTitle);
-        employee.setHireDate(hireDate);
         if (employmentStatus != null) {
             employee.setEmploymentStatus(employmentStatus);
         }

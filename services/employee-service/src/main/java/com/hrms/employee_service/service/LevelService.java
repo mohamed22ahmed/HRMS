@@ -2,8 +2,13 @@ package com.hrms.employee_service.service;
 
 import com.hrms.employee_service.dto.common.RequestDto;
 import com.hrms.employee_service.dto.level.LevelRequestDto;
+import com.hrms.employee_service.dto.level.LevelWorkResponseDto;
 import com.hrms.employee_service.exception.ResourceNotFoundException;
+import com.hrms.employee_service.model.Employee;
 import com.hrms.employee_service.model.Level;
+import com.hrms.employee_service.model.Position;
+import com.hrms.employee_service.model.Work;
+import com.hrms.employee_service.repository.DepartmentRepository;
 import com.hrms.employee_service.repository.LevelRepository;
 import jakarta.validation.Validator;
 import org.springframework.beans.BeanUtils;
@@ -19,10 +24,24 @@ public class LevelService {
     private LevelRepository levelRepository;
 
     @Autowired
+    private DepartmentRepository departmentRepository;
+
+    @Autowired
     private Validator validator;
 
     public List<Level> getLevels() {
         return levelRepository.findAll();
+    }
+
+    public record LevelWorksResponse(
+            Level level,
+            List<Work> works
+    ) {}
+
+    public LevelService.LevelWorksResponse getLevelWorks(UUID levelId){
+        Level level = findLevel(levelId);
+        List<Work> works = level.getWorks();
+        return new LevelService.LevelWorksResponse(level, works);
     }
 
     public Level show(UUID id) {
@@ -30,7 +49,7 @@ public class LevelService {
     }
 
     public Level store(LevelRequestDto request) {
-        return levelRepository.save(request.toLevel());
+        return levelRepository.save(request.toLevel(departmentRepository));
     }
 
     public Level update(UUID id, LevelRequestDto request) {
@@ -39,6 +58,9 @@ public class LevelService {
 
         request.validate(validator);
         BeanUtils.copyProperties(request, level, RequestDto.nullProperties(request));
+        if (request.getDepartmentId() != null) {
+            level.setDepartment(departmentRepository.getReferenceById(request.getDepartmentId()));
+        }
 
         return levelRepository.save(level);
     }
@@ -48,6 +70,23 @@ public class LevelService {
         if (request.getIsActive() != null) {
             level.setIsActive(request.getIsActive());
         }
+        return levelRepository.save(level);
+    }
+
+    public Level reassignToDepartment(UUID id, LevelRequestDto request) {
+        Level level = findLevel(id);
+        if (request.getDepartmentId() == null) {
+            throw new IllegalArgumentException("Department id is required");
+        }
+
+        UUID departmentId = request.getDepartmentId();
+        level.setDepartment(departmentRepository.getReferenceById(departmentId));
+        return levelRepository.save(level);
+    }
+
+    public Level dropFromDepartment(UUID id) {
+        Level level = findLevel(id);
+        level.setDepartment(null);
         return levelRepository.save(level);
     }
 

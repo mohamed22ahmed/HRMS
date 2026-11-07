@@ -36,12 +36,6 @@ public class Employee {
     @JoinColumn(name = "department_id")
     private Department department;
 
-    @Column(name = "job_title")
-    private String jobTitle;
-
-    @Column(name = "hire_date", nullable = false)
-    private LocalDate hireDate;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "employment_status", nullable = false)
     private EmploymentStatus employmentStatus = EmploymentStatus.ACTIVE;

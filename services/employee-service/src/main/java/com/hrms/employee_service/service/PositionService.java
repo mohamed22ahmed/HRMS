@@ -4,6 +4,7 @@ import com.hrms.employee_service.dto.common.RequestDto;
 import com.hrms.employee_service.dto.position.PositionRequestDto;
 import com.hrms.employee_service.exception.ResourceNotFoundException;
 import com.hrms.employee_service.model.Department;
+import com.hrms.employee_service.model.Employee;
 import com.hrms.employee_service.model.Position;
 import com.hrms.employee_service.repository.DepartmentRepository;
 import com.hrms.employee_service.repository.PositionRepository;
@@ -28,6 +29,17 @@ public class PositionService {
 
     public List<Position> getPositions() {
         return positionRepository.findAll();
+    }
+
+    public record PositionEmployeesResponse(
+            Position position,
+            List<Employee> employees
+    ) {}
+
+    public PositionService.PositionEmployeesResponse getPositionEmployees(UUID positionId){
+        Position position = findPosition(positionId);
+        List<Employee> employees = position.getEmployees();
+        return new PositionService.PositionEmployeesResponse(position, employees);
     }
 
     public Position show(UUID id) {

@@ -25,6 +25,10 @@ public class Level {
     @Column(nullable = false, length = 100)
     private String code;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id")
+    private Department department;
+
     @Column(name = "is_active")
     private Boolean isActive = true;
 
@@ -33,6 +37,9 @@ public class Level {
 
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
+
+    @OneToMany(mappedBy = "level")
+    private List<Work> works = new ArrayList<>();
 
     @PrePersist
     protected void onCreate() {

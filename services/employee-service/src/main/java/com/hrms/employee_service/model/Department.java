@@ -49,6 +49,9 @@ public class Department {
     @OneToMany(mappedBy = "department")
     private List<Position> positions = new ArrayList<>();
 
+    @OneToMany(mappedBy = "department")
+    private List<Level> levels = new ArrayList<>();
+
     @PrePersist
     protected void onCreate() {
         Instant now = Instant.now();

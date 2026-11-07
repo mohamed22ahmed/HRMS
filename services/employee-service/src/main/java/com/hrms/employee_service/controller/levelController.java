@@ -3,12 +3,9 @@ package com.hrms.employee_service.controller;
 import com.hrms.employee_service.dto.common.ApiResponseDto;
 import com.hrms.employee_service.dto.level.LevelRequestDto;
 import com.hrms.employee_service.dto.level.LevelResponseDto;
-import com.hrms.employee_service.dto.position.PositionRequestDto;
-import com.hrms.employee_service.dto.position.PositionResponseDto;
+import com.hrms.employee_service.dto.level.LevelWorksResponseDto;
 import com.hrms.employee_service.model.Level;
-import com.hrms.employee_service.model.Position;
 import com.hrms.employee_service.service.LevelService;
-import com.hrms.employee_service.service.PositionService;
 import jakarta.validation.groups.Default;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,6 +28,12 @@ public class levelController {
     public ResponseEntity<Map<String, Object>> index() {
         List<Level> levels = levelService.getLevels();
         return ResponseEntity.ok(ApiResponseDto.successList(200, "Levels retrieved successfully", levels, LevelResponseDto::from));
+    }
+
+    @GetMapping("/{id}/works")
+    public ResponseEntity<Map<String, Object>> getLevelWorks(@PathVariable UUID id) {
+        LevelService.LevelWorksResponse data = levelService.getLevelWorks(id);
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Level Works retrieved successfully", LevelWorksResponseDto.from(data)));
     }
 
     @GetMapping("/{id}")
@@ -61,5 +64,17 @@ public class levelController {
     public ResponseEntity<Map<String, Object>> changeStatus(@PathVariable UUID id, @RequestBody LevelRequestDto request){
         Level level = levelService.changeStatus(id, request);
         return ResponseEntity.ok(ApiResponseDto.success(200, "Level Status changed successfully", LevelResponseDto.from(level)));
+    }
+
+    @PostMapping("/{id}/reassign-to-department")
+    public ResponseEntity<Map<String, Object>>  reassignToDepartment(@PathVariable UUID id,@RequestBody LevelRequestDto request){
+        Level level = levelService.reassignToDepartment(id, request);
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Level Assigned to new Department successfully", LevelResponseDto.from(level)));
+    }
+
+    @PostMapping("/{id}/drop-from-department")
+    public ResponseEntity<Map<String, Object>>  dropFromDepartment(@PathVariable UUID id){
+        Level level = levelService.dropFromDepartment(id);
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Level Dropped from the Department successfully", LevelResponseDto.from(level)));
     }
 }
