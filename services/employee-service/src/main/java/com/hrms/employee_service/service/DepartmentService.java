@@ -5,6 +5,7 @@ import com.hrms.employee_service.dto.common.RequestDto;
 import com.hrms.employee_service.dto.department.DepartmentRequestDto;
 import com.hrms.employee_service.model.Department;
 import com.hrms.employee_service.model.Employee;
+import com.hrms.employee_service.model.Level;
 import com.hrms.employee_service.model.Position;
 import com.hrms.employee_service.repository.DepartmentRepository;
 import com.hrms.employee_service.repository.EmployeeRepository;
@@ -53,6 +54,17 @@ public class DepartmentService {
         Department dep = findDepartment(departmentId);
         List<Position> positions = dep.getPositions();
         return new DepartmentPositionsResponse(dep, positions);
+    }
+
+    public record DepartmentLevelsResponse(
+            Department department,
+            List<Level> levels
+    ) {}
+
+    public DepartmentLevelsResponse getDepartmentLevels(UUID departmentId){
+        Department dep = findDepartment(departmentId);
+        List<Level> levels = dep.getLevels();
+        return new DepartmentLevelsResponse(dep, levels);
     }
 
     public record DepartmentManagerResponse(

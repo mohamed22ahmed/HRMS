@@ -25,6 +25,10 @@ public class Level {
     @Column(nullable = false, length = 100)
     private String code;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id")
+    private Department department;
+
     @Column(name = "is_active")
     private Boolean isActive = true;
 

@@ -15,14 +15,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@Component
 public class PositionRequestDto extends RequestDto {
-    @Autowired
-    private PositionRepository positionRepository;
-
-    @Autowired
-    private DepartmentRepository departmentRepository;
-
     public interface Create extends RequestDto.Create {}
 
     @NotBlank(message = "Position name is required", groups = Create.class)
