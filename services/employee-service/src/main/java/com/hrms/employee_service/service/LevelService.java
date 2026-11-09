@@ -2,7 +2,6 @@ package com.hrms.employee_service.service;
 
 import com.hrms.employee_service.dto.common.RequestDto;
 import com.hrms.employee_service.dto.level.LevelRequestDto;
-import com.hrms.employee_service.dto.level.LevelWorkResponseDto;
 import com.hrms.employee_service.exception.ResourceNotFoundException;
 import com.hrms.employee_service.model.Employee;
 import com.hrms.employee_service.model.Level;
