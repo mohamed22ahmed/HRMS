@@ -11,9 +11,9 @@ public final class WorkResponseDto {
     public static Map<String, Object> from(Work work) {
         Map<String, Object> data = new LinkedHashMap<>();
         data.put("id", work.getId());
-        data.put("employee_name", work.getEmployee() == null ? null : work.getEmployee().getFirstName() + " " + work.getEmployee().getLastName());
-        data.put("position_name", work.getPosition() == null ? null : work.getPosition().getName());
-        data.put("level_name", work.getLevel() == null ? null : work.getLevel().getName());
+        data.put("employee_id", work.getEmployee() == null ? null : work.getEmployee().getId());
+        data.put("position_id", work.getPosition() == null ? null : work.getPosition().getId());
+        data.put("level_id", work.getLevel() == null ? null : work.getLevel().getId());
         data.put("hire_date", work.getHireDate());
         data.put("created_at", work.getCreatedAt());
         data.put("updated_at", work.getUpdatedAt());

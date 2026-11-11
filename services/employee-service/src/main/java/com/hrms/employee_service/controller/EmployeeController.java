@@ -3,8 +3,10 @@ package com.hrms.employee_service.controller;
 import com.hrms.employee_service.dto.common.ApiResponseDto;
 import com.hrms.employee_service.dto.department.DepartmentEmployeesResponseDto;
 import com.hrms.employee_service.dto.department.DepartmentRequestDto;
+import com.hrms.employee_service.dto.education.EducationResponseDto;
 import com.hrms.employee_service.dto.employee.EmployeeRequestDto;
 import com.hrms.employee_service.dto.employee.EmployeeResponseDto;
+import com.hrms.employee_service.model.Education;
 import com.hrms.employee_service.model.Employee;
 import com.hrms.employee_service.service.DepartmentService;
 import com.hrms.employee_service.service.EmployeeService;
@@ -80,5 +82,11 @@ public class EmployeeController {
     public ResponseEntity<Map<String, Object>> changeStatus(@PathVariable UUID id, @RequestBody EmployeeRequestDto request){
         Employee emp = employeeService.changeStatus(id, request);
         return ResponseEntity.ok(ApiResponseDto.success(200, "Employee Status changed successfully", EmployeeResponseDto.from(emp)));
+    }
+
+    @GetMapping("/{id}/education")
+    public ResponseEntity<Map<String, Object>> getEducation(@PathVariable UUID id){
+        Education education = employeeService.getEducation(id);
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Employee Education retrieved successfully", EducationResponseDto.from(education)));
     }
 }

@@ -13,7 +13,7 @@ public final class LevelResponseDto {
         data.put("id", level.getId());
         data.put("name", level.getName());
         data.put("code", level.getCode());
-        data.put("department_name", level.getDepartment() == null ? null : level.getDepartment().getName());
+        data.put("department_id", level.getDepartment() == null ? null : level.getDepartment().getId());
         data.put("is_active", level.getIsActive());
         data.put("created_at", level.getCreatedAt());
         data.put("updated_at", level.getUpdatedAt());

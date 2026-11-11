@@ -4,6 +4,7 @@ import com.hrms.employee_service.dto.employee.EmployeeRequestDto;
 import com.hrms.employee_service.dto.common.RequestDto;
 import com.hrms.employee_service.exception.ResourceNotFoundException;
 import com.hrms.employee_service.model.Department;
+import com.hrms.employee_service.model.Education;
 import com.hrms.employee_service.model.Employee;
 import com.hrms.employee_service.repository.EmployeeRepository;
 import com.hrms.employee_service.repository.DepartmentRepository;
@@ -82,6 +83,11 @@ public class EmployeeService{
         Employee employee = findEmployee(id);
         employee.setEmploymentStatus(request.getEmploymentStatus());
         return employeeRepository.save(employee);
+    }
+
+    public Education getEducation(UUID employee_id){
+        Employee employee = findEmployee(employee_id);
+        return employee.getEducation();
     }
 
     private Employee findEmployee(UUID id) {

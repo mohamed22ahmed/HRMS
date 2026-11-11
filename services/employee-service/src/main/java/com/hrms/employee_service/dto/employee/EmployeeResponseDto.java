@@ -16,7 +16,7 @@ public final class EmployeeResponseDto {
         data.put("last_name", employee.getLastName());
         data.put("email", employee.getEmail());
         data.put("phone", employee.getPhone());
-        data.put("department_name", employee.getDepartment() == null ? null : employee.getDepartment().getName());
+        data.put("department_id", employee.getDepartment() == null ? null : employee.getDepartment().getId());
         data.put("employment_status", employee.getEmploymentStatus());
         data.put("created_at", employee.getCreatedAt());
         data.put("updated_at", employee.getUpdatedAt());
