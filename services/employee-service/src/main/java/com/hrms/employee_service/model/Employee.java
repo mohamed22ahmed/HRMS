@@ -37,8 +37,8 @@ public class Employee {
     @JoinColumn(name = "department_id")
     private Department department;
 
-    @OneToOne(mappedBy = "education")
-    private Education education = new Education();
+    @OneToOne(mappedBy = "employee")
+    private Education education;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "employment_status", nullable = false)
