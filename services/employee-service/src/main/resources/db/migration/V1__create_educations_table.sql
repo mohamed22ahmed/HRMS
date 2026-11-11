@@ -1,4 +1,4 @@
-CREATE TABLE works (
+CREATE TABLE educations (
     id UUID PRIMARY KEY,
     employee_id UUID,
     university VARCHAR(100),
