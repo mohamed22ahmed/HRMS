@@ -2,14 +2,11 @@ package com.hrms.employee_service.dto.position;
 
 import com.hrms.employee_service.dto.common.RequestDto;
 import com.hrms.employee_service.model.Position;
-import com.hrms.employee_service.repository.PositionRepository;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import com.hrms.employee_service.repository.DepartmentRepository;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 

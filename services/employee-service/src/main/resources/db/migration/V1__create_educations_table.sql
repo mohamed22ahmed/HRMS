@@ -9,6 +9,4 @@ CREATE TABLE educations (
     updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 );
 
-CREATE INDEX idx_works_employee_id ON works(employee_id);
-CREATE INDEX idx_works_level_id ON works(level_id);
-CREATE INDEX idx_works_position_id ON works(position_id);
+CREATE INDEX idx_educations_employee_id ON educations(employee_id);

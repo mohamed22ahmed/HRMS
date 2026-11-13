@@ -10,15 +10,10 @@ CREATE TABLE employees (
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT chk_employee_status
-        CHECK (
-            employment_status IN (
-                'ACTIVE',
-                'INACTIVE',
-                'ON_LEAVE',
-                'TERMINATED'
-            )
+    CONSTRAINT chk_employee_status CHECK (
+            employment_status IN ('ACTIVE', 'INACTIVE', 'ON_LEAVE', 'TERMINATED'
         )
+    )
 );
 
 CREATE INDEX idx_employees_department_id ON employees(department_id);

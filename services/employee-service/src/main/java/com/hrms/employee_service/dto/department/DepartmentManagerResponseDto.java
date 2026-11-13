@@ -1,6 +1,5 @@
 package com.hrms.employee_service.dto.department;
 
-import com.hrms.employee_service.dto.employee.EmployeeResponseDto;
 import com.hrms.employee_service.service.DepartmentService;
 
 import java.util.LinkedHashMap;

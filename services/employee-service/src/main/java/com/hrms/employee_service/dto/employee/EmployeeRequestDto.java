@@ -5,8 +5,6 @@ import com.hrms.employee_service.model.Employee;
 import com.hrms.employee_service.repository.DepartmentRepository;
 import com.hrms.employee_service.model.EmploymentStatus;
 import com.hrms.employee_service.repository.EmployeeRepository;
-import com.hrms.employee_service.repository.LevelRepository;
-import com.hrms.employee_service.repository.PositionRepository;
 import jakarta.validation.Constraint;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
