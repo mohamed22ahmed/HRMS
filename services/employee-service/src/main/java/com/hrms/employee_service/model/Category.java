@@ -29,7 +29,7 @@ public class Category {
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
-    @OneToMany(mappedBy = "Category")
+    @OneToMany(mappedBy = "category")
     private List<Asset> assets = new ArrayList<>();
 
     @PrePersist
