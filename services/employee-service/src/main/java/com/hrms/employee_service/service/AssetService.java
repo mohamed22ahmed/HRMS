@@ -51,6 +51,11 @@ public class AssetService {
         if (request.getEmployeeId() != null) {
             asset.setEmployee(employeeRepository.getReferenceById(request.getEmployeeId()));
         }
+
+        if (request.getCategoryId() != null) {
+            asset.setCategory(categoryRepository.getReferenceById(request.getCategoryId()));
+        }
+
         return assetRepository.save(asset);
     }
 
