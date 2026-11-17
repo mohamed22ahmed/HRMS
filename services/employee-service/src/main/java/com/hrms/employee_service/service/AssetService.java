@@ -5,6 +5,7 @@ import com.hrms.employee_service.dto.common.RequestDto;
 import com.hrms.employee_service.exception.ResourceNotFoundException;
 import com.hrms.employee_service.model.asset.Asset;
 import com.hrms.employee_service.repository.AssetRepository;
+import com.hrms.employee_service.repository.CategoryRepository;
 import com.hrms.employee_service.repository.EmployeeRepository;
 import jakarta.validation.Validator;
 import org.springframework.beans.BeanUtils;
@@ -18,6 +19,9 @@ import java.util.UUID;
 public class AssetService {
     @Autowired
     private AssetRepository assetRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Autowired
     private EmployeeRepository employeeRepository;
@@ -34,7 +38,7 @@ public class AssetService {
     }
 
     public Asset store(AssetRequestDto request) {
-        return assetRepository.save(request.toAsset(employeeRepository));
+        return assetRepository.save(request.toAsset(employeeRepository, categoryRepository));
     }
 
     public Asset update(UUID id, AssetRequestDto request) {

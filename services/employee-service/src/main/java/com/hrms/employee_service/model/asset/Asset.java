@@ -1,5 +1,6 @@
 package com.hrms.employee_service.model.asset;
 
+import com.hrms.employee_service.model.Category;
 import com.hrms.employee_service.model.Employee;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -26,7 +27,11 @@ public class Asset {
     private String name;
     private String code;
     private String description;
-    private String category;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
+
     private String brand;
     private String model;
 

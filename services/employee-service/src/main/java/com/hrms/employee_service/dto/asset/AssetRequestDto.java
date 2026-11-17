@@ -5,6 +5,7 @@ import com.hrms.employee_service.model.Education;
 import com.hrms.employee_service.model.asset.Asset;
 import com.hrms.employee_service.model.asset.Condition;
 import com.hrms.employee_service.model.asset.Status;
+import com.hrms.employee_service.repository.CategoryRepository;
 import com.hrms.employee_service.repository.EmployeeRepository;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +22,7 @@ public class AssetRequestDto extends RequestDto {
     private String name;
     private String code;
     private String description;
-    private String category;
+    private UUID categoryId;
     private String brand;
     private String model;
     private String serialNumber;
@@ -32,13 +33,13 @@ public class AssetRequestDto extends RequestDto {
     private Status status;
     private String notes;
 
-    public Asset toAsset(EmployeeRepository employeeRepository) {
+    public Asset toAsset(EmployeeRepository employeeRepository, CategoryRepository categoryRepository) {
         Asset asset = new Asset();
         asset.setEmployee(employeeId == null ? null : employeeRepository.getReferenceById(employeeId));
         asset.setName(name);
         asset.setCode(code);
         asset.setDescription(description);
-        asset.setCategory(category);
+        asset.setCategory(categoryId == null ? null : categoryRepository.getReferenceById(categoryId));
         asset.setBrand(brand);
         asset.setModel(model);
         asset.setSerialNumber(serialNumber);

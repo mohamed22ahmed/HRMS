@@ -15,7 +15,7 @@ public final class AssetResponseDto {
         data.put("name", asset.getName());
         data.put("code", asset.getCode());
         data.put("description", asset.getDescription());
-        data.put("category", asset.getCategory());
+        data.put("category_id", asset.getCategory() == null ? null : asset.getCategory().getId());
         data.put("brand", asset.getBrand());
         data.put("model", asset.getModel());
         data.put("serial_number", asset.getSerialNumber());

@@ -4,7 +4,7 @@ CREATE TABLE assets (
     code VARCHAR(30) NOT NULL UNIQUE,
     name VARCHAR(100),
     description VARCHAR(255),
-    category VARCHAR(100), /*will change to category_id,*/
+    category_id UUID,
     brand VARCHAR(100),
     model VARCHAR(100),
     serial_number VARCHAR(150),
@@ -27,5 +27,6 @@ CREATE TABLE assets (
 );
 
 CREATE INDEX idx_assets_employee_id ON assets(employee_id);
+CREATE INDEX idx_assets_category_id ON assets(category_id);
 CREATE INDEX idx_assets_condition ON assets(condition);
 CREATE INDEX idx_assets_status ON assets(status);
