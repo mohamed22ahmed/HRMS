@@ -38,7 +38,7 @@ public class CategoryController {
 
     @GetMapping("/{id}/assets")
     public ResponseEntity<Map<String, Object>> getCategoryAssets(@PathVariable UUID id) {
-        List<Asset> assets = categoryService.getCategoryAssets(id);
+        List<Asset> assets = categoryService.categoryAssets(id);
         return ResponseEntity.ok(ApiResponseDto.successList(200, "Category Assets retrieved successfully", assets, AssetResponseDto::from));
     }
 

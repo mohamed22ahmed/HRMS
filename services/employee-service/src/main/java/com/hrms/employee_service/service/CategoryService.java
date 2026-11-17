@@ -32,7 +32,7 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 
-    public List<Asset> getCategoryAssets(UUID id){
+    public List<Asset> categoryAssets(UUID id){
         return findCategory(id).getAssets();
     }
 
