@@ -1,34 +1,40 @@
-package com.hrms.employee_service.dto.address;
+package com.hrms.employee_service.dto.branch;
 
 import com.hrms.employee_service.dto.common.RequestDto;
-import com.hrms.employee_service.model.Address;
+import com.hrms.employee_service.model.Branch;
+import com.hrms.employee_service.repository.AddressRepository;
+import com.hrms.employee_service.repository.EmployeeRepository;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.text.DecimalFormat;
+import java.util.UUID;
 
 @Getter
 @Setter
-public class AddressRequestDto extends RequestDto {
+public class BranchRequestDto extends RequestDto {
     public interface Create extends RequestDto.Create {}
 
-    private String country;
-    private String state;
-    private String city;
-    private String location;
-    private String postalCode;
-    private DecimalFormat latitude;
-    private DecimalFormat longitude;
+    private String code;
+    private String name;
+    private String description;
+    private String email;
+    private String phone;
+    private UUID addressId;
+    private UUID managerId;
+    private Boolean isHeadOffice;
+    private String status;
 
-    public Address toAddress() {
-        Address address = new Address();
-        address.setCountry(country);
-        address.setState(state);
-        address.setCity(city);
-        address.setLocation(location);
-        address.setPostalCode(postalCode);
-        address.setLatitude(latitude);
-        address.setLongitude(longitude);
-        return address;
+    public Branch toBranch(EmployeeRepository employeeRepository, AddressRepository addressRepository) {
+        Branch branch = new Branch();
+        branch.setCode(code);
+        branch.setName(name);
+        branch.setDescription(description);
+        branch.setEmail(email);
+        branch.setPhone(phone);
+        branch.setManager(managerId == null ? null : employeeRepository.getReferenceById(managerId));
+        branch.setAddress(addressId == null ? null : addressRepository.getReferenceById(addressId));
+        branch.setIsHeadOffice(isHeadOffice);
+        branch.setStatus(status);
+        return branch;
     }
 }

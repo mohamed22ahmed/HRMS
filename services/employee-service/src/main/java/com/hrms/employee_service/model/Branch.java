@@ -1,45 +1,46 @@
 package com.hrms.employee_service.model;
 
-import com.hrms.employee_service.model.asset.Asset;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
-import java.text.DecimalFormat;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "categories")
+@Table(name = "branches")
 @Getter
 @Setter
-public class Address {
+public class Branch {
     @Id
     @UuidGenerator
     private UUID id;
 
-    private String country;
-    private String state;
-    private String city;
-    private String location;
+    private String code;
+    private String name;
+    private String description;
+    private String email;
+    private String phone;
 
-    @Column(name = "postal_code")
-    private String postalCode;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "address_id")
+    private Address address;
 
-    private DecimalFormat latitude;
-    private DecimalFormat longitude;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "manager_id")
+    private Employee manager;
+
+    @Column(name = "is_head_office")
+    private Boolean isHeadOffice;
+
+    private String status;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
-
-    @OneToOne(mappedBy = "address")
-    private Employee manager;
 
     @PrePersist
     protected void onCreate() {
@@ -53,5 +54,5 @@ public class Address {
         updatedAt = Instant.now();
     }
 
-    public Address() {}
+    public Branch() {}
 }
