@@ -1,13 +1,11 @@
 package com.hrms.employee_service.controller;
 
-import com.hrms.employee_service.dto.asset.AssetRequestDto;
 import com.hrms.employee_service.dto.asset.AssetResponseDto;
 import com.hrms.employee_service.dto.category.CategoryRequestDto;
 import com.hrms.employee_service.dto.category.CategoryResponseDto;
 import com.hrms.employee_service.dto.common.ApiResponseDto;
 import com.hrms.employee_service.model.Category;
 import com.hrms.employee_service.model.asset.Asset;
-import com.hrms.employee_service.service.AssetService;
 import com.hrms.employee_service.service.CategoryService;
 import jakarta.validation.groups.Default;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +24,6 @@ import java.util.UUID;
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
-
-    @Autowired
-    private AssetService assetService;
 
     @GetMapping
     public ResponseEntity<Map<String, Object>> index() {
@@ -49,7 +44,7 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<Map<String, Object>> save(@Validated({Default.class, AssetRequestDto.Create.class}) @RequestBody CategoryRequestDto request) {
+    public ResponseEntity<Map<String, Object>> save(@Validated({Default.class, CategoryRequestDto.Create.class}) @RequestBody CategoryRequestDto request) {
         Category category = categoryService.store(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponseDto.success(201, "Category created successfully", CategoryResponseDto.from(category)));
     }

@@ -1,7 +1,6 @@
 package com.hrms.employee_service.dto.asset;
 
 import com.hrms.employee_service.dto.common.RequestDto;
-import com.hrms.employee_service.model.Education;
 import com.hrms.employee_service.model.asset.Asset;
 import com.hrms.employee_service.model.asset.Condition;
 import com.hrms.employee_service.model.asset.Status;

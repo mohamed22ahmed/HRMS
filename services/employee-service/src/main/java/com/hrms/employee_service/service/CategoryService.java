@@ -1,14 +1,11 @@
 package com.hrms.employee_service.service;
 
-import com.hrms.employee_service.dto.asset.AssetRequestDto;
 import com.hrms.employee_service.dto.category.CategoryRequestDto;
 import com.hrms.employee_service.dto.common.RequestDto;
 import com.hrms.employee_service.exception.ResourceNotFoundException;
 import com.hrms.employee_service.model.Category;
 import com.hrms.employee_service.model.asset.Asset;
-import com.hrms.employee_service.repository.AssetRepository;
 import com.hrms.employee_service.repository.CategoryRepository;
-import com.hrms.employee_service.repository.EmployeeRepository;
 import jakarta.validation.Validator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +16,6 @@ import java.util.UUID;
 
 @Service
 public class CategoryService {
-    @Autowired
-    private AssetRepository assetRepository;
-
     @Autowired
     private CategoryRepository categoryRepository;
 
