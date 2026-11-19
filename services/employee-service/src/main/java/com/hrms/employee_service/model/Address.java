@@ -1,6 +1,5 @@
 package com.hrms.employee_service.model;
 
-import com.hrms.employee_service.model.asset.Asset;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,12 +7,10 @@ import org.hibernate.annotations.UuidGenerator;
 
 import java.text.DecimalFormat;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "categories")
+@Table(name = "addresses")
 @Getter
 @Setter
 public class Address {
