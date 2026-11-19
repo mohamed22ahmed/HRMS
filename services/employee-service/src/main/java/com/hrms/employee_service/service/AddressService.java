@@ -4,6 +4,7 @@ import com.hrms.employee_service.dto.address.AddressRequestDto;
 import com.hrms.employee_service.dto.common.RequestDto;
 import com.hrms.employee_service.exception.ResourceNotFoundException;
 import com.hrms.employee_service.model.Address;
+import com.hrms.employee_service.model.Branch;
 import com.hrms.employee_service.repository.AddressRepository;
 import jakarta.validation.Validator;
 import org.springframework.beans.BeanUtils;
@@ -43,6 +44,10 @@ public class AddressService {
 
     public void delete(UUID id) {
         addressRepository.delete(findAddress(id));
+    }
+
+    public Branch getBranch(UUID work_id){
+        return findAddress(work_id).getBranch();
     }
 
     private Address findAddress(UUID id) {

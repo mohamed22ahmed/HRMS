@@ -2,8 +2,10 @@ package com.hrms.employee_service.controller;
 
 import com.hrms.employee_service.dto.address.AddressRequestDto;
 import com.hrms.employee_service.dto.address.AddressResponseDto;
+import com.hrms.employee_service.dto.branch.BranchResponseDto;
 import com.hrms.employee_service.dto.common.ApiResponseDto;
 import com.hrms.employee_service.model.Address;
+import com.hrms.employee_service.model.Branch;
 import com.hrms.employee_service.service.AddressService;
 import jakarta.validation.groups.Default;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +53,11 @@ public class AddressController {
     public ResponseEntity<Map<String, Object>> delete(@PathVariable UUID id) {
         addressService.delete(id);
         return ResponseEntity.ok(ApiResponseDto.success(200, "Address deleted successfully", Map.of("id", id)));
+    }
+
+    @GetMapping("/{id}/branch")
+    public ResponseEntity<Map<String, Object>> getBranch(@PathVariable UUID id){
+        Branch branch = addressService.getBranch(id);
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Position Branch retrieved successfully", BranchResponseDto.from(branch)));
     }
 }
