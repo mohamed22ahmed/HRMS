@@ -15,8 +15,9 @@ public final class DepartmentResponseDto {
         data.put("code", department.getCode());
         data.put("description", department.getDescription());
         data.put("is_active", department.getIsActive());
-        data.put("parent_department_id", department.getParentDepartmentId());
-        data.put("manager_employee_id", department.getManagerEmployeeId());
+        data.put("parent_department_id", department.getParentDepartment() == null ? null : department.getParentDepartment().getId());
+        data.put("manager_id", department.getManager() == null ? null : department.getManager().getId());
+        data.put("branch_id", department.getBranch() == null ? null : department.getBranch().getId());
         data.put("created_at", department.getCreatedAt());
         data.put("updated_at", department.getUpdatedAt());
         return data;

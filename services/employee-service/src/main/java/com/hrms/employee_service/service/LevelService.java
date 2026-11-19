@@ -32,15 +32,8 @@ public class LevelService {
         return levelRepository.findAll();
     }
 
-    public record LevelWorksResponse(
-            Level level,
-            List<Work> works
-    ) {}
-
-    public LevelService.LevelWorksResponse getLevelWorks(UUID levelId){
-        Level level = findLevel(levelId);
-        List<Work> works = level.getWorks();
-        return new LevelService.LevelWorksResponse(level, works);
+    public List<Work> getLevelWorks(UUID levelId){
+        return findLevel(levelId).getWorks();
     }
 
     public Level show(UUID id) {

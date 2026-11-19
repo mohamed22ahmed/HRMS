@@ -2,6 +2,9 @@ package com.hrms.employee_service.dto.department;
 
 import com.hrms.employee_service.dto.common.RequestDto;
 import com.hrms.employee_service.model.Department;
+import com.hrms.employee_service.repository.BranchRepository;
+import com.hrms.employee_service.repository.DepartmentRepository;
+import com.hrms.employee_service.repository.EmployeeRepository;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -26,19 +29,20 @@ public class DepartmentRequestDto extends RequestDto {
     private String description;
 
     private UUID parentDepartmentId;
-    private UUID managerEmployeeId;
+    private UUID managerId;
+    private UUID branchId;
     private Boolean isActive;
 
-    public Department toDepartment() {
+    public Department toDepartment(DepartmentRepository departmentRepository, EmployeeRepository employeeRepository, BranchRepository branchRepository) {
         Department department = new Department();
         department.setName(name);
         department.setCode(code);
         department.setDescription(description);
-        department.setParentDepartmentId(parentDepartmentId);
-        department.setManagerEmployeeId(managerEmployeeId);
-        if (isActive != null) {
-            department.setIsActive(isActive);
-        }
+        department.setParentDepartment(parentDepartmentId == null ? null : departmentRepository.getReferenceById(parentDepartmentId));
+        department.setManager(managerId == null ? null : employeeRepository.getReferenceById(managerId));
+        department.setBranch(branchId == null ? null : branchRepository.getReferenceById(branchId));
+        department.setIsActive(branchId == null || isActive);
+
         return department;
     }
 }

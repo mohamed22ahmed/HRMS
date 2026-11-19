@@ -1,9 +1,16 @@
 package com.hrms.employee_service.controller;
 
+import com.hrms.employee_service.dto.asset.AssetResponseDto;
 import com.hrms.employee_service.dto.common.ApiResponseDto;
 import com.hrms.employee_service.dto.department.*;
+import com.hrms.employee_service.dto.employee.EmployeeResponseDto;
+import com.hrms.employee_service.dto.level.LevelResponseDto;
+import com.hrms.employee_service.dto.position.PositionResponseDto;
 import com.hrms.employee_service.model.Department;
 import com.hrms.employee_service.model.Employee;
+import com.hrms.employee_service.model.Level;
+import com.hrms.employee_service.model.Position;
+import com.hrms.employee_service.model.asset.Asset;
 import com.hrms.employee_service.service.DepartmentService;
 import jakarta.validation.groups.Default;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,20 +45,20 @@ public class DepartmentController {
 
     @GetMapping("/{id}/employees")
     public ResponseEntity<Map<String, Object>> getDepartmentEmployees(@PathVariable UUID id) {
-        DepartmentService.DepartmentEmployeesResponse data = departmentService.getDepartmentEmployees(id);
-        return ResponseEntity.ok(ApiResponseDto.success(200, "Department Employees retrieved successfully", DepartmentEmployeesResponseDto.from(data)));
+        List<Employee> employees = departmentService.getDepartmentEmployees(id);
+        return ResponseEntity.ok(ApiResponseDto.successList(200, "Department Employees retrieved successfully", employees, EmployeeResponseDto::from));
     }
 
     @GetMapping("/{id}/positions")
     public ResponseEntity<Map<String, Object>> getDepartmentPositions(@PathVariable UUID id) {
-        DepartmentService.DepartmentPositionsResponse data = departmentService.getDepartmentPositions(id);
-        return ResponseEntity.ok(ApiResponseDto.success(200, "Department Positions retrieved successfully", DepartmentPositionsResponseDto.from(data)));
+        List<Position> positions = departmentService.getDepartmentPositions(id);
+        return ResponseEntity.ok(ApiResponseDto.successList(200, "Department Positions retrieved successfully", positions, PositionResponseDto::from));
     }
 
     @GetMapping("/{id}/levels")
     public ResponseEntity<Map<String, Object>> getDepartmentLevels(@PathVariable UUID id) {
-        DepartmentService.DepartmentLevelsResponse data = departmentService.getDepartmentLevels(id);
-        return ResponseEntity.ok(ApiResponseDto.success(200, "Department Levels retrieved successfully", DepartmentLevelsResponseDto.from(data)));
+        List<Level> levels = departmentService.getDepartmentLevels(id);
+        return ResponseEntity.ok(ApiResponseDto.successList(200, "Department Levels retrieved successfully", levels, LevelResponseDto::from));
     }
 
     @GetMapping("/{id}")
@@ -79,8 +86,8 @@ public class DepartmentController {
 
     @PostMapping("/{id}/set-manager")
     public ResponseEntity<Map<String, Object>> setManager(@PathVariable UUID id ,@RequestBody DepartmentRequestDto request){
-        DepartmentService.DepartmentManagerResponse depManager = departmentService.setDepartmentManager(id, request);
-        return ResponseEntity.ok(ApiResponseDto.success(200, "Department manager updated successfully", DepartmentManagerResponseDto.from(depManager)));
+        Employee manager = departmentService.setDepartmentManager(id, request);
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Department manager updated successfully", EmployeeResponseDto.from(manager)));
     }
 
     @PostMapping("/{id}/change-status")

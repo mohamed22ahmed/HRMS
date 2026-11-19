@@ -28,11 +28,17 @@ public class Department {
     @Column(length = 500)
     private String description;
 
-    @Column(name = "parent_department_id")
-    private UUID parentDepartmentId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_department_id")
+    private Department parentDepartment;
 
-    @Column(name = "manager_employee_id")
-    private UUID managerEmployeeId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "manager_id")
+    private Employee manager;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "branch_id")
+    private Branch branch;
 
     @Column(name = "is_active", nullable = false)
     private Boolean isActive = true;

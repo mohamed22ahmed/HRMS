@@ -71,7 +71,7 @@ public class EmployeeService{
     public Employee dropFromDepartment(UUID id) {
         Employee emp = findEmployee(id);
         departmentRepository.findByManagerEmployeeId(id).ifPresent(department -> {
-            department.setManagerEmployeeId(null);
+            department.setManager(null);
             departmentRepository.save(department);
         });
 

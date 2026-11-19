@@ -7,6 +7,8 @@ import com.hrms.employee_service.model.Department;
 import com.hrms.employee_service.model.Employee;
 import com.hrms.employee_service.model.Level;
 import com.hrms.employee_service.model.Position;
+import com.hrms.employee_service.model.asset.Asset;
+import com.hrms.employee_service.repository.BranchRepository;
 import com.hrms.employee_service.repository.DepartmentRepository;
 import com.hrms.employee_service.repository.EmployeeRepository;
 import jakarta.validation.Validator;
@@ -26,64 +28,33 @@ public class DepartmentService {
     private EmployeeRepository employeeRepository;
 
     @Autowired
-    private Validator validator;
+    private BranchRepository branchRepository;
+
     @Autowired
-    private EmployeeService employeeService;
+    private Validator validator;
 
     public List<Department> getDepartments() {
         return departmentRepository.findAll();
     }
 
-    public record DepartmentEmployeesResponse(
-            Department department,
-            List<Employee> employees
-    ) {}
-
-    public DepartmentEmployeesResponse getDepartmentEmployees(UUID departmentId){
-        Department dep = findDepartment(departmentId);
-        List<Employee> employees =  dep.getEmployees();
-        return new DepartmentEmployeesResponse(dep, employees);
+    public List<Employee> getDepartmentEmployees(UUID departmentId){
+        return findDepartment(departmentId).getEmployees();
     }
 
-    public record DepartmentPositionsResponse(
-            Department department,
-            List<Position> positions
-    ) {}
-
-    public DepartmentPositionsResponse getDepartmentPositions(UUID departmentId){
-        Department dep = findDepartment(departmentId);
-        List<Position> positions = dep.getPositions();
-        return new DepartmentPositionsResponse(dep, positions);
+    public List<Position> getDepartmentPositions(UUID departmentId){
+        return findDepartment(departmentId).getPositions();
     }
 
-    public record DepartmentLevelsResponse(
-            Department department,
-            List<Level> levels
-    ) {}
-
-    public DepartmentLevelsResponse getDepartmentLevels(UUID departmentId){
-        Department dep = findDepartment(departmentId);
-        List<Level> levels = dep.getLevels();
-        return new DepartmentLevelsResponse(dep, levels);
+    public List<Level> getDepartmentLevels(UUID departmentId){
+        return findDepartment(departmentId).getLevels();
     }
 
-    public record DepartmentManagerResponse(
-            String department_name,
-            String employee_name
-    ) {}
-
-    public DepartmentManagerResponse setDepartmentManager(UUID id, DepartmentRequestDto request){
-        Department dep = findDepartment(id);
-        UUID employeeId = request.getManagerEmployeeId();
-
-        Employee employee = employeeService.show(employeeId);
-        employee.setDepartment(dep);
-        employeeRepository.save(employee);
-
-        dep.setManagerEmployeeId(employeeId);
-        departmentRepository.save(dep);
-
-        return new DepartmentManagerResponse(dep.getName(), employee.getFirstName() + " " + employee.getLastName());
+    public Employee setDepartmentManager(UUID id, DepartmentRequestDto request){
+        Department department = findDepartment(id);
+        Employee manager = employeeRepository.getReferenceById(request.getManagerId());
+        department.setManager(manager);
+        manager.setDepartment(department);
+        return manager;
     }
 
     public Department show(UUID id) {
@@ -91,7 +62,7 @@ public class DepartmentService {
     }
 
     public Department store(DepartmentRequestDto request) {
-        return departmentRepository.save(request.toDepartment());
+        return departmentRepository.save(request.toDepartment(departmentRepository, employeeRepository, branchRepository));
     }
 
     public Department update(UUID id, DepartmentRequestDto request) {
@@ -101,6 +72,15 @@ public class DepartmentService {
         request.validate(validator);
 
         BeanUtils.copyProperties(request, department, RequestDto.nullProperties(request));
+        if (request.getManagerId() != null) {
+            department.setManager(employeeRepository.getReferenceById(request.getManagerId()));
+        }
+        if (request.getParentDepartmentId() != null) {
+            department.setParentDepartment(departmentRepository.getReferenceById(request.getParentDepartmentId()));
+        }
+        if (request.getBranchId() != null) {
+            department.setBranch(branchRepository.getReferenceById(request.getBranchId()));
+        }
         return departmentRepository.save(department);
     }
 

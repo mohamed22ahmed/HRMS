@@ -1,9 +1,10 @@
 package com.hrms.employee_service.controller;
 
 import com.hrms.employee_service.dto.common.ApiResponseDto;
-import com.hrms.employee_service.dto.position.PositionEmployeesResponseDto;
+import com.hrms.employee_service.dto.employee.EmployeeResponseDto;
 import com.hrms.employee_service.dto.position.PositionRequestDto;
 import com.hrms.employee_service.dto.position.PositionResponseDto;
+import com.hrms.employee_service.model.Employee;
 import com.hrms.employee_service.model.Position;
 import com.hrms.employee_service.service.PositionService;
 import jakarta.validation.groups.Default;
@@ -32,8 +33,8 @@ public class positionController {
 
     @GetMapping("/{id}/employees")
     public ResponseEntity<Map<String, Object>> getPositionEmployees(@PathVariable UUID id) {
-        PositionService.PositionEmployeesResponse data = positionService.getPositionEmployees(id);
-        return ResponseEntity.ok(ApiResponseDto.success(200, "Position Employees retrieved successfully", PositionEmployeesResponseDto.from(data)));
+        List<Employee> employees = positionService.getPositionEmployees(id);
+        return ResponseEntity.ok(ApiResponseDto.successList(200, "Position Employees retrieved successfully", employees, EmployeeResponseDto::from));
     }
 
     @GetMapping("/{id}")

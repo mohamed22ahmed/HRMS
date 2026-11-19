@@ -1,14 +1,11 @@
 package com.hrms.employee_service.controller;
 
 import com.hrms.employee_service.dto.common.ApiResponseDto;
-import com.hrms.employee_service.dto.department.DepartmentEmployeesResponseDto;
-import com.hrms.employee_service.dto.department.DepartmentRequestDto;
 import com.hrms.employee_service.dto.education.EducationResponseDto;
 import com.hrms.employee_service.dto.employee.EmployeeRequestDto;
 import com.hrms.employee_service.dto.employee.EmployeeResponseDto;
 import com.hrms.employee_service.model.Education;
 import com.hrms.employee_service.model.Employee;
-import com.hrms.employee_service.service.DepartmentService;
 import com.hrms.employee_service.service.EmployeeService;
 import jakarta.validation.groups.Default;
 import org.springframework.beans.factory.annotation.Autowired;

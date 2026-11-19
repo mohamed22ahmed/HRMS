@@ -3,8 +3,9 @@ package com.hrms.employee_service.controller;
 import com.hrms.employee_service.dto.common.ApiResponseDto;
 import com.hrms.employee_service.dto.level.LevelRequestDto;
 import com.hrms.employee_service.dto.level.LevelResponseDto;
-import com.hrms.employee_service.dto.level.LevelWorksResponseDto;
+import com.hrms.employee_service.dto.work.WorkResponseDto;
 import com.hrms.employee_service.model.Level;
+import com.hrms.employee_service.model.Work;
 import com.hrms.employee_service.service.LevelService;
 import jakarta.validation.groups.Default;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,8 @@ public class levelController {
 
     @GetMapping("/{id}/works")
     public ResponseEntity<Map<String, Object>> getLevelWorks(@PathVariable UUID id) {
-        LevelService.LevelWorksResponse data = levelService.getLevelWorks(id);
-        return ResponseEntity.ok(ApiResponseDto.success(200, "Level Works retrieved successfully", LevelWorksResponseDto.from(data)));
+        List<Work> works = levelService.getLevelWorks(id);
+        return ResponseEntity.ok(ApiResponseDto.successList(200, "Level Works retrieved successfully", works, WorkResponseDto::from));
     }
 
     @GetMapping("/{id}")

@@ -33,19 +33,8 @@ public class PositionService {
         return positionRepository.findAll();
     }
 
-    public record PositionEmployeesResponse(
-            Position position,
-            List<Employee> employees
-    ) {}
-
-    public PositionService.PositionEmployeesResponse getPositionEmployees(UUID positionId){
-        Position position = findPosition(positionId);
-        List<Employee> employees = position.getWorks().stream()
-                .map(Work::getEmployee)
-                .filter(Objects::nonNull)
-                .distinct()
-                .toList();
-        return new PositionService.PositionEmployeesResponse(position, employees);
+    public List<Employee> getPositionEmployees(UUID positionId){
+        return findPosition(positionId).getDepartment().getEmployees();
     }
 
     public Position show(UUID id) {
