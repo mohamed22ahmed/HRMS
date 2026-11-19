@@ -1,11 +1,14 @@
 package com.hrms.employee_service.model;
 
+import com.hrms.employee_service.model.asset.Asset;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -36,7 +39,13 @@ public class Employee {
     private Department department;
 
     @OneToOne(mappedBy = "employee")
+    private Work work;
+
+    @OneToOne(mappedBy = "employee")
     private Education education;
+
+    @OneToMany(mappedBy = "employee")
+    private List<Asset> assets = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     @Column(name = "employment_status", nullable = false)

@@ -39,6 +39,9 @@ public class Level {
     private Instant updatedAt;
 
     @OneToMany(mappedBy = "level")
+    private List<Employee> employees = new ArrayList<>();
+
+    @OneToMany(mappedBy = "level")
     private List<Work> works = new ArrayList<>();
 
     @PrePersist

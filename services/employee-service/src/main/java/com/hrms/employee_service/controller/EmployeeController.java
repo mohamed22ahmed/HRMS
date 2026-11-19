@@ -1,11 +1,15 @@
 package com.hrms.employee_service.controller;
 
+import com.hrms.employee_service.dto.asset.AssetResponseDto;
 import com.hrms.employee_service.dto.common.ApiResponseDto;
 import com.hrms.employee_service.dto.education.EducationResponseDto;
 import com.hrms.employee_service.dto.employee.EmployeeRequestDto;
 import com.hrms.employee_service.dto.employee.EmployeeResponseDto;
+import com.hrms.employee_service.dto.work.WorkResponseDto;
 import com.hrms.employee_service.model.Education;
 import com.hrms.employee_service.model.Employee;
+import com.hrms.employee_service.model.Work;
+import com.hrms.employee_service.model.asset.Asset;
 import com.hrms.employee_service.service.EmployeeService;
 import jakarta.validation.groups.Default;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,9 +85,21 @@ public class EmployeeController {
         return ResponseEntity.ok(ApiResponseDto.success(200, "Employee Status changed successfully", EmployeeResponseDto.from(emp)));
     }
 
+    @GetMapping("/{id}/work")
+    public ResponseEntity<Map<String, Object>> getWork(@PathVariable UUID id){
+        Work work = employeeService.getWork(id);
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Employee Work retrieved successfully", WorkResponseDto.from(work)));
+    }
+
     @GetMapping("/{id}/education")
     public ResponseEntity<Map<String, Object>> getEducation(@PathVariable UUID id){
         Education education = employeeService.getEducation(id);
         return ResponseEntity.ok(ApiResponseDto.success(200, "Employee Education retrieved successfully", EducationResponseDto.from(education)));
+    }
+
+    @GetMapping("/{id}/assets")
+    public ResponseEntity<Map<String, Object>> getAssets(@PathVariable UUID id){
+        List<Asset> assets = employeeService.getAssets(id);
+        return ResponseEntity.ok(ApiResponseDto.successList(200, "Employee Assets retrieved successfully", assets, AssetResponseDto::from));
     }
 }

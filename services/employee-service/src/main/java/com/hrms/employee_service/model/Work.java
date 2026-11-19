@@ -18,7 +18,7 @@ public class Work {
     @UuidGenerator
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private Employee employee;
 

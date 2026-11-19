@@ -1,11 +1,14 @@
 package com.hrms.employee_service.model;
 
+import com.hrms.employee_service.model.asset.Asset;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -35,6 +38,9 @@ public class Branch {
     private Boolean isHeadOffice;
 
     private String status;
+
+    @OneToMany(mappedBy = "branch")
+    private List<Department> departments = new ArrayList<>();
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;

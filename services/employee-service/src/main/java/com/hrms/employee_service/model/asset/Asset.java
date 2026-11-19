@@ -2,6 +2,7 @@ package com.hrms.employee_service.model.asset;
 
 import com.hrms.employee_service.model.Category;
 import com.hrms.employee_service.model.Employee;
+import com.hrms.employee_service.model.Work;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,6 +10,8 @@ import org.hibernate.annotations.UuidGenerator;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -20,7 +23,7 @@ public class Asset {
     @UuidGenerator
     private UUID id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private Employee employee;
 

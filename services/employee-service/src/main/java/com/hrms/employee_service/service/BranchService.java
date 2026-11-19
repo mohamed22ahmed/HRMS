@@ -6,6 +6,7 @@ import com.hrms.employee_service.dto.common.RequestDto;
 import com.hrms.employee_service.exception.ResourceNotFoundException;
 import com.hrms.employee_service.model.Address;
 import com.hrms.employee_service.model.Branch;
+import com.hrms.employee_service.model.Department;
 import com.hrms.employee_service.repository.AddressRepository;
 import com.hrms.employee_service.repository.BranchRepository;
 import com.hrms.employee_service.repository.EmployeeRepository;
@@ -33,6 +34,14 @@ public class BranchService {
 
     public List<Branch> getBranches() {
         return branchRepository.findAll();
+    }
+
+    public List<Department> getBranchDepartments(UUID id){
+        return findBranch(id).getDepartments();
+    }
+
+    public Address getBranchAddress(UUID id){
+        return findBranch(id).getAddress();
     }
 
     public Branch show(UUID id) {

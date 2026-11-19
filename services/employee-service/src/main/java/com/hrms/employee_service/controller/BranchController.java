@@ -5,8 +5,10 @@ import com.hrms.employee_service.dto.address.AddressResponseDto;
 import com.hrms.employee_service.dto.branch.BranchRequestDto;
 import com.hrms.employee_service.dto.branch.BranchResponseDto;
 import com.hrms.employee_service.dto.common.ApiResponseDto;
+import com.hrms.employee_service.dto.department.DepartmentResponseDto;
 import com.hrms.employee_service.model.Address;
 import com.hrms.employee_service.model.Branch;
+import com.hrms.employee_service.model.Department;
 import com.hrms.employee_service.service.BranchService;
 import jakarta.validation.groups.Default;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,18 @@ public class BranchController {
     public ResponseEntity<Map<String, Object>> index() {
         List<Branch> branches = branchService.getBranches();
         return ResponseEntity.ok(ApiResponseDto.successList(200, "Branches retrieved successfully", branches, BranchResponseDto::from));
+    }
+
+    @GetMapping("/{id}/departments")
+    public ResponseEntity<Map<String, Object>> getBranchDepartments(@PathVariable UUID id) {
+        List<Department> departments = branchService.getBranchDepartments(id);
+        return ResponseEntity.ok(ApiResponseDto.successList(200, "Branch Departments retrieved successfully", departments, DepartmentResponseDto::from));
+    }
+
+    @GetMapping("/{id}/address")
+    public ResponseEntity<Map<String, Object>> getBranchAddress(@PathVariable UUID id) {
+        Address address = branchService.getBranchAddress(id);
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Branch Address retrieved successfully", AddressResponseDto.from(address)));
     }
 
     @GetMapping("/{id}")

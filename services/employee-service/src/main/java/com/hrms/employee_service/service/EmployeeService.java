@@ -6,6 +6,8 @@ import com.hrms.employee_service.exception.ResourceNotFoundException;
 import com.hrms.employee_service.model.Department;
 import com.hrms.employee_service.model.Education;
 import com.hrms.employee_service.model.Employee;
+import com.hrms.employee_service.model.Work;
+import com.hrms.employee_service.model.asset.Asset;
 import com.hrms.employee_service.repository.EmployeeRepository;
 import com.hrms.employee_service.repository.DepartmentRepository;
 import com.hrms.employee_service.repository.LevelRepository;
@@ -85,9 +87,16 @@ public class EmployeeService{
         return employeeRepository.save(employee);
     }
 
+    public Work getWork(UUID employee_id){
+        return findEmployee(employee_id).getWork();
+    }
+
     public Education getEducation(UUID employee_id){
-        Employee employee = findEmployee(employee_id);
-        return employee.getEducation();
+        return findEmployee(employee_id).getEducation();
+    }
+
+    public List<Asset> getAssets(UUID employee_id){
+        return findEmployee(employee_id).getAssets();
     }
 
     private Employee findEmployee(UUID id) {
