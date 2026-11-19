@@ -3,10 +3,7 @@ package com.hrms.employee_service.service;
 import com.hrms.employee_service.dto.common.RequestDto;
 import com.hrms.employee_service.dto.position.PositionRequestDto;
 import com.hrms.employee_service.exception.ResourceNotFoundException;
-import com.hrms.employee_service.model.Department;
-import com.hrms.employee_service.model.Employee;
-import com.hrms.employee_service.model.Position;
-import com.hrms.employee_service.model.Work;
+import com.hrms.employee_service.model.*;
 import com.hrms.employee_service.repository.DepartmentRepository;
 import com.hrms.employee_service.repository.PositionRepository;
 import jakarta.validation.Validator;
@@ -31,10 +28,6 @@ public class PositionService {
 
     public List<Position> getPositions() {
         return positionRepository.findAll();
-    }
-
-    public List<Employee> getPositionEmployees(UUID positionId){
-        return findPosition(positionId).getDepartment().getEmployees();
     }
 
     public Position show(UUID id) {
@@ -85,6 +78,22 @@ public class PositionService {
 
     public void delete(UUID id) {
         positionRepository.delete(findPosition(id));
+    }
+
+    public List<Employee> getEmployees(UUID position_id){
+        return findPosition(position_id).getEmployees();
+    }
+
+    public List<Work> getWorks(UUID position_id){
+        return findPosition(position_id).getWorks();
+    }
+
+    public Branch getBranch(UUID position_id){
+        return findPosition(position_id).getDepartment().getBranch();
+    }
+
+    public Department getDepartment(UUID position_id){
+        return findPosition(position_id).getDepartment();
     }
 
     private Position findPosition(UUID id) {

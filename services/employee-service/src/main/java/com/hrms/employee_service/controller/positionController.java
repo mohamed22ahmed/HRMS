@@ -1,11 +1,12 @@
 package com.hrms.employee_service.controller;
 
+import com.hrms.employee_service.dto.branch.BranchResponseDto;
 import com.hrms.employee_service.dto.common.ApiResponseDto;
+import com.hrms.employee_service.dto.department.DepartmentResponseDto;
 import com.hrms.employee_service.dto.employee.EmployeeResponseDto;
 import com.hrms.employee_service.dto.position.PositionRequestDto;
 import com.hrms.employee_service.dto.position.PositionResponseDto;
-import com.hrms.employee_service.model.Employee;
-import com.hrms.employee_service.model.Position;
+import com.hrms.employee_service.model.*;
 import com.hrms.employee_service.service.PositionService;
 import jakarta.validation.groups.Default;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +30,6 @@ public class positionController {
     public ResponseEntity<Map<String, Object>> index() {
         List<Position> positions = positionService.getPositions();
         return ResponseEntity.ok(ApiResponseDto.successList(200, "Positions retrieved successfully", positions, PositionResponseDto::from));
-    }
-
-    @GetMapping("/{id}/employees")
-    public ResponseEntity<Map<String, Object>> getPositionEmployees(@PathVariable UUID id) {
-        List<Employee> employees = positionService.getPositionEmployees(id);
-        return ResponseEntity.ok(ApiResponseDto.successList(200, "Position Employees retrieved successfully", employees, EmployeeResponseDto::from));
     }
 
     @GetMapping("/{id}")
@@ -77,5 +72,29 @@ public class positionController {
     public ResponseEntity<Map<String, Object>> changeStatus(@PathVariable UUID id, @RequestBody PositionRequestDto request){
         Position position = positionService.changeStatus(id, request);
         return ResponseEntity.ok(ApiResponseDto.success(200, "Position Status changed successfully", PositionResponseDto.from(position)));
+    }
+
+    @GetMapping("/{id}/employees")
+    public ResponseEntity<Map<String, Object>> getEmployees(@PathVariable UUID id) {
+        List<Employee> employees = positionService.getEmployees(id);
+        return ResponseEntity.ok(ApiResponseDto.successList(200, "Position Employees retrieved successfully", employees, EmployeeResponseDto::from));
+    }
+
+    @GetMapping("/{id}/works")
+    public ResponseEntity<Map<String, Object>> getWorks(@PathVariable UUID id) {
+        List<Work> works = positionService.getWorks(id);
+        return ResponseEntity.ok(ApiResponseDto.successList(200, "Position Works retrieved successfully", works, WorksResponseDto::from));
+    }
+
+    @GetMapping("/{id}/branch")
+    public ResponseEntity<Map<String, Object>> getBranch(@PathVariable UUID id){
+        Branch branch = positionService.getBranch(id);
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Education Branch retrieved successfully", BranchResponseDto.from(branch)));
+    }
+
+    @GetMapping("/{id}/department")
+    public ResponseEntity<Map<String, Object>> getDepartment(@PathVariable UUID id){
+        Department department = positionService.getDepartment(id);
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Education Department retrieved successfully", DepartmentResponseDto.from(department)));
     }
 }
