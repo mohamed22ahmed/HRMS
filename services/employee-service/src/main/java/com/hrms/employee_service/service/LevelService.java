@@ -3,10 +3,7 @@ package com.hrms.employee_service.service;
 import com.hrms.employee_service.dto.common.RequestDto;
 import com.hrms.employee_service.dto.level.LevelRequestDto;
 import com.hrms.employee_service.exception.ResourceNotFoundException;
-import com.hrms.employee_service.model.Employee;
-import com.hrms.employee_service.model.Level;
-import com.hrms.employee_service.model.Position;
-import com.hrms.employee_service.model.Work;
+import com.hrms.employee_service.model.*;
 import com.hrms.employee_service.repository.DepartmentRepository;
 import com.hrms.employee_service.repository.LevelRepository;
 import jakarta.validation.Validator;
@@ -30,10 +27,6 @@ public class LevelService {
 
     public List<Level> getLevels() {
         return levelRepository.findAll();
-    }
-
-    public List<Work> getLevelWorks(UUID levelId){
-        return findLevel(levelId).getWorks();
     }
 
     public Level show(UUID id) {
@@ -84,6 +77,22 @@ public class LevelService {
 
     public void delete(UUID id) {
         levelRepository.delete(findLevel(id));
+    }
+
+    public List<Employee> getEmployees(UUID level_id){
+        return findLevel(level_id).getEmployees();
+    }
+
+    public List<Work> getWorks(UUID level_id){
+        return findLevel(level_id).getWorks();
+    }
+
+    public Branch getBranch(UUID level_id){
+        return findLevel(level_id).getDepartment().getBranch();
+    }
+
+    public Department getDepartment(UUID level_id){
+        return findLevel(level_id).getDepartment();
     }
 
     private Level findLevel(UUID id) {

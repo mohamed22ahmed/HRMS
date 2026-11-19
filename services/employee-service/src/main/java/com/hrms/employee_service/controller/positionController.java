@@ -6,6 +6,7 @@ import com.hrms.employee_service.dto.department.DepartmentResponseDto;
 import com.hrms.employee_service.dto.employee.EmployeeResponseDto;
 import com.hrms.employee_service.dto.position.PositionRequestDto;
 import com.hrms.employee_service.dto.position.PositionResponseDto;
+import com.hrms.employee_service.dto.work.WorkResponseDto;
 import com.hrms.employee_service.model.*;
 import com.hrms.employee_service.service.PositionService;
 import jakarta.validation.groups.Default;
@@ -83,18 +84,18 @@ public class positionController {
     @GetMapping("/{id}/works")
     public ResponseEntity<Map<String, Object>> getWorks(@PathVariable UUID id) {
         List<Work> works = positionService.getWorks(id);
-        return ResponseEntity.ok(ApiResponseDto.successList(200, "Position Works retrieved successfully", works, WorksResponseDto::from));
+        return ResponseEntity.ok(ApiResponseDto.successList(200, "Position Works retrieved successfully", works, WorkResponseDto::from));
     }
 
     @GetMapping("/{id}/branch")
     public ResponseEntity<Map<String, Object>> getBranch(@PathVariable UUID id){
         Branch branch = positionService.getBranch(id);
-        return ResponseEntity.ok(ApiResponseDto.success(200, "Education Branch retrieved successfully", BranchResponseDto.from(branch)));
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Position Branch retrieved successfully", BranchResponseDto.from(branch)));
     }
 
     @GetMapping("/{id}/department")
     public ResponseEntity<Map<String, Object>> getDepartment(@PathVariable UUID id){
         Department department = positionService.getDepartment(id);
-        return ResponseEntity.ok(ApiResponseDto.success(200, "Education Department retrieved successfully", DepartmentResponseDto.from(department)));
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Position Department retrieved successfully", DepartmentResponseDto.from(department)));
     }
 }
