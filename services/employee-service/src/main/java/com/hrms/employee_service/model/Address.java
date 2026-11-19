@@ -35,9 +35,6 @@ public class Address {
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
-    @OneToOne(mappedBy = "address")
-    private Employee manager;
-
     @PrePersist
     protected void onCreate() {
         Instant now = Instant.now();

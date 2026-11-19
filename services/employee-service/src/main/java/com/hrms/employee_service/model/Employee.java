@@ -38,9 +38,6 @@ public class Employee {
     @OneToOne(mappedBy = "employee")
     private Education education;
 
-    @OneToOne(mappedBy = "employee")
-    private Address address;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "employment_status", nullable = false)
     private EmploymentStatus employmentStatus = EmploymentStatus.ACTIVE;
