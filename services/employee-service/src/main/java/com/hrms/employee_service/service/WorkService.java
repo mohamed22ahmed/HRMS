@@ -4,8 +4,7 @@ import com.hrms.employee_service.dto.common.RequestDto;
 import com.hrms.employee_service.dto.employee.EmployeeRequestDto;
 import com.hrms.employee_service.dto.work.WorkRequestDto;
 import com.hrms.employee_service.exception.ResourceNotFoundException;
-import com.hrms.employee_service.model.Employee;
-import com.hrms.employee_service.model.Work;
+import com.hrms.employee_service.model.*;
 import com.hrms.employee_service.repository.*;
 import jakarta.validation.Validator;
 import org.springframework.beans.BeanUtils;
@@ -97,6 +96,26 @@ public class WorkService {
         Work work = findWork(id);
         work.setLevel(null);
         return workRepository.save(work);
+    }
+
+    public Employee getEmployee(UUID work_id){
+        return findWork(work_id).getEmployee();
+    }
+    
+    public Branch getBranch(UUID work_id){
+        return findWork(work_id).getEmployee().getDepartment().getBranch();
+    }
+
+    public Department getDepartment(UUID work_id){
+        return findWork(work_id).getEmployee().getDepartment();
+    }
+
+    public Position getPosition(UUID work_id){
+        return findWork(work_id).getPosition();
+    }
+
+    public Level getLevel(UUID work_id){
+        return findWork(work_id).getLevel();
     }
 
     private Work findWork(UUID id) {

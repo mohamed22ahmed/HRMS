@@ -1,9 +1,16 @@
 package com.hrms.employee_service.controller;
 
+import com.hrms.employee_service.dto.asset.AssetResponseDto;
+import com.hrms.employee_service.dto.branch.BranchResponseDto;
 import com.hrms.employee_service.dto.common.ApiResponseDto;
+import com.hrms.employee_service.dto.department.DepartmentResponseDto;
+import com.hrms.employee_service.dto.employee.EmployeeResponseDto;
+import com.hrms.employee_service.dto.level.LevelResponseDto;
+import com.hrms.employee_service.dto.position.PositionResponseDto;
 import com.hrms.employee_service.dto.work.WorkRequestDto;
 import com.hrms.employee_service.dto.work.WorkResponseDto;
-import com.hrms.employee_service.model.Work;
+import com.hrms.employee_service.model.*;
+import com.hrms.employee_service.model.asset.Asset;
 import com.hrms.employee_service.service.WorkService;
 import jakarta.validation.groups.Default;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,5 +82,35 @@ public class WorkController {
     public ResponseEntity<Map<String, Object>>  dropLevel(@PathVariable UUID id){
         Work work = workService.dropLevel(id);
         return ResponseEntity.ok(ApiResponseDto.success(200, "Level dropped from the Work successfully", WorkResponseDto.from(work)));
+    }
+
+    @GetMapping("/{id}/employee")
+    public ResponseEntity<Map<String, Object>> getEmployee(@PathVariable UUID id){
+        Employee employee = workService.getEmployee(id);
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Work Employee retrieved successfully", EmployeeResponseDto.from(employee)));
+    }
+
+    @GetMapping("/{id}/branch")
+    public ResponseEntity<Map<String, Object>> getBranch(@PathVariable UUID id){
+        Branch branch = workService.getBranch(id);
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Work Branch retrieved successfully", BranchResponseDto.from(branch)));
+    }
+
+    @GetMapping("/{id}/department")
+    public ResponseEntity<Map<String, Object>> getDepartment(@PathVariable UUID id){
+        Department department = workService.getDepartment(id);
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Work Department retrieved successfully", DepartmentResponseDto.from(department)));
+    }
+
+    @GetMapping("/{id}/position")
+    public ResponseEntity<Map<String, Object>> getPosition(@PathVariable UUID id){
+        Position position = workService.getPosition(id);
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Work Position retrieved successfully", PositionResponseDto.from(position)));
+    }
+
+    @GetMapping("/{id}/lrvrl")
+    public ResponseEntity<Map<String, Object>> getLevel(@PathVariable UUID id){
+        Level level = workService.getLevel(id);
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Work Level retrieved successfully", LevelResponseDto.from(level)));
     }
 }
