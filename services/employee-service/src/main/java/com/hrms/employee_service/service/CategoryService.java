@@ -26,10 +26,6 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 
-    public List<Asset> categoryAssets(UUID id){
-        return findCategory(id).getAssets();
-    }
-
     public Category show(UUID id) {
         return findCategory(id);
     }
@@ -48,6 +44,10 @@ public class CategoryService {
 
     public void delete(UUID id) {
         categoryRepository.delete(findCategory(id));
+    }
+
+    public List<Asset> getAssets(UUID employee_id){
+        return findCategory(employee_id).getAssets();
     }
 
     private Category findCategory(UUID id) {

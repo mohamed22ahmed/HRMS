@@ -31,12 +31,6 @@ public class CategoryController {
         return ResponseEntity.ok(ApiResponseDto.successList(200, "Categories retrieved successfully", categories, CategoryResponseDto::from));
     }
 
-    @GetMapping("/{id}/assets")
-    public ResponseEntity<Map<String, Object>> getCategoryAssets(@PathVariable UUID id) {
-        List<Asset> assets = categoryService.categoryAssets(id);
-        return ResponseEntity.ok(ApiResponseDto.successList(200, "Category Assets retrieved successfully", assets, AssetResponseDto::from));
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<Map<String, Object>> show(@PathVariable UUID id) {
         Category category = categoryService.show(id);
@@ -59,5 +53,11 @@ public class CategoryController {
     public ResponseEntity<Map<String, Object>> delete(@PathVariable UUID id) {
         categoryService.delete(id);
         return ResponseEntity.ok(ApiResponseDto.success(200, "Category deleted successfully", Map.of("id", id)));
+    }
+
+    @GetMapping("/{id}/assets")
+    public ResponseEntity<Map<String, Object>> getAssets(@PathVariable UUID id) {
+        List<Asset> assets = categoryService.getAssets(id);
+        return ResponseEntity.ok(ApiResponseDto.successList(200, "Category Assets retrieved successfully", assets, AssetResponseDto::from));
     }
 }
