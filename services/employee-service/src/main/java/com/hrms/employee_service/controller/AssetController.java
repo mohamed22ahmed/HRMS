@@ -2,10 +2,14 @@ package com.hrms.employee_service.controller;
 
 import com.hrms.employee_service.dto.asset.AssetRequestDto;
 import com.hrms.employee_service.dto.asset.AssetResponseDto;
+import com.hrms.employee_service.dto.branch.BranchResponseDto;
+import com.hrms.employee_service.dto.category.CategoryResponseDto;
 import com.hrms.employee_service.dto.common.ApiResponseDto;
+import com.hrms.employee_service.dto.department.DepartmentResponseDto;
 import com.hrms.employee_service.dto.education.EducationRequestDto;
 import com.hrms.employee_service.dto.education.EducationResponseDto;
-import com.hrms.employee_service.model.Education;
+import com.hrms.employee_service.dto.employee.EmployeeResponseDto;
+import com.hrms.employee_service.model.*;
 import com.hrms.employee_service.model.asset.Asset;
 import com.hrms.employee_service.service.AssetService;
 import jakarta.validation.groups.Default;
@@ -66,5 +70,29 @@ public class AssetController {
     public ResponseEntity<Map<String, Object>> changeCondition(@PathVariable UUID id, @RequestBody AssetRequestDto request){
         Asset asset = assetService.changeCondition(id, request);
         return ResponseEntity.ok(ApiResponseDto.success(200, "Asset condition updated successfully", AssetResponseDto.from(asset)));
+    }
+
+    @GetMapping("/{id}/category")
+    public ResponseEntity<Map<String, Object>> getCategory(@PathVariable UUID id){
+        Category category = assetService.getCategory(id);
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Asset Category retrieved successfully", CategoryResponseDto.from(category)));
+    }
+
+    @GetMapping("/{id}/employee")
+    public ResponseEntity<Map<String, Object>> getEmployee(@PathVariable UUID id){
+        Employee employee = assetService.getEmployee(id);
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Asset Employee retrieved successfully", EmployeeResponseDto.from(employee)));
+    }
+
+    @GetMapping("/{id}/branch")
+    public ResponseEntity<Map<String, Object>> getBranch(@PathVariable UUID id){
+        Branch branch = assetService.getBranch(id);
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Asset Branch retrieved successfully", BranchResponseDto.from(branch)));
+    }
+
+    @GetMapping("/{id}/department")
+    public ResponseEntity<Map<String, Object>> getDepartment(@PathVariable UUID id){
+        Department department = assetService.getDepartment(id);
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Asset Department retrieved successfully", DepartmentResponseDto.from(department)));
     }
 }

@@ -3,6 +3,10 @@ package com.hrms.employee_service.service;
 import com.hrms.employee_service.dto.asset.AssetRequestDto;
 import com.hrms.employee_service.dto.common.RequestDto;
 import com.hrms.employee_service.exception.ResourceNotFoundException;
+import com.hrms.employee_service.model.Branch;
+import com.hrms.employee_service.model.Category;
+import com.hrms.employee_service.model.Department;
+import com.hrms.employee_service.model.Employee;
 import com.hrms.employee_service.model.asset.Asset;
 import com.hrms.employee_service.repository.AssetRepository;
 import com.hrms.employee_service.repository.CategoryRepository;
@@ -73,6 +77,22 @@ public class AssetService {
         Asset asset = findAsset(id);
         asset.setCondition(request.getCondition());
         return assetRepository.save(asset);
+    }
+
+    public Category getCategory(UUID asset_id){
+        return findAsset(asset_id).getCategory();
+    }
+
+    public Employee getEmployee(UUID asset_id){
+        return findAsset(asset_id).getEmployee();
+    }
+
+    public Branch getBranch(UUID asset_id){
+        return findAsset(asset_id).getEmployee().getDepartment().getBranch();
+    }
+
+    public Department getDepartment(UUID asset_id){
+        return findAsset(asset_id).getEmployee().getDepartment();
     }
 
     private Asset findAsset(UUID id) {
