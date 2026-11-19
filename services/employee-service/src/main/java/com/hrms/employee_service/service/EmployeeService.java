@@ -3,10 +3,7 @@ package com.hrms.employee_service.service;
 import com.hrms.employee_service.dto.employee.EmployeeRequestDto;
 import com.hrms.employee_service.dto.common.RequestDto;
 import com.hrms.employee_service.exception.ResourceNotFoundException;
-import com.hrms.employee_service.model.Department;
-import com.hrms.employee_service.model.Education;
-import com.hrms.employee_service.model.Employee;
-import com.hrms.employee_service.model.Work;
+import com.hrms.employee_service.model.*;
 import com.hrms.employee_service.model.asset.Asset;
 import com.hrms.employee_service.repository.EmployeeRepository;
 import com.hrms.employee_service.repository.DepartmentRepository;
@@ -85,6 +82,22 @@ public class EmployeeService{
         Employee employee = findEmployee(id);
         employee.setEmploymentStatus(request.getEmploymentStatus());
         return employeeRepository.save(employee);
+    }
+
+    public Branch getBranch(UUID employee_id){
+        return findEmployee(employee_id).getDepartment().getBranch();
+    }
+
+    public Department getDepartment(UUID employee_id){
+        return findEmployee(employee_id).getDepartment();
+    }
+
+    public Position getPosition(UUID employee_id){
+        return findEmployee(employee_id).getWork().getPosition();
+    }
+
+    public Level getLevel(UUID employee_id){
+        return findEmployee(employee_id).getWork().getLevel();
     }
 
     public Work getWork(UUID employee_id){
