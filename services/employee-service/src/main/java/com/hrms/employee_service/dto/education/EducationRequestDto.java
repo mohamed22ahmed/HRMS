@@ -17,7 +17,7 @@ public class EducationRequestDto extends RequestDto {
     private UUID employeeId;
     private String university;
     private String degree;
-    private String department;
+    private String depart;
     private LocalDate graduateDate;
 
     public Education toEducation(EmployeeRepository employeeRepository) {
@@ -25,7 +25,7 @@ public class EducationRequestDto extends RequestDto {
         education.setEmployee(employeeId == null ? null : employeeRepository.getReferenceById(employeeId));
         education.setUniversity(university);
         education.setDegree(degree);
-        education.setDepartment(department);
+        education.setDepart(depart);
         education.setGraduateDate(graduateDate);
         return education;
     }

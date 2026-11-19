@@ -1,9 +1,15 @@
 package com.hrms.employee_service.controller;
 
+import com.hrms.employee_service.dto.branch.BranchResponseDto;
 import com.hrms.employee_service.dto.common.ApiResponseDto;
+import com.hrms.employee_service.dto.department.DepartmentResponseDto;
 import com.hrms.employee_service.dto.education.EducationRequestDto;
 import com.hrms.employee_service.dto.education.EducationResponseDto;
+import com.hrms.employee_service.dto.employee.EmployeeResponseDto;
+import com.hrms.employee_service.model.Branch;
+import com.hrms.employee_service.model.Department;
 import com.hrms.employee_service.model.Education;
+import com.hrms.employee_service.model.Employee;
 import com.hrms.employee_service.service.EducationService;
 import jakarta.validation.groups.Default;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +57,23 @@ public class EducationController {
     public ResponseEntity<Map<String, Object>> delete(@PathVariable UUID id) {
         educationService.delete(id);
         return ResponseEntity.ok(ApiResponseDto.success(200, "Education deleted successfully", Map.of("id", id)));
+    }
+
+    @GetMapping("/{id}/employee")
+    public ResponseEntity<Map<String, Object>> getEmployee(@PathVariable UUID id){
+        Employee employee = educationService.getEmployee(id);
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Education Employee retrieved successfully", EmployeeResponseDto.from(employee)));
+    }
+
+    @GetMapping("/{id}/branch")
+    public ResponseEntity<Map<String, Object>> getBranch(@PathVariable UUID id){
+        Branch branch = educationService.getBranch(id);
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Education Branch retrieved successfully", BranchResponseDto.from(branch)));
+    }
+
+    @GetMapping("/{id}/department")
+    public ResponseEntity<Map<String, Object>> getDepartment(@PathVariable UUID id){
+        Department department = educationService.getDepartment(id);
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Education Department retrieved successfully", DepartmentResponseDto.from(department)));
     }
 }

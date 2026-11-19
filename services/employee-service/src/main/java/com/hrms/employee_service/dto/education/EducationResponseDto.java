@@ -14,7 +14,7 @@ public final class EducationResponseDto {
         data.put("employee_id", education.getEmployee() == null ? null : education.getEmployee().getId());
         data.put("university", education.getUniversity());
         data.put("degree", education.getDegree());
-        data.put("department", education.getDepartment());
+        data.put("depart", education.getDepartment());
         data.put("graduate_date", education.getGraduateDate());
         data.put("created_at", education.getCreatedAt());
         data.put("updated_at", education.getUpdatedAt());

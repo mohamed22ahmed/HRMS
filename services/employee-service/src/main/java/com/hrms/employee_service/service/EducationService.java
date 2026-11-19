@@ -3,7 +3,10 @@ package com.hrms.employee_service.service;
 import com.hrms.employee_service.dto.common.RequestDto;
 import com.hrms.employee_service.dto.education.EducationRequestDto;
 import com.hrms.employee_service.exception.ResourceNotFoundException;
+import com.hrms.employee_service.model.Branch;
+import com.hrms.employee_service.model.Department;
 import com.hrms.employee_service.model.Education;
+import com.hrms.employee_service.model.Employee;
 import com.hrms.employee_service.repository.*;
 import jakarta.validation.Validator;
 import org.springframework.beans.BeanUtils;
@@ -51,6 +54,18 @@ public class EducationService {
 
     public void delete(UUID id) {
         educationRepository.delete(findEducation(id));
+    }
+
+    public Employee getEmployee(UUID education_id){
+        return findEducation(education_id).getEmployee();
+    }
+
+    public Branch getBranch(UUID education_id){
+        return findEducation(education_id).getDepartment().getBranch();
+    }
+
+    public Department getDepartment(UUID education_id){
+        return findEducation(education_id).getDepartment();
     }
 
     private Education findEducation(UUID id) {
