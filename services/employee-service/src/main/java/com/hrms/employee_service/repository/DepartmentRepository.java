@@ -9,6 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface DepartmentRepository extends JpaRepository<Department, UUID> {
-    Optional<Department> findByManagerEmployeeId(UUID managerEmployeeId);
+    Optional<Department> findByManager_Id(UUID managerId);
 
 }

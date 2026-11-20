@@ -69,7 +69,7 @@ public class EmployeeService{
 
     public Employee dropFromDepartment(UUID id) {
         Employee emp = findEmployee(id);
-        departmentRepository.findByManagerEmployeeId(id).ifPresent(department -> {
+        departmentRepository.findByManager_Id(id).ifPresent(department -> {
             department.setManager(null);
             departmentRepository.save(department);
         });
