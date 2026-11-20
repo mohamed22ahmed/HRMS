@@ -37,26 +37,6 @@ public class DepartmentService {
         return departmentRepository.findAll();
     }
 
-    public List<Employee> getDepartmentEmployees(UUID departmentId){
-        return findDepartment(departmentId).getEmployees();
-    }
-
-    public List<Position> getDepartmentPositions(UUID departmentId){
-        return findDepartment(departmentId).getPositions();
-    }
-
-    public List<Level> getDepartmentLevels(UUID departmentId){
-        return findDepartment(departmentId).getLevels();
-    }
-
-    public Employee setDepartmentManager(UUID id, DepartmentRequestDto request){
-        Department department = findDepartment(id);
-        Employee manager = employeeRepository.getReferenceById(request.getManagerId());
-        department.setManager(manager);
-        manager.setDepartment(department);
-        return manager;
-    }
-
     public Department show(UUID id) {
         return findDepartment(id);
     }
@@ -88,10 +68,30 @@ public class DepartmentService {
         departmentRepository.delete(findDepartment(id));
     }
 
+    public Employee setDepartmentManager(UUID id, DepartmentRequestDto request){
+        Department department = findDepartment(id);
+        Employee manager = employeeRepository.getReferenceById(request.getManagerId());
+        department.setManager(manager);
+        manager.setDepartment(department);
+        return manager;
+    }
+
     public Department changeStatus(UUID id, DepartmentRequestDto request) {
         Department department = findDepartment(id);
         department.setIsActive(request.getIsActive());
         return departmentRepository.save(department);
+    }
+
+    public List<Employee> getEmployees(UUID departmentId){
+        return findDepartment(departmentId).getEmployees();
+    }
+
+    public List<Position> getPositions(UUID departmentId){
+        return findDepartment(departmentId).getPositions();
+    }
+
+    public List<Level> getLevels(UUID departmentId){
+        return findDepartment(departmentId).getLevels();
     }
 
     private Department findDepartment(UUID id) {
