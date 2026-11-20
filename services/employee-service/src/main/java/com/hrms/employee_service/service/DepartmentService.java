@@ -71,6 +71,7 @@ public class DepartmentService {
         Employee manager = employeeRepository.getReferenceById(request.getManagerId());
         department.setManager(manager);
         manager.setDepartment(department);
+        employeeRepository.save(manager);
         return manager;
     }
 
