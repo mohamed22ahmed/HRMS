@@ -81,6 +81,19 @@ public class DepartmentService {
         return departmentRepository.save(department);
     }
 
+    public Department assignToBranch(UUID id, DepartmentRequestDto request){
+        Department department = findDepartment(id);
+        Branch branch = branchRepository.getReferenceById(request.getBranchId());
+        department.setBranch(branch);
+        return departmentRepository.save(department);
+    }
+
+    public Department dropFromBranch(UUID id){
+        Department department = findDepartment(id);
+        department.setBranch(null);
+        return departmentRepository.save(department);
+    }
+
     public List<Employee> getEmployees(UUID department_id){
         return findDepartment(department_id).getEmployees();
     }

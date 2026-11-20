@@ -16,8 +16,8 @@ public final class BranchResponseDto {
         data.put("description", branch.getDescription());
         data.put("email", branch.getEmail());
         data.put("phone", branch.getPhone());
-        data.put("manager_id", branch.getManager().getId());
-        data.put("address_id", branch.getAddress().getId());
+        data.put("manager_id", branch.getManager() == null ? null : branch.getManager().getId());
+        data.put("address_id", branch.getAddress() == null ? null : branch.getAddress().getId());
         data.put("is_head_office", branch.getIsHeadOffice());
         data.put("status", branch.getStatus());
         data.put("created_at", branch.getCreatedAt());

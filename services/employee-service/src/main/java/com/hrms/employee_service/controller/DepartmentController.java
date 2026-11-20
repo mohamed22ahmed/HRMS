@@ -78,6 +78,18 @@ public class DepartmentController {
         return ResponseEntity.ok(ApiResponseDto.success(200, "Department status changed successfully", DepartmentResponseDto.from(dep)));
     }
 
+    @PostMapping("/{id}/assign-to-branch")
+    public ResponseEntity<Map<String, Object>> assignToBranch(@PathVariable UUID id ,@RequestBody DepartmentRequestDto request){
+        Department department = departmentService.assignToBranch(id, request);
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Department Branch assigned successfully", DepartmentResponseDto.from(department)));
+    }
+
+    @PostMapping("/{id}/drop-from-branch")
+    public ResponseEntity<Map<String, Object>> dropFromBranch(@PathVariable UUID id){
+        Department department = departmentService.dropFromBranch(id);
+        return ResponseEntity.ok(ApiResponseDto.success(200, "Department Branch dropped successfully", DepartmentResponseDto.from(department)));
+    }
+
     @GetMapping("/{id}/employees")
     public ResponseEntity<Map<String, Object>> getEmployees(@PathVariable UUID id) {
         List<Employee> employees = departmentService.getEmployees(id);
