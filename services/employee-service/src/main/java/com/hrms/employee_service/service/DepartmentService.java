@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -93,6 +94,13 @@ public class DepartmentService {
 
     public List<Work> getWorks(UUID department_id){
         return findDepartment(department_id).getWorks();
+    }
+
+    public List<Education> getEducations(UUID department_id) {
+        return findDepartment(department_id).getEmployees().stream()
+                .map(Employee::getEducation)
+                .filter(Objects::nonNull)
+                .toList();
     }
 
     public Branch getBranch(UUID department_id){

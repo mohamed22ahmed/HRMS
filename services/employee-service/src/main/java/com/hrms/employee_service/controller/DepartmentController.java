@@ -4,6 +4,7 @@ import com.hrms.employee_service.dto.asset.AssetResponseDto;
 import com.hrms.employee_service.dto.branch.BranchResponseDto;
 import com.hrms.employee_service.dto.common.ApiResponseDto;
 import com.hrms.employee_service.dto.department.*;
+import com.hrms.employee_service.dto.education.EducationResponseDto;
 import com.hrms.employee_service.dto.employee.EmployeeResponseDto;
 import com.hrms.employee_service.dto.level.LevelResponseDto;
 import com.hrms.employee_service.dto.position.PositionResponseDto;
@@ -99,6 +100,12 @@ public class DepartmentController {
     public ResponseEntity<Map<String, Object>> getWorks(@PathVariable UUID id) {
         List<Work> works = departmentService.getWorks(id);
         return ResponseEntity.ok(ApiResponseDto.successList(200, "Department Works retrieved successfully", works, WorkResponseDto::from));
+    }
+
+    @GetMapping("/{id}/educations")
+    public ResponseEntity<Map<String, Object>> getEducations(@PathVariable UUID id){
+        List<Education> educations = departmentService.getEducations(id);
+        return ResponseEntity.ok(ApiResponseDto.successList(200, "Department Educations retrieved successfully", educations, EducationResponseDto::from));
     }
 
     @GetMapping("/{id}/branch")
