@@ -3,10 +3,7 @@ package com.hrms.employee_service.service;
 import com.hrms.employee_service.exception.ResourceNotFoundException;
 import com.hrms.employee_service.dto.common.RequestDto;
 import com.hrms.employee_service.dto.department.DepartmentRequestDto;
-import com.hrms.employee_service.model.Department;
-import com.hrms.employee_service.model.Employee;
-import com.hrms.employee_service.model.Level;
-import com.hrms.employee_service.model.Position;
+import com.hrms.employee_service.model.*;
 import com.hrms.employee_service.model.asset.Asset;
 import com.hrms.employee_service.repository.BranchRepository;
 import com.hrms.employee_service.repository.DepartmentRepository;
@@ -82,16 +79,32 @@ public class DepartmentService {
         return departmentRepository.save(department);
     }
 
-    public List<Employee> getEmployees(UUID departmentId){
-        return findDepartment(departmentId).getEmployees();
+    public List<Employee> getEmployees(UUID department_id){
+        return findDepartment(department_id).getEmployees();
     }
 
-    public List<Position> getPositions(UUID departmentId){
-        return findDepartment(departmentId).getPositions();
+    public List<Position> getPositions(UUID department_id){
+        return findDepartment(department_id).getPositions();
     }
 
-    public List<Level> getLevels(UUID departmentId){
-        return findDepartment(departmentId).getLevels();
+    public List<Level> getLevels(UUID department_id){
+        return findDepartment(department_id).getLevels();
+    }
+
+    public List<Work> getWorks(UUID department_id){
+        return findDepartment(department_id).getWorks();
+    }
+
+    public Branch getBranch(UUID department_id){
+        return findDepartment(department_id).getBranch();
+    }
+
+    public Department getParentDepartment(UUID department_id){
+        return findDepartment(department_id).getParentDepartment();
+    }
+
+    public Employee getManager(UUID department_id){
+        return findDepartment(department_id).getManager();
     }
 
     private Department findDepartment(UUID id) {
