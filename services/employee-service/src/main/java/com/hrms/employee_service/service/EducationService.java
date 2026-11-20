@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -61,11 +62,11 @@ public class EducationService {
     }
 
     public Branch getBranch(UUID education_id){
-        return findEducation(education_id).getDepartment().getBranch();
+        return findEducation(education_id).getEmployee().getDepartment().getBranch();
     }
 
     public Department getDepartment(UUID education_id){
-        return findEducation(education_id).getDepartment();
+        return findEducation(education_id).getEmployee().getDepartment();
     }
 
     private Education findEducation(UUID id) {

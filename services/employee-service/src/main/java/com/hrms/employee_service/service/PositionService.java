@@ -81,11 +81,12 @@ public class PositionService {
     }
 
     public List<Employee> getEmployees(UUID position_id){
-        return findPosition(position_id).getEmployees();
+        return findPosition(position_id).getDepartment().getEmployees();
     }
 
     public List<Work> getWorks(UUID position_id){
-        return findPosition(position_id).getWorks();
+        return findPosition(position_id).getDepartment().getEmployees()
+                .stream().map(Employee::getWork).toList();
     }
 
     public Branch getBranch(UUID position_id){

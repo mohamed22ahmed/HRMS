@@ -93,7 +93,10 @@ public class DepartmentService {
     }
 
     public List<Work> getWorks(UUID department_id){
-        return findDepartment(department_id).getWorks();
+        return findDepartment(department_id).getEmployees().stream()
+                .map(Employee::getWork)
+                .filter(Objects::nonNull)
+                .toList();
     }
 
     public List<Education> getEducations(UUID department_id) {

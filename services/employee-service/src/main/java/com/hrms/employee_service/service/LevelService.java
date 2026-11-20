@@ -80,11 +80,13 @@ public class LevelService {
     }
 
     public List<Employee> getEmployees(UUID level_id){
-        return findLevel(level_id).getEmployees();
+        return findLevel(level_id).getDepartment().getEmployees();
     }
 
     public List<Work> getWorks(UUID level_id){
-        return findLevel(level_id).getWorks();
+        return findLevel(level_id).getDepartment().getEmployees().stream()
+                .map(Employee::getWork)
+                .toList();
     }
 
     public Branch getBranch(UUID level_id){

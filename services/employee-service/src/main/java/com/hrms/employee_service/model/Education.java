@@ -29,12 +29,6 @@ public class Education {
     @Column(name = "graduate_date")
     private LocalDate graduateDate;
 
-    @OneToOne(mappedBy = "education")
-    private Branch branch;
-
-    @OneToOne(mappedBy = "education")
-    private Department department;
-
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 

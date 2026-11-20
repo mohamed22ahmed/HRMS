@@ -38,12 +38,6 @@ public class Level {
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
-    @OneToMany(mappedBy = "level")
-    private List<Employee> employees = new ArrayList<>();
-
-    @OneToMany(mappedBy = "level")
-    private List<Work> works = new ArrayList<>();
-
     @PrePersist
     protected void onCreate() {
         Instant now = Instant.now();

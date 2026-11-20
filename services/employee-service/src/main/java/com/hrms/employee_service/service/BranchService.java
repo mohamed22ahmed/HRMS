@@ -100,7 +100,8 @@ public class BranchService {
 
     public List<Work> getWorks(UUID branch_id){
         return findBranch(branch_id).getDepartments().stream()
-                .flatMap(department -> department.getWorks().stream())
+                .flatMap(department -> department.getEmployees().stream())
+                .map(Employee::getWork)
                 .toList();
     }
 
