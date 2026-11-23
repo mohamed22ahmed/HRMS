@@ -15,6 +15,8 @@ import java.util.UUID;
 public class LevelRequestDto extends RequestDto {
     public interface Create extends RequestDto.Create {}
 
+    private UUID tenantId;
+
     @NotBlank(message = "Level name is required", groups = Create.class)
     @Size(max = 100, message = "Level name must be at most 100 characters")
     private String name;
@@ -28,6 +30,7 @@ public class LevelRequestDto extends RequestDto {
 
     public Level toLevel(DepartmentRepository departmentRepository)  {
         Level level = new Level();
+        level.setTenantId(tenantId);
         level.setName(name);
         level.setCode(code);
         level.setDepartment(departmentId == null ? null : departmentRepository.getReferenceById(departmentId));

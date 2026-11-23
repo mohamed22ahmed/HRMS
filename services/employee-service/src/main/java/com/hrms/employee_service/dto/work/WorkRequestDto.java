@@ -16,6 +16,7 @@ import java.util.UUID;
 public class WorkRequestDto extends RequestDto {
     public interface Create extends RequestDto.Create {}
 
+    private UUID tenantId;
     private UUID employeeId;
     private UUID positionId;
     private UUID levelId;
@@ -23,6 +24,7 @@ public class WorkRequestDto extends RequestDto {
 
     public Work toWork(EmployeeRepository employeeRepository, PositionRepository positionRepository, LevelRepository levelRepository) {
         Work work = new Work();
+        work.setTenantId(tenantId);
         work.setEmployee(employeeId == null ? null : employeeRepository.getReferenceById(employeeId));
         work.setPosition(positionId == null ? null : positionRepository.getReferenceById(positionId));
         work.setLevel(levelId == null ? null : levelRepository.getReferenceById(levelId));

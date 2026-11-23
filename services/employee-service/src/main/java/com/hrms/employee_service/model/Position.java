@@ -19,6 +19,9 @@ public class Position {
     @UuidGenerator
     private UUID id;
 
+    @Column(name = "tenant_id")
+    private UUID tenantId;
+
     @Column(nullable = false, length = 100)
     private String name;
 

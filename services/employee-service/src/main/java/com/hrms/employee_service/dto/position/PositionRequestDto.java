@@ -15,6 +15,8 @@ import java.util.UUID;
 public class PositionRequestDto extends RequestDto {
     public interface Create extends RequestDto.Create {}
 
+    private UUID tenantId;
+
     @NotBlank(message = "Position name is required", groups = Create.class)
     @Size(max = 100, message = "Position name must be at most 100 characters")
     private String name;
@@ -28,6 +30,7 @@ public class PositionRequestDto extends RequestDto {
 
     public Position toPosition(DepartmentRepository departmentRepository)  {
         Position position = new Position();
+        position.setTenantId(tenantId);
         position.setName(name);
         position.setCode(code);
         position.setDepartment(departmentId == null ? null : departmentRepository.getReferenceById(departmentId));

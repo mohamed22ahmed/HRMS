@@ -1,5 +1,6 @@
 CREATE TABLE categories (
     id UUID PRIMARY KEY,
+    tenant_id UUID,
     name VARCHAR(100),
     description VARCHAR(255),
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,

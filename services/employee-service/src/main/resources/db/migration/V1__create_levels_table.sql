@@ -1,5 +1,6 @@
 CREATE TABLE levels (
     id UUID PRIMARY KEY,
+    tenant_id UUID,
     name VARCHAR(30) NOT NULL,
     code VARCHAR(100) NOT NULL,
     department_id UUID,

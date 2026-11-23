@@ -17,6 +17,8 @@ import java.util.UUID;
 public class DepartmentRequestDto extends RequestDto {
     public interface Create extends RequestDto.Create {}
 
+    private UUID tenantId;
+
     @NotBlank(message = "Department name is required", groups = Create.class)
     @Size(max = 100, message = "Department name must be at most 100 characters")
     private String name;
@@ -35,6 +37,7 @@ public class DepartmentRequestDto extends RequestDto {
 
     public Department toDepartment(DepartmentRepository departmentRepository, EmployeeRepository employeeRepository, BranchRepository branchRepository) {
         Department department = new Department();
+        department.setTenantId(tenantId);
         department.setName(name);
         department.setCode(code);
         department.setDescription(description);

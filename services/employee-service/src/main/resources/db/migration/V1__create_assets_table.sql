@@ -1,5 +1,6 @@
 CREATE TABLE assets (
     id UUID PRIMARY KEY,
+    tenant_id UUID,
     employee_id UUID,
     code VARCHAR(30) NOT NULL UNIQUE,
     name VARCHAR(100),

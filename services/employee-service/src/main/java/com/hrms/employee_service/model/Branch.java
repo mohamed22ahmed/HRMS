@@ -20,6 +20,9 @@ public class Branch {
     @UuidGenerator
     private UUID id;
 
+    @Column(name = "tenant_id")
+    private UUID tenantId;
+
     private String code;
     private String name;
     private String description;

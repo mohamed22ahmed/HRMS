@@ -1,5 +1,6 @@
 CREATE TABLE employees (
     id UUID PRIMARY KEY,
+    tenant_id UUID,
     employee_number VARCHAR(30) NOT NULL UNIQUE,
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,

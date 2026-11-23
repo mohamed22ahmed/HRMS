@@ -11,6 +11,7 @@ public final class AssetResponseDto {
     public static Map<String, Object> from(Asset asset) {
         Map<String, Object> data = new LinkedHashMap<>();
         data.put("id", asset.getId());
+        data.put("tenant_id", asset.getTenantId());
         data.put("employee_id", asset.getEmployee() == null ? null : asset.getEmployee().getId());
         data.put("name", asset.getName());
         data.put("code", asset.getCode());

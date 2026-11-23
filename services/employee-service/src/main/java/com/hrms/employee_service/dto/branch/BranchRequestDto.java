@@ -14,6 +14,7 @@ import java.util.UUID;
 public class BranchRequestDto extends RequestDto {
     public interface Create extends RequestDto.Create {}
 
+    private UUID tenantId;
     private String code;
     private String name;
     private String description;
@@ -26,6 +27,7 @@ public class BranchRequestDto extends RequestDto {
 
     public Branch toBranch(EmployeeRepository employeeRepository, AddressRepository addressRepository) {
         Branch branch = new Branch();
+        branch.setTenantId(tenantId);
         branch.setCode(code);
         branch.setName(name);
         branch.setDescription(description);

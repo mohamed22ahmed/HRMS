@@ -1,5 +1,6 @@
 CREATE TABLE works (
     id UUID PRIMARY KEY,
+    tenant_id UUID,
     employee_id UUID,
     position_id UUID,
     level_id UUID,

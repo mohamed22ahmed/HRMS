@@ -1,5 +1,6 @@
 CREATE TABLE branches (
     id UUID PRIMARY KEY,
+    tenant_id UUID,
     code VARCHAR(50) Unique,
     name VARCHAR(150),
     description	TEXT,

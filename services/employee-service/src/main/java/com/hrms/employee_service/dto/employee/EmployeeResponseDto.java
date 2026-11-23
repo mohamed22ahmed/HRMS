@@ -11,6 +11,7 @@ public final class EmployeeResponseDto {
     public static Map<String, Object> from(Employee employee) {
         Map<String, Object> data = new LinkedHashMap<>();
         data.put("id", employee.getId());
+        data.put("tenant_id", employee.getTenantId());
         data.put("employee_number", employee.getEmployeeNumber());
         data.put("first_name", employee.getFirstName());
         data.put("last_name", employee.getLastName());

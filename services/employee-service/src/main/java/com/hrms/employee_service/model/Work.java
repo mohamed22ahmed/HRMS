@@ -18,6 +18,9 @@ public class Work {
     @UuidGenerator
     private UUID id;
 
+    @Column(name = "tenant_id")
+    private UUID tenantId;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private Employee employee;

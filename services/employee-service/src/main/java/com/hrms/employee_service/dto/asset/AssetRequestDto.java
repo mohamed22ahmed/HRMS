@@ -17,6 +17,7 @@ import java.util.UUID;
 public class AssetRequestDto extends RequestDto {
     public interface Create extends RequestDto.Create {}
 
+    private UUID tenantId;
     private UUID employeeId;
     private String name;
     private String code;
@@ -34,6 +35,7 @@ public class AssetRequestDto extends RequestDto {
 
     public Asset toAsset(EmployeeRepository employeeRepository, CategoryRepository categoryRepository) {
         Asset asset = new Asset();
+        asset.setTenantId(tenantId);
         asset.setEmployee(employeeId == null ? null : employeeRepository.getReferenceById(employeeId));
         asset.setName(name);
         asset.setCode(code);

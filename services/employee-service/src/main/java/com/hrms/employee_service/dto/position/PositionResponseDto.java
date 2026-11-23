@@ -11,6 +11,7 @@ public final class PositionResponseDto {
     public static Map<String, Object> from(Position position) {
         Map<String, Object> data = new LinkedHashMap<>();
         data.put("id", position.getId());
+        data.put("tenant_id", position.getTenantId());
         data.put("name", position.getName());
         data.put("code", position.getCode());
         data.put("department_id", position.getDepartment() == null ? null : position.getDepartment().getId());

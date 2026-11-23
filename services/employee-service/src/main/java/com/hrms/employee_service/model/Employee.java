@@ -20,6 +20,9 @@ public class Employee {
     @UuidGenerator
     private UUID id;
 
+    @Column(name = "tenant_id")
+    private UUID tenantId;
+
     @Column(name = "employee_number", nullable = false, unique = true, length = 30)
     private String employeeNumber;
 

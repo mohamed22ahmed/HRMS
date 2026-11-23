@@ -11,6 +11,7 @@ public final class DepartmentResponseDto {
     public static Map<String, Object> from(Department department) {
         Map<String, Object> data = new LinkedHashMap<>();
         data.put("id", department.getId());
+        data.put("tenant_id", department.getTenantId());
         data.put("name", department.getName());
         data.put("code", department.getCode());
         data.put("description", department.getDescription());

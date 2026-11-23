@@ -1,5 +1,6 @@
 CREATE TABLE departments (
     id UUID PRIMARY KEY,
+    tenant_id UUID,
     name VARCHAR(100) NOT NULL,
     code VARCHAR(100) NOT NULL,
     description VARCHAR(255),

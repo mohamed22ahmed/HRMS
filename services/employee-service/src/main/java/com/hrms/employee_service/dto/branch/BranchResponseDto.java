@@ -11,6 +11,7 @@ public final class BranchResponseDto {
     public static Map<String, Object> from(Branch branch) {
         Map<String, Object> data = new LinkedHashMap<>();
         data.put("id", branch.getId());
+        data.put("tenant_id", branch.getTenantId());
         data.put("code", branch.getCode());
         data.put("name", branch.getName());
         data.put("description", branch.getDescription());

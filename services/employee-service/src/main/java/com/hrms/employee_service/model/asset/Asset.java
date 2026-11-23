@@ -23,6 +23,9 @@ public class Asset {
     @UuidGenerator
     private UUID id;
 
+    @Column(name = "tenant_id")
+    private UUID tenantId;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private Employee employee;

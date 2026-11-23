@@ -6,12 +6,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.text.DecimalFormat;
+import java.util.UUID;
 
 @Getter
 @Setter
 public class AddressRequestDto extends RequestDto {
     public interface Create extends RequestDto.Create {}
 
+    private UUID tenantId;
     private String country;
     private String state;
     private String city;
@@ -22,6 +24,7 @@ public class AddressRequestDto extends RequestDto {
 
     public Address toAddress() {
         Address address = new Address();
+        address.setTenantId(tenantId);
         address.setCountry(country);
         address.setState(state);
         address.setCity(city);

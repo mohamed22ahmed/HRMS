@@ -14,6 +14,7 @@ import java.util.UUID;
 public class EducationRequestDto extends RequestDto {
     public interface Create extends RequestDto.Create {}
 
+    private UUID tenantId;
     private UUID employeeId;
     private String university;
     private String degree;
@@ -22,6 +23,7 @@ public class EducationRequestDto extends RequestDto {
 
     public Education toEducation(EmployeeRepository employeeRepository) {
         Education education = new Education();
+        education.setTenantId(tenantId);
         education.setEmployee(employeeId == null ? null : employeeRepository.getReferenceById(employeeId));
         education.setUniversity(university);
         education.setDegree(degree);

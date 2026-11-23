@@ -1,5 +1,6 @@
 CREATE TABLE addresses (
     id UUID PRIMARY KEY,
+    tenant_id UUID,
     country	VARCHAR(100),
     state VARCHAR(100),
     city VARCHAR(100),

@@ -82,6 +82,8 @@ public class EmployeeRequestDto extends RequestDto {
         }
     }
 
+    private UUID tenantId;
+
     @NotBlank(message = "Employee number is required", groups = Create.class)
     @Size(max = 30, message = "Employee number must be at most 30 characters")
     private String employeeNumber;
@@ -105,6 +107,7 @@ public class EmployeeRequestDto extends RequestDto {
 
     public Employee toEmployee(DepartmentRepository departmentRepository) {
         Employee employee = new Employee();
+        employee.setTenantId(tenantId);
         employee.setEmployeeNumber(employeeNumber);
         employee.setFirstName(firstName);
         employee.setLastName(lastName);

@@ -11,6 +11,7 @@ public final class AddressResponseDto {
     public static Map<String, Object> from(Address address) {
         Map<String, Object> data = new LinkedHashMap<>();
         data.put("id", address.getId());
+        data.put("tenant_id", address.getTenantId());
         data.put("country", address.getCountry());
         data.put("state", address.getState());
         data.put("city", address.getCity());

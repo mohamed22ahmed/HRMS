@@ -11,6 +11,7 @@ public final class LevelResponseDto {
     public static Map<String, Object> from(Level level) {
         Map<String, Object> data = new LinkedHashMap<>();
         data.put("id", level.getId());
+        data.put("tenant_id", level.getTenantId());
         data.put("name", level.getName());
         data.put("code", level.getCode());
         data.put("department_id", level.getDepartment() == null ? null : level.getDepartment().getId());

@@ -1,5 +1,6 @@
 CREATE TABLE educations (
     id UUID PRIMARY KEY,
+    tenant_id UUID,
     employee_id UUID,
     university VARCHAR(100),
     degree VARCHAR(100),

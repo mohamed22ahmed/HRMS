@@ -11,6 +11,7 @@ public final class EducationResponseDto {
     public static Map<String, Object> from(Education education) {
         Map<String, Object> data = new LinkedHashMap<>();
         data.put("id", education.getId());
+        data.put("tenant_id", education.getTenantId());
         data.put("employee_id", education.getEmployee() == null ? null : education.getEmployee().getId());
         data.put("university", education.getUniversity());
         data.put("degree", education.getDegree());
