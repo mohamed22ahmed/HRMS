@@ -1,4 +1,4 @@
-package com.example.identity;
+package com.hrms.identity;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
