@@ -40,28 +40,52 @@ jobs:
       - name: Build frontend
         run: npm run build
 
-  backend:
-    name: Build Spring Boot Backend
+  discover-services:
+    name: Find backend services
     runs-on: ubuntu-24.04
+    outputs:
+      services: ${{ steps.matrix.outputs.services }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Build service matrix
+        id: matrix
+        run: |
+          services=$(find services -mindepth 2 -maxdepth 2 -name pom.xml -printf '%h\n' \
+            | sed 's#^services/##' \
+            | jq -Rsc 'split("\n") | map(select(length > 0))')
+          echo "services=$services" >> "$GITHUB_OUTPUT"
+
+  backend:
+    name: Build ${{ matrix.service }}
+    needs: discover-services
+    if: needs.discover-services.outputs.services != '[]'
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        service: ${{ fromJson(needs.discover-services.outputs.services) }}
 
     services:
       postgres:
         image: postgres:17
         env:
-          POSTGRES_DB: hrms
+          POSTGRES_DB: ${{ matrix.service }}
           POSTGRES_USER: mohamed
           POSTGRES_PASSWORD: password
         ports:
           - 5432:5432
         options: >-
-          --health-cmd "pg_isready -U mohamed -d hrms"
+          --health-cmd "pg_isready -U mohamed -d ${{ matrix.service }}"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
 
     defaults:
       run:
-        working-directory: services/employee-service
+        working-directory: services/${{ matrix.service }}
 
     steps:
       - name: Checkout code
@@ -73,6 +97,7 @@ jobs:
           distribution: temurin
           java-version: "21"
           cache: maven
+          cache-dependency-path: services/${{ matrix.service }}/pom.xml
 
       - name: Grant Maven wrapper permission
         run: chmod +x mvnw
@@ -80,6 +105,6 @@ jobs:
       - name: Build and test backend
         run: ./mvnw -B verify
         env:
-          SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/hrms
+          SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/${{ matrix.service }}
           SPRING_DATASOURCE_USERNAME: mohamed
           SPRING_DATASOURCE_PASSWORD: password
