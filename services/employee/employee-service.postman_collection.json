@@ -1,0 +1,3119 @@
+{
+	"info": {
+		"_postman_id": "d7b5d972-8104-4225-8fb2-d868acfdb37b",
+		"name": "zz- HRMS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14487820"
+	},
+	"item": [
+		{
+			"name": "employees",
+			"item": [
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/employees",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/employees/:id",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"employees",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "ed6b3e05-9ec5-4e5c-a321-1c39a7db564f"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"employeeNumber\": \"EMP-2026-003\",\n  \"firstName\": \"Mohamed\",\n  \"lastName\": \"Hammam\",\n  \"email\": \"ali@example.com\",\n  \"phone\": \"+201001234567\",\n  \"departmentId\": \"550e8400-e29b-41d4-a716-446655440050\",\n  \"jobTitle\": \"Senior Software Engineer\",\n  \"hireDate\": \"2026-01-15\",\n  \"employmentStatus\": \"ACTIVE\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/employees",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"hammam@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/employees/:id",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"employees",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "16a84f50-e913-4e27-9e33-34303d7d5b56"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/employees/:id",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"employees",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "ac3b0eab-5e5a-4ae0-a910-605afbccbf24"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reassign to department",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"departmentId\": \"bbceaeb0-5028-4970-ba4a-337cb2efdc2c\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/employees/:id/reassign-to-department",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"employees",
+								":id",
+								"reassign-to-department"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "8a12d97c-7a21-4aea-84aa-21f018b016ea"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "drop department from employee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/employees/:id/drop-from-department",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"employees",
+								":id",
+								"drop-from-department"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "f13351f2-0fe3-41c8-9caf-f876c2b7ac59"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change status",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"employementStatus\": \"Inactive\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/employees/:id/reassign-to-department",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"employees",
+								":id",
+								"reassign-to-department"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "8a12d97c-7a21-4aea-84aa-21f018b016ea"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get employee branch",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/employees/:id/branch",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"employees",
+								":id",
+								"branch"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "16a84f50-e913-4e27-9e33-34303d7d5b56"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get employee department",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/employees/:id/department",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"employees",
+								":id",
+								"department"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "16a84f50-e913-4e27-9e33-34303d7d5b56"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get employee position",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/employees/:id/position",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"employees",
+								":id",
+								"position"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "16a84f50-e913-4e27-9e33-34303d7d5b56"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get employee level",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/employees/:id/level",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"employees",
+								":id",
+								"level"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "16a84f50-e913-4e27-9e33-34303d7d5b56"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get employee work",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/employees/:id/work",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"employees",
+								":id",
+								"work"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "16a84f50-e913-4e27-9e33-34303d7d5b56"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get employee education",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/employees/:id/education",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"employees",
+								":id",
+								"education"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "16a84f50-e913-4e27-9e33-34303d7d5b56"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get employee assets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/employees/:id/assets",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"employees",
+								":id",
+								"assets"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "16a84f50-e913-4e27-9e33-34303d7d5b56"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "works",
+			"item": [
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/works",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"works"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/works/:id",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"works",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "693174a9-672b-444c-92e2-ddc259fb06dd"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"employeeId\": \"16a84f50-e913-4e27-9e33-34303d7d5b56\",\n  \"positionId\": \"2fcad763-6030-4561-a90d-ba275a8c7416\",\n  \"levelId\": \"306370df-b1f2-4508-a10e-0a4a9c642bab\",\n  \"hireDate\": \"2026-01-15\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/works",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"works"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"hireDate\": \"2026-01-22\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/works/:id",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"works",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "b2948afb-d56d-4d8c-897b-a7fc6fde7a0f"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/works/:id",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"works",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "b2948afb-d56d-4d8c-897b-a7fc6fde7a0f"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reassign position",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"positionId\": \"2fcad763-6030-4561-a90d-ba275a8c7416\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/works/:id/reassign-position",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"works",
+								":id",
+								"reassign-position"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "693174a9-672b-444c-92e2-ddc259fb06dd"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "drop position",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/works/:id/drop-position",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"works",
+								":id",
+								"drop-position"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "693174a9-672b-444c-92e2-ddc259fb06dd"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reassign level",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"levelId\": \"306370df-b1f2-4508-a10e-0a4a9c642bab\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/works/:id/reassign-level",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"works",
+								":id",
+								"reassign-level"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "693174a9-672b-444c-92e2-ddc259fb06dd"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "drop level",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/works/:id/drop-level",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"works",
+								":id",
+								"drop-level"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "693174a9-672b-444c-92e2-ddc259fb06dd"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get work employee",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/works/:id/employee",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"works",
+								":id",
+								"employee"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "693174a9-672b-444c-92e2-ddc259fb06dd"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get work branch",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/works/:id/branch",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"works",
+								":id",
+								"branch"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "693174a9-672b-444c-92e2-ddc259fb06dd"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get work department",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/works/:id/department",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"works",
+								":id",
+								"department"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "693174a9-672b-444c-92e2-ddc259fb06dd"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get work position",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/works/:id/position",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"works",
+								":id",
+								"position"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "693174a9-672b-444c-92e2-ddc259fb06dd"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get work level",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/works/:id/level",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"works",
+								":id",
+								"level"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "693174a9-672b-444c-92e2-ddc259fb06dd"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "educations",
+			"item": [
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/educations",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"educations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/educations/:id",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"educations",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "41cbe3f3-5776-42c5-8d0e-efbd58e20fd3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"employeeId\": \"ed6b3e05-9ec5-4e5c-a321-1c39a7db564f\",\n  \"university\": \"Assiut university\",\n  \"degree\": \"bachelor\",\n  \"depart\": \"computer science\",\n  \"hireDate\": \"2021-09-01\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/educations",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"educations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"university\": \"Sohag university\",\n  \"degree\": \"bachelor's degree\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/educations/:id",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"educations",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "41cbe3f3-5776-42c5-8d0e-efbd58e20fd3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/educations/:id",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"educations",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "41cbe3f3-5776-42c5-8d0e-efbd58e20fd3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get education branch",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/educations/:id/branch",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"educations",
+								":id",
+								"branch"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "41cbe3f3-5776-42c5-8d0e-efbd58e20fd3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get education department",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/educations/:id/department",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"educations",
+								":id",
+								"department"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "41cbe3f3-5776-42c5-8d0e-efbd58e20fd3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get education employee",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/educations/:id/employee",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"educations",
+								":id",
+								"employee"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "41cbe3f3-5776-42c5-8d0e-efbd58e20fd3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "assets",
+			"item": [
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/assets",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"assets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/assets/:id",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"assets",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "a29f0e03-97a2-4278-81d1-63f2a4878ef4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"employeeId\": \"ed6b3e05-9ec5-4e5c-a321-1c39a7db564f\",\n    \"name\": \"laptopn dell\",\n    \"code\": \"lap\",\n    \"description\": \"this is a G3 dell laptop\",\n    \"categoryId\": null,\n    \"brand\": \"dell\",\n    \"model\": \"G3\",\n    \"serialNumber\": \"1324658898598\",\n    \"purchaseDate\": \"2026-11-01\",\n    \"purchaseCost\": \"40000\",\n    \"currency\": \"EGP\",\n    \"condition\": \"NEW\",\n    \"status\": \"AVAILABLE\",\n    \"notes\": \"notes\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/assets",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"assets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"categoryId\": \"3fecc8d8-62e1-4a07-9600-e0d8b494548f\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/assets/:id",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"assets",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "da269371-92bf-47e2-9190-260c0faeac95"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/assets/:id",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"assets",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "a29f0e03-97a2-4278-81d1-63f2a4878ef4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change status",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"ASSIGNED\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/assets/:id/change-status",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"assets",
+								":id",
+								"change-status"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "a29f0e03-97a2-4278-81d1-63f2a4878ef4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change condition",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"condition\": \"GOOD\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/assets/:id/change-condition",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"assets",
+								":id",
+								"change-condition"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "a29f0e03-97a2-4278-81d1-63f2a4878ef4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get asset employee",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/assets/:id/employee",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"assets",
+								":id",
+								"employee"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "a29f0e03-97a2-4278-81d1-63f2a4878ef4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get asset branch",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/assets/:id/branch",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"assets",
+								":id",
+								"branch"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "a29f0e03-97a2-4278-81d1-63f2a4878ef4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get asset department",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/assets/:id/department",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"assets",
+								":id",
+								"department"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "a29f0e03-97a2-4278-81d1-63f2a4878ef4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get asset category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/assets/:id/category",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"assets",
+								":id",
+								"category"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "a29f0e03-97a2-4278-81d1-63f2a4878ef4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "positions",
+			"item": [
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/positions",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"positions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/positions/:id",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"positions",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "16a84f50-e913-4e27-9e33-34303d7d5b56"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Software engineer\",\n  \"code\": \"SE\",\n  \"departmentId\": \"e80d0a28-6216-4dd3-bb8c-cbe3334f778c\",\n  \"isActive\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/positions",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"positions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"departmentId\": \"bbceaeb0-5028-4970-ba4a-337cb2efdc2c\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/positions/:id",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"positions",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "8a3eb3ad-92c9-4751-ae50-40d54db3a93c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/positions/:id",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"positions",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "8a3eb3ad-92c9-4751-ae50-40d54db3a93c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reassign to department",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"departmentId\": \"bbceaeb0-5028-4970-ba4a-337cb2efdc2c\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/positions/:id/reassign-to-department",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"positions",
+								":id",
+								"reassign-to-department"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "8a3eb3ad-92c9-4751-ae50-40d54db3a93c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "drop from department",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/positions/:id/drop-from-department",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"positions",
+								":id",
+								"drop-from-department"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "8a3eb3ad-92c9-4751-ae50-40d54db3a93c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change status",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"isActive\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/positions/:id/change-status",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"positions",
+								":id",
+								"change-status"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "8a3eb3ad-92c9-4751-ae50-40d54db3a93c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get position employees",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/positions/:id/employees",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"positions",
+								":id",
+								"employees"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "16a84f50-e913-4e27-9e33-34303d7d5b56"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get position works",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/positions/:id/works",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"positions",
+								":id",
+								"works"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "16a84f50-e913-4e27-9e33-34303d7d5b56"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get position branch",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/positions/:id/branch",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"positions",
+								":id",
+								"branch"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "16a84f50-e913-4e27-9e33-34303d7d5b56"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get position department",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/positions/:id/department",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"positions",
+								":id",
+								"department"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "16a84f50-e913-4e27-9e33-34303d7d5b56"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "levels",
+			"item": [
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/levels",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"levels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/levels/:id",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"levels",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "cdfb4601-76ac-489f-90c8-4e9625aef6c1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Senior\",\n  \"code\": \"Sr\",\n  \"isActive\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/levels",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"levels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"code\": \"Sr\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/levels/:id",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"levels",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "cdfb4601-76ac-489f-90c8-4e9625aef6c1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/levels/:id",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"levels",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "cdfb4601-76ac-489f-90c8-4e9625aef6c1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reassign to department",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"departmentId\": \"bbceaeb0-5028-4970-ba4a-337cb2efdc2c\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/levels/:id/reassign-to-department",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"levels",
+								":id",
+								"reassign-to-department"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "8a12d97c-7a21-4aea-84aa-21f018b016ea"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "drop department from employee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/levels/:id/drop-from-department",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"levels",
+								":id",
+								"drop-from-department"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "f13351f2-0fe3-41c8-9caf-f876c2b7ac59"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change status",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"isActive\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/levels/:id/change-status",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"levels",
+								":id",
+								"change-status"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "306370df-b1f2-4508-a10e-0a4a9c642bab"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get level employees",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/levels/:id/employees",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"levels",
+								":id",
+								"employees"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "16a84f50-e913-4e27-9e33-34303d7d5b56"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get level works",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/levels/:id/works",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"levels",
+								":id",
+								"works"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "16a84f50-e913-4e27-9e33-34303d7d5b56"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get level branch",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/levels/:id/branch",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"levels",
+								":id",
+								"branch"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "16a84f50-e913-4e27-9e33-34303d7d5b56"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get level department",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/levels/:id/department",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"levels",
+								":id",
+								"department"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "16a84f50-e913-4e27-9e33-34303d7d5b56"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "categories",
+			"item": [
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/categories",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/categories/:id",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"categories",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3fecc8d8-62e1-4a07-9600-e0d8b494548f"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"laptop\",\n  \"description\": \"this is the category of asset\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/categories",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Laptop dell\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/categories/:id",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"categories",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3fecc8d8-62e1-4a07-9600-e0d8b494548f"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/categories/:id",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"categories",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "cdfb4601-76ac-489f-90c8-4e9625aef6c1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get category assets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/categories/:id/assets",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"categories",
+								":id",
+								"assets"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3fecc8d8-62e1-4a07-9600-e0d8b494548f"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "addresses",
+			"item": [
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/addresses",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/addresses/:id",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"addresses",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3fecc8d8-62e1-4a07-9600-e0d8b494548f"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"city\":\"Asyut\",\n  \"country\":\"Egypt\",\n  \"postalCode\":71747\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/addresses",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Laptop dell\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/addresses/:id",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"addresses",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3fecc8d8-62e1-4a07-9600-e0d8b494548f"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/addresses/:id",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"addresses",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "cdfb4601-76ac-489f-90c8-4e9625aef6c1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get address branch",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/addresses/:id/branch",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"addresses",
+								":id",
+								"branch"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3fecc8d8-62e1-4a07-9600-e0d8b494548f"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "departments",
+			"item": [
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/departments",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"departments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/departments/:id",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"departments",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "e80d0a28-6216-4dd3-bb8c-cbe3334f778c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"human resources\",\n  \"code\": \"HR\",\n  \"description\": \"this is the HR department that responsible for the human management\",\n  \"managerEmployeeId\": \"f13351f2-0fe3-41c8-9caf-f876c2b7ac59\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/departments",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"departments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"human resources update\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/departments/:id",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"departments",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "e80d0a28-6216-4dd3-bb8c-cbe3334f778c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/departments/:id",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"departments",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "ac3b0eab-5e5a-4ae0-a910-605afbccbf24"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set manager",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"managerEmployeeId\": \"8a12d97c-7a21-4aea-84aa-21f018b016ea\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/departments/:id/set-manager",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"departments",
+								":id",
+								"set-manager"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "bbceaeb0-5028-4970-ba4a-337cb2efdc2c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change status",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"INACTIVE\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/departments/:id/change-status",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"departments",
+								":id",
+								"change-status"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "bbceaeb0-5028-4970-ba4a-337cb2efdc2c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get department employees",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/departments/:id/employees",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"departments",
+								":id",
+								"employees"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "e80d0a28-6216-4dd3-bb8c-cbe3334f778c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get department positions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/departments/:id/positions",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"departments",
+								":id",
+								"positions"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "e80d0a28-6216-4dd3-bb8c-cbe3334f778c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get department levels",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/departments/:id/levels",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"departments",
+								":id",
+								"levels"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "e80d0a28-6216-4dd3-bb8c-cbe3334f778c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get department works",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/departments/:id/works",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"departments",
+								":id",
+								"works"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "e80d0a28-6216-4dd3-bb8c-cbe3334f778c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get department educations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/departments/:id/educations",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"departments",
+								":id",
+								"educations"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "bbceaeb0-5028-4970-ba4a-337cb2efdc2c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get department branch",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/departments/:id/branch",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"departments",
+								":id",
+								"branch"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "e80d0a28-6216-4dd3-bb8c-cbe3334f778c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get department parent department",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/departments/:id/parent-department",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"departments",
+								":id",
+								"parent-department"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "e80d0a28-6216-4dd3-bb8c-cbe3334f778c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get department manager",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/departments/:id/manager",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"departments",
+								":id",
+								"manager"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "e80d0a28-6216-4dd3-bb8c-cbe3334f778c"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "branches",
+			"item": [
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/branches",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"branches"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/branches/:id",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"branches",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "e80d0a28-6216-4dd3-bb8c-cbe3334f778c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Assiut branch\",\n  \"code\": \"ASBranch\",\n  \"description\": \"this is the assiut branch\",\n  \"phone\": \"874564641+66\",\n  \"email\": \"asyut@gmail.com\",\n  \"addressId\":\"94ff4ff4-ec3e-41c5-aedf-d6e8e25cb706\",\n  \"managerId\":\"8a12d97c-7a21-4aea-84aa-21f018b016ea\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/branches",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"branches"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"human resources update\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/branches/:id",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"branches",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "e80d0a28-6216-4dd3-bb8c-cbe3334f778c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/branches/:id",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"branches",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "ac3b0eab-5e5a-4ae0-a910-605afbccbf24"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set manager",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"managerEmployeeId\": \"8a12d97c-7a21-4aea-84aa-21f018b016ea\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/branches/:id/set-manager",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"branches",
+								":id",
+								"set-manager"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "bbceaeb0-5028-4970-ba4a-337cb2efdc2c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set address",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"managerEmployeeId\": \"8a12d97c-7a21-4aea-84aa-21f018b016ea\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/branches/:id/set-address",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"branches",
+								":id",
+								"set-address"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "bbceaeb0-5028-4970-ba4a-337cb2efdc2c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set head office",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"managerEmployeeId\": \"8a12d97c-7a21-4aea-84aa-21f018b016ea\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev_api}}/branches/:id/set-head-office",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"branches",
+								":id",
+								"set-head-office"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "bbceaeb0-5028-4970-ba4a-337cb2efdc2c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get branches departments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/branches/:id/departments",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"branches",
+								":id",
+								"departments"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "e80d0a28-6216-4dd3-bb8c-cbe3334f778c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get branches employees",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/branches/:id/employees",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"branches",
+								":id",
+								"employees"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "e80d0a28-6216-4dd3-bb8c-cbe3334f778c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get branches positions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/branches/:id/positions",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"branches",
+								":id",
+								"positions"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "e80d0a28-6216-4dd3-bb8c-cbe3334f778c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get branches levels",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/branches/:id/levels",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"branches",
+								":id",
+								"levels"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "e80d0a28-6216-4dd3-bb8c-cbe3334f778c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get branches works",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/branches/:id/works",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"branches",
+								":id",
+								"works"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "e80d0a28-6216-4dd3-bb8c-cbe3334f778c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get branches educations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/branches/:id/educations",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"branches",
+								":id",
+								"educations"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "e80d0a28-6216-4dd3-bb8c-cbe3334f778c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get branches assets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/branches/:id/branches",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"branches",
+								":id",
+								"branches"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "e80d0a28-6216-4dd3-bb8c-cbe3334f778c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get branches address",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/branches/:id/address",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"branches",
+								":id",
+								"address"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "e80d0a28-6216-4dd3-bb8c-cbe3334f778c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get branches manager",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev_api}}/branches/:id/manager",
+							"host": [
+								"{{dev_api}}"
+							],
+							"path": [
+								"branches",
+								":id",
+								"manager"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "e80d0a28-6216-4dd3-bb8c-cbe3334f778c"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "dev_api",
+			"value": ""
+		},
+		{
+			"key": "prod_api",
+			"value": ""
+		}
+	]
+}

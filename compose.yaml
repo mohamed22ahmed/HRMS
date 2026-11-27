@@ -4,13 +4,15 @@ services:
     image: postgres:17
     restart: unless-stopped
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:?Set POSTGRES_DB in the environment file}
+      POSTGRES_DB: ${EMPLOYEE_DB:?Set EMPLOYEE_DB in the environment file}
+      IDENTITY_DB: ${IDENTITY_DB:?Set IDENTITY_DB in the environment file}
       POSTGRES_USER: ${POSTGRES_USER:?Set POSTGRES_USER in the environment file}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in the environment file}
     ports:
       - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./docker/postgres/initdb:/docker-entrypoint-initdb.d:ro
     healthcheck:
       test:
         - CMD-SHELL
@@ -23,17 +25,36 @@ services:
 
   employee-service:
     build:
-      context: ./services/employee-service
+      context: ./services/employee
       dockerfile: Dockerfile
     image: hrms/employee-service:${IMAGE_TAG:-dev}
     restart: unless-stopped
     environment:
       SPRING_PROFILES_ACTIVE: docker
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${EMPLOYEE_DB:?Set EMPLOYEE_DB in the environment file}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "127.0.0.1:${EMPLOYEE_SERVICE_PORT}:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - hrms-network
+
+  identity-service:
+    build:
+      context: ./services/identity
+      dockerfile: Dockerfile
+    image: hrms/identity-service:${IMAGE_TAG:-dev}
+    restart: unless-stopped
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${IDENTITY_DB:?Set IDENTITY_DB in the environment file}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "127.0.0.1:${IDENTITY_SERVICE_PORT:-8081}:8080"
     depends_on:
       postgres:
         condition: service_healthy
@@ -50,6 +71,7 @@ services:
       - "127.0.0.1:${ANGULAR_PORT}:80"
     depends_on:
       - employee-service
+      - identity-service
     networks:
       - hrms-network
 
