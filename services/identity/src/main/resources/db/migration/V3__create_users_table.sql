@@ -1,0 +1,23 @@
+CREATE TABLE users (
+    id UUID PRIMARY KEY,
+    tenant_id UUID,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone VARCHAR(30),
+    password_hash VARCHAR(255) NOT NULL,
+    avatar_url TEXT,
+    user_type VARCHAR(30) NOT NULL,
+    status VARCHAR(20) NOT NULL DEFAULT 'PENDING',
+    email_verified BOOLEAN NOT NULL DEFAULT FALSE,
+    email_verified_at TIMESTAMPTZ,
+    phone_verified BOOLEAN NOT NULL DEFAULT FALSE,
+    phone_verified_at TIMESTAMPTZ,
+    last_login_at TIMESTAMPTZ,
+    password_changed_at TIMESTAMPTZ,
+    must_change_password BOOLEAN NOT NULL DEFAULT FALSE,
+    failed_login_attempts INTEGER NOT NULL DEFAULT 0,
+    locked_until TIMESTAMPTZ,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
